@@ -1,0 +1,2376 @@
+---
+title: "Predicción de accidentalidad en la ciudad de Medellín"
+author: "Juan Camilo Del Rio Cuervo, David Palacio Jiménez, Farid Alonso Saad Plata, Juan Felipe Hernandez Zuluaga, Kelly Johanna Jiménez Avalos"
+date: "30/7/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r,include = FALSE}
+library(lubridate)
+library(ggmap)
+library(MASS)
+library(ISLR)
+library(dplyr)
+library(digest)
+library(randomForest)
+library(glue)
+library(dummies)
+library(factoextra)
+library(class)
+library(stringr)
+library(ggplot2)
+library(FNN)
+library(rpart)
+require(reshape)
+library(plotly)
+library(caret)
+library(lattice)
+library(e1071)
+```
+
+# Introducción
+
+---
+
+Actualmente los accidentes de tránsito son un problema a nivel mundial debido a los impactos sociales y económicos que representan (Aci &amp; Ozden, 2018) . Las cifras anuales promedio de muertes están alrededor de 1.35 millones de personas y 50 millones de heridos, de los cuales una gran cantidad quedan con discapacidades permanentes a causa de las lesiones en estos eventos (World Health Organization, 2018).
+
+Durante el último lustro, se identifican en la literatura diversos enfoques para abordar la predicción de accidentes de tránsito. Algunos autores se han inclinado por estudiar la cantidad de accidentes en áreas densamente transitadas (Fawcett *Et Al.*, 2017; Rahman *Et Al.*, 2019); otros se han concentrado
+en predecir qué tan severas son las consecuencias de acuerdo al tipo de accidente (Zheng *Et Al.*, 2019); algunos más ambiciosos han pretendido detectar en tiempo real los accidentes (Gu *Et Al.*, 2016) ; entre otros.
+
+Esto da cuenta de la importancia en la adquisición datos de accidentes de tránsito, ya que permiten a los investigadores proponer aproximaciones para entender mejor la situación y brindar soluciones que contribuyan a la implementación de estrategias para disminuir estas cifras de accidentalidad en los distintos centros urbanos del mundo.
+
+En busca de resolver algunas preguntas en cuanto a la accidentalidad en el municipio de Medellín (Colombia), se hará uso de los datos abiertos que se encuentran en MEData para emplear técnicas de analítica predictiva y evaluar el desempeño de los modelos desarrollados para la predicción de la
+accidentalidad entre los años 2014 a 2018.
+
+---
+
+# Actividades de ETL
+
+A continuación, se realizará la carga inicial de los datos y el pre-procesamiento inicial de los mismos. Los datos empleados en este trabajo son diferentes a los que se encuentran en la página web de [datos abiertos de movilidad](https://geomedellin-m-medellin.opendata.arcgis.com/search), dado que se tuvo la oportunidad de hablar directamente con la persona encargada del mantenimiento de las bases de datos del portal y suministró una base de datos más limpia.
+
+
+```{r, warning=FALSE}
+DATA = read.csv(
+      file = "Incidentes2014_2020.csv",
+      header = TRUE,
+      sep = ";",
+      encoding="UTF"
+      ) #Carga de la primera base de datos
+
+DATA = DATA[DATA$nombre.comuna != "",] #Se eliminan datos vacios al final de la tabla
+
+BARRIO = read.csv(
+      file = 'BARRIOS_NUEVOS.csv',
+      header = TRUE,
+      sep = ";",
+      encoding="UTF"
+) #Tabla auxiliar para unificar el nombre de los BARRIOs
+
+for(i in BARRIO$NOMBRE){
+  DATA$BARRIO[DATA$BARRIO == i] = BARRIO$BARRIO[BARRIO$NOMBRE == i]
+} #Unificación de las COMUNAs en el dataset de entrenamiento
+
+DATA = DATA[,-c(1,5,6,8,14,10)] #Eliminando columnas sin importancia
+
+DATA$CANTIDAD = 1 #Asignandole a cada observación el valor de 1, indicando que es 1 accidente
+
+DATA$GRAVEDAD = factor(DATA$GRAVEDAD) #Volviendo factor la variable
+
+DATA$CLASE_ACCIDENTE = factor(DATA$CLASE_ACCIDENTE) #Volviendo factor la variable
+
+DATA$FECHA = as.Date(DATA$FECHA,format = "%d/%m/%Y") #Volviendo fecha la variable
+
+DATA$HORA_ACCIDENTE = as.numeric(substr(DATA$HORA_ACCIDENTE,1,2)) #Extrayendo la hora del suceso 0, ..., 23
+
+DATA$MOMENTO_DIA = ""
+
+DATA$MOMENTO_DIA[DATA$HORA_ACCIDENTE < 6] = "MADRUGADA"
+DATA$MOMENTO_DIA[DATA$HORA_ACCIDENTE >= 6 & DATA$HORA_ACCIDENTE < 12] = "MAÑANA"
+DATA$MOMENTO_DIA[DATA$HORA_ACCIDENTE >= 12 & DATA$HORA_ACCIDENTE < 19] = "TARDE"
+DATA$MOMENTO_DIA[DATA$HORA_ACCIDENTE >= 19 ] = "NOCHE"
+
+rm(BARRIO,i)
+```
+
+Se observa que al interior de la información existen observaciones en donde el nombre del barrio no tiene información o esta es incoherente, por lo que esta será imputada para no tener que borrar los datos. Para esto, se usará un algoritmo de $KNN$ con $K = 1$ teniendo como covariables la `LATITUD` y `LONGITUD`, obteniendo así la asignación del incidente más cercano que si tiene en su información el nombre del barrio en que ocurrió.
+
+```{r}
+
+DATA_TRAIN = DATA[-which(is.na(DATA$LATITUD)),c("LATITUD","LONGITUD","BARRIO")]
+DATA_TRAIN$BARRIO = as.character(DATA_TRAIN$BARRIO)
+
+BARRIO_PREDICHO = knn(train = DATA_TRAIN[DATA_TRAIN$BARRIO != "SN",c("LATITUD","LONGITUD")],
+                      test = DATA_TRAIN[DATA_TRAIN$BARRIO == "SN",c("LATITUD","LONGITUD")],
+                      cl = DATA_TRAIN[DATA_TRAIN$BARRIO != "SN","BARRIO"],
+                      k = 1) 
+# Entrenamiento del KNN con K=1 para asignar el nombre del BARRIO más cercano a los datos que no lo tienen
+
+
+DATA_TRAIN$BARRIO[DATA_TRAIN$BARRIO == "SN"] = as.character(BARRIO_PREDICHO) 
+#Asignación de BARRIOs corregidos
+
+DATA_TRAIN = DATA_TRAIN[DATA_TRAIN$LATITUD != DATA_TRAIN$LATITUD[11] & DATA_TRAIN$LONGITUD != DATA_TRAIN$LONGITUD[11],] 
+#Eliminación de los datos que están con georeferenciación errónea
+
+DATA$BARRIO[as.numeric(row.names(DATA_TRAIN))] = DATA_TRAIN$BARRIO 
+
+rm(DATA_TRAIN,BARRIO_PREDICHO)
+```
+
+
+Analizando los datos de georeferenciación, se encuentra un dato que suponemos erróneo dado su ubicación y la gran cantidad de accidentes asociados al mismo punto
+
+![](imagen1.png)
+
+En dicho punto, se encontraron 16.158 incidentes asociados en el dataset de entrenamiento y 3.092 incidentes en el dataset de validación, por lo que se procederá a arreglarlos de acuerdo a la dirección ingresada, evitando con esto eliminar una gran cantidad de datos, acción que podría arrojar resultados erróneos en los modelos de predicción y clasificación.
+
+Para intentar arreglar estas observaciones, se intentó hacer uso de la función `geocode()` para extraer las coordenadas del incidente basados en la dirección del mismo, sin embargo se encontró lo siguiente:
+
++ Existen 5.584 observaciones en el dataset de entrenamiento y 1.428 en el dataset de validación que no cuentan con el nombre del barrio en que ocurrió el incidente e igualmente la dirección registrada no es coherente con la nomenclatura manejada en la ciudad.
++ Con aquellas direcciones coherentes, al aplicar la función `geocode()` los resultados obtenidos tenían una gran diferencia entre la dirección ingresada en la base de datos, razón por la cual serán excludios para los análisis posteriores.
+
+Para tener una magnitud de la cantidad de datos que se deberán excluir debido a que no poseen el nombre del barrio en que ocurrió el incidente, se tienen los siguientes datos:
+
++ En el dataset de entrenamiento estos datos representan el 8.72% de las observaciones, de los cuales el 3.02% son observaciones que tenían ingresada una dirección errónea y el 5.70% son observaciones de las cuales no fue posible extraer sus coordenadas con la API de GoogleMaps.
++ En el dataset de validación estos datos representan el 7.12% de las observaciones, de los cuales el 3.29% son observaciones que tenían ingresada una dirección errónea y el 3.83% son observaciones de las cuales no fue posible extraer sus coordenadas con la API de GoogleMaps.
+
+La eliminación de estas observaciones tendrá incidencia únicamente en el agrupamiento de los barrios según su accidentalidad, dado que para la predicción de la cantidad de accidentes esta no será tenida en cuenta debido a la gran cantidad de clases que presenta (312 en total).
+
+Para los análisis posteriores, se realizará la creación de variables que pueden ser de importancia al analizar el comportamiento de las personas y su influciencia en la accidentalidad al interior de la ciudad. Estas variables son:
+
++ `DIA_MADRE`: Variable binaria en donde se evalúa si el incidente tuvo lugar el día de la madre. Esta fecha es el segundo domingo del mes de mayo.
+
++ `DIA_PADRE`: Variable binaria en donde se evalúa si el incidente tuvo lugar el día del padre. Esta fecha es el tercer domingo del mes de junio
+
++ `FESTIVO`: Variable binaria en donde se evalúa si el incidente tuvo lugar un día festivo. 
+
++ `FERIA_FLORES`: Variable binaria en donde se evalúa si el incidente tuvo lugar un día dentro de la feria de flores.
+
++ `AMOR_AMISTAD`: Variable binaria en donde se evalúa si el incidente tuvo lugar el fin de semana de amor y amistad.
+
++ `HALLOWEEN`: Variable binaria en donde se evalúa si el incidente tuvo lugar los fines de semana en los cuales se celebra el Halloween.
+
++ `PARTIDOS_NAL`: Variable binaria en donde se evalúa si el incidente tuvo lugar un día en el que haya jugado un partido de fútbol el equipo Atlético Nacional.
+
++ `DIA_ANO`: Variable que indica el día del año en que tuvo lugar el incidente. Puede tomar valores desde 1 hasta 365.
+
++ `DIA_MES`: Variable que indica el día del año en que tuvo lugar el incidente. Puede tomar valores desde 1 hasta 365.
+
++ `MES`: Variable que indica el día del mes en que tuvo lugar el incidente. Puede tomar valores desde 1 hasta 31.
+
++ `DIA_SEM`: Variable que indica el día de la semana que tuvo lugar el incidente. Toma los valores lun, mar, ..., dom.
+
++ `ANO`: Variable que indica el año en que ocurrió el incidente.
+
++ `FIN_SEMANA`: Variable binaria en donde se evalúa si el incidente ocurrió en fin de semana (sábado o domingo)
+
++ `SEMANA_MES`: Variable que indica en cuál semana dentro del mes ocurrió el incidente. Puede tomar valores desde 1 hasta 4.
+
+```{r,echo=FALSE}
+DIA_MADRE = read.csv(
+      file = 'DIA_MADRE.csv',
+      header = TRUE,
+      sep = ";") 
+#Carga de tabla auxiliar para saber si el día del fin de semana del dia de la madre
+
+FESTIVOS_FIJO = read.csv(
+      file = 'FESTIVOS_FIJOS.csv',
+      header = TRUE,
+      sep = ";") 
+#Carga de tabla auxiliar para saber si el día es festivo  fijo en Colombia
+
+DIA_PADRE = read.csv(
+      file = 'DIA_PADRE.csv',
+      header = TRUE,
+      sep = ";") 
+#Carga de tabla auxiliar para saber si el día es día del padre en Colombia
+
+FESTIVOS_OTROS = read.csv(
+      file = 'FESTIVOS_OTROS.csv',
+      header = TRUE,
+      sep = ";") 
+#Carga de tabla auxiliar para saber si el día es festivo no fijo en Colombia
+
+FERIA_FLORES = read.csv(
+      file = 'FERIA_FLORES.csv',
+      header = TRUE,
+      sep = ";") #Carga de tabla auxiliar para saber si el día pertenece a la feria de las flores
+
+AMOR_AMISTAD = read.csv(
+      file = 'AMOR_AMISTAD.csv',
+      header = TRUE,
+      sep = ";") #Carga de tabla auxiliar para saber si el día pertenece al fin de semena de amor y amistad
+
+HALLOWEEN = read.csv(
+      file = 'HALLOWEEN.csv',
+      header = TRUE,
+      sep = ";") #Carga de tabla auxiliar para saber si el día pertenece a la celebración del Halloween
+
+PARTIDOS_NAL = read.csv(
+      file = 'PARTIDOS_NACIONAL.csv',
+      header = TRUE,
+      sep = ";") #Carga de tabla auxiliar para saber si el día pertenece a un partido que jugó el atlético nacional
+
+DATA = DATA[DATA$MOMENTO_DIA != "",] 
+#Eliminando observaciones que no tienen hora del suceso (4 observaciones)
+
+DATA$DIA_ANO = yday(DATA$FECHA) 
+#se obtiene el día del año 
+
+DATA$DIA_MES = mday(DATA$FECHA) 
+#Dia del mes 
+
+DATA$MES = month(DATA$FECHA) 
+#Extraer el número del mes del año
+
+DATA = DATA[-which(DATA$MES == 2 & DATA$DIA_MES == 29),]
+#eliminación de las observaciones de febrero 29
+
+AUX_FECHAS = read.csv(
+      file = 'FECHAS.csv',
+      header = TRUE,
+      sep = ";") 
+#Carga de tabla auxiliar para renombrar el día del año sin tener en cuenta el 29 de febrero
+
+DATA$FECHA = as.character(DATA$FECHA)
+
+for(registro in 1:length(AUX_FECHAS$FECHA)){
+  
+  dia = AUX_FECHAS$DIA_ANO[registro]
+  ano = AUX_FECHAS$ANO[registro]
+  fecha = AUX_FECHAS$FECHA[registro]
+  
+  DATA$DIA_ANO[DATA$FECHA == fecha] = dia
+  
+} 
+#Unificando dia del año para cada observación sin tener en cuenta el 29 de febrero
+
+DATA$FECHA = as.Date(DATA$FECHA)
+
+DATA$FESTIVO = 0 #Creación de la variable FESTIVO
+
+DATA$DIA_PADRE = 0 #creación de la variable DIA_PADRE
+
+DATA$FERIA_FLORES = 0 #creación de la variable FERIA_FLORES
+
+DATA$DIA_MADRE = 0 #creación de la variable DIA_MADRE
+
+DATA$AMOR_AMISTAD = 0 #creación de la variable AMOR_AMISTAD
+
+DATA$HALLOWEEN = 0 #creación de la variable HALLOWEEN
+
+DATA$DIA_SEM = wday(DATA$FECHA,label = TRUE) #se obtiene el día de la semana del incidente en formato lun, ..., dom
+
+DATA$DIA_SEM = substring(DATA$DIA_SEM,1,3) #Corrección del día de la semana
+
+DATA$DIA_SEM = factor(DATA$DIA_SEM)
+
+DATA$MES = month(DATA$FECHA) #Extraer el número del mes del año
+
+DATA$DIA_MES = mday(DATA$FECHA) #Dia del mes 
+
+for(i in 1:nrow(FESTIVOS_FIJO)){
+  DATA$FESTIVO[(DATA$DIA_MES == FESTIVOS_FIJO$DIA[i]) 
+                & (DATA$MES == FESTIVOS_FIJO$MES[i])]=1
+} #Si el día es festivo fijo se asigna el valor de 1 a la columna FESTIVO
+
+for(i in 1:nrow(FESTIVOS_OTROS)){
+  DATA$FESTIVO[(DATA$DIA_MES == FESTIVOS_OTROS$DIA[i]) & 
+                  (DATA$MES == FESTIVOS_OTROS$MES[i]) &
+                  (DATA$ANO == FESTIVOS_OTROS$ANO[i])]=1
+} #Si el día es un festivno no fijo se asigna el valor de 1
+
+for(i in 1:nrow(FERIA_FLORES)){
+  DATA$FERIA_FLORES[(DATA$DIA_MES == FERIA_FLORES$DIA[i]) & 
+                  (DATA$MES == FERIA_FLORES$MES[i]) &
+                  (DATA$ANO == FERIA_FLORES$ANO[i])]=1
+} #Si el día es feria de flores se asigna el valor de 1
+
+for(i in 1:nrow(DIA_MADRE)){
+  DATA$DIA_MADRE[(DATA$DIA_MES == DIA_MADRE$DIA[i]) & 
+                  (DATA$MES == 5) &
+                  (DATA$ANO == DIA_MADRE$ANO[i])]=1
+} #Si el día es día de la madre se asigna el valor de 1
+
+for(i in 1:nrow(AMOR_AMISTAD)){
+  DATA$AMOR_AMISTAD[(DATA$DIA_MES == AMOR_AMISTAD$DIA[i]) & 
+                  (DATA$MES == 9) &
+                  (DATA$ANO == AMOR_AMISTAD$ANO[i])]=1
+} #Si el día es del fin de semana de amor y amsitad se asigna el valor de 1
+
+for(i in 1:nrow(DIA_PADRE)){
+  DATA$DIA_PADRE[(DATA$DIA_MES == DIA_PADRE$DIA[i]) & 
+                  (DATA$MES == 6) &
+                  (DATA$ANO == DIA_PADRE$ANO[i])]=1
+} #Si el día es del fin de semana de amor y amsitad se asigna el valor de 1
+
+for(i in 1:nrow(HALLOWEEN)){
+  DATA$HALLOWEEN[(DATA$DIA_MES == HALLOWEEN$DIA[i]) & 
+                  (DATA$MES == HALLOWEEN$MES[i]) &
+                  (DATA$ANO == HALLOWEEN$ANO[i])]=1
+} #Si el día es de celebración por halloween
+
+rownames(DATA) = 1:length(DATA$FECHA) #Reset de los index del dataframe
+
+DATA$FIN_SEMANA = 0 #creación de variable Fin de semana
+DATA$FIN_SEMANA[DATA$DIA_SEM == "dom"] = 1
+DATA$FIN_SEMANA[DATA$DIA_SEM == "sáb"] = 1
+
+DATA$PARTIDOS_NAL_LOCAL = 0
+DATA$PARTIDOS_NAL_VISITA = 0
+
+for(i in 1:nrow(PARTIDOS_NAL)){
+  
+  DATA$PARTIDOS_NAL_LOCAL[(DATA$FECHA == PARTIDOS_NAL$LOCAL[i])]=1
+  DATA$PARTIDOS_NAL_VISITA[(DATA$FECHA == PARTIDOS_NAL$VISITA[i])]=1
+  
+} #Si el día se jugó un partido del Atlético Nacional
+
+DATA$PARTIDOS_NAL = DATA$PARTIDOS_NAL_LOCAL + DATA$PARTIDOS_NAL_VISITA
+
+rm(DIA_MADRE,DIA_PADRE,fecha,ano,dia,i,registro,AMOR_AMISTAD,AUX_FECHAS,FERIA_FLORES,FESTIVOS_FIJO,FESTIVOS_OTROS,HALLOWEEN,PARTIDOS_NAL)
+```
+
+
+```{r,echo=FALSE}
+
+DATA_PREDICCION = DATA[DATA$ANO <= 2018,] #Conjunto de datos que será usado en predicción
+
+DATA_CLUSTER = DATA[DATA$BARRIO != "SN" & DATA$ANO <= 2018,] #Conjunto de datos que será usado en clusterización
+
+rm(DATA)
+```
+
+
+# Predicción de accidentalidad
+
+Una vez se tienen organizadas los registros, se procede a crear los datasets para la predicción según la ventana temporal solicitada.
+
+Dado que no en todos los días de cada año hubo incidentes en los que la gravedad fuera de *Muerto*, se ingresará al conjunto de datos observaciones en aquellos días sin incedentes de muertos con valor de 0 en la columna de `CANTIDAD`
+
+```{r, echo=FALSE}
+D_DIA = aggregate(CANTIDAD~FECHA+GRAVEDAD+DIA_ANO+DIA_MES+MES+FESTIVO+DIA_PADRE+FERIA_FLORES+DIA_MADRE+AMOR_AMISTAD+HALLOWEEN+DIA_SEM+FIN_SEMANA+PARTIDOS_NAL_LOCAL+PARTIDOS_NAL_VISITA+PARTIDOS_NAL,data = DATA_PREDICCION,FUN = sum) 
+#Set de datos para predicción diaria
+
+D_DIA$ANO = year(D_DIA$FECHA)
+
+D_DIA = D_DIA[order(D_DIA$FECHA),]
+
+D_DIA = D_DIA[,c(18,1:17)]
+
+rownames(D_DIA) = 1:length(D_DIA$FECHA) # Reordena el DF
+
+for(ano in 2014:2018){
+  #Para cada año
+  
+    dias_presentes = sort(D_DIA$DIA_ANO[D_DIA$GRAVEDAD == "MUERTO" & D_DIA$ANO == ano])
+    #días en los que hubo muertos
+    
+    dias_faltantes = seq(1:365)[-dias_presentes]
+    #Días en los que no hubo muertos
+    
+    fechas = sort(unique(D_DIA$FECHA[D_DIA$ANO == ano]))
+    #Fechas del año
+    
+    fechas_faltantes = fechas[dias_faltantes]
+    #Fechas en las que no hubo muertos
+    
+    nuevos_datos = D_DIA[1:length(fechas_faltantes),]
+    #Dataframe con la cantidad de filas igual a la cantidad de días que no hubo muertos
+    
+    nuevos_datos$FECHA = fechas_faltantes
+    #Asignando fechas sin muertos
+    
+    nuevos_datos$GRAVEDAD = "MUERTO"
+    #Asignando el tipo de gravedad
+    
+    nuevos_datos$CANTIDAD = 0
+    #Asignando 0 incidentes de muertos
+    
+    for(fecha in fechas_faltantes){
+      
+      nuevos_datos$DIA_ANO[nuevos_datos$FECHA == fecha] = unique(D_DIA$DIA_ANO[D_DIA$FECHA == fecha])
+      #Asignando el día del año de la fecha
+      
+      nuevos_datos$FIN_SEMANA[nuevos_datos$FECHA == fecha] = unique(D_DIA$FIN_SEMANA[D_DIA$FECHA == fecha])
+      #Asignando si la fecha es fin de semana o no
+      
+      nuevos_datos$DIA_MADRE[nuevos_datos$FECHA == fecha] = unique(D_DIA$DIA_MADRE[D_DIA$FECHA == fecha])
+      #asignando si la fecha es día de la madre o no
+      
+      nuevos_datos$DIA_PADRE[nuevos_datos$FECHA == fecha] = unique(D_DIA$DIA_PADRE[D_DIA$FECHA == fecha])
+      #asignando si la fecha es día del padre o no
+      
+      nuevos_datos$FESTIVO[nuevos_datos$FECHA == fecha] = unique(D_DIA$FESTIVO[D_DIA$FECHA == fecha])
+      #Asignando si la fecha es día festivo o no
+      
+      nuevos_datos$FERIA_FLORES[nuevos_datos$FECHA == fecha] = unique(D_DIA$FERIA_FLORES[D_DIA$FECHA == fecha])
+      #Asignando si la fecha es en feria de flores o no
+      
+      nuevos_datos$PARTIDOS_NAL[nuevos_datos$FECHA == fecha] = unique(D_DIA$PARTIDOS_NAL[D_DIA$FECHA == fecha])
+      #Asignando si en la fecha hubo partido del Atlético Nacional o no
+      
+      nuevos_datos$AMOR_AMISTAD[nuevos_datos$FECHA == fecha] = unique(D_DIA$AMOR_AMISTAD[D_DIA$FECHA == fecha])
+      #Asignando si en la fecha hubo partido del Atlético Nacional o no
+    }
+    
+    nuevos_datos$DIA_MES = mday(nuevos_datos$FECHA) 
+    #Extrayendo el día del mes 1, ..., 31
+    
+    nuevos_datos$ANO = year(nuevos_datos$FECHA) 
+    #Extrayendo el año 2014, ..., 2018
+    
+    nuevos_datos$MES = month(nuevos_datos$FECHA)
+    #Extrayendo el mes 1, ..., 12
+    
+    nuevos_datos$DIA_SEM = wday(nuevos_datos$FECHA,label = TRUE) 
+    #se obtiene el día de la semana del incidente en formato lun, ..., dom
+    
+    nuevos_datos$DIA_SEM = substring(nuevos_datos$DIA_SEM,1,3) 
+    #Corrección del día de la semana
+    
+    D_DIA = rbind(D_DIA,nuevos_datos) 
+    #Unificando los datos en que hubo indidentes y en los que no
+    
+    rm(nuevos_datos,fechas_faltantes,fechas,fecha,dias_faltantes,dias_presentes)
+}
+
+rm(ano)
+
+D_DIA = D_DIA[order(D_DIA$FECHA),]
+#ordenando el dataframe por fecha
+
+row.names(D_DIA) = 1:length(D_DIA$FECHA)
+#Arreglando el índice de las observaciones
+
+D_DIA$SEMANA_MES = 4
+#Creación de la variable que indica la semana del mes del indicidente
+
+D_DIA$SEMANA_MES[D_DIA$DIA_MES <= 7] = 1
+#Valores para la semana 1
+
+D_DIA$SEMANA_MES[D_DIA$DIA_MES > 7 & D_DIA$DIA_MES <= 14] = 2
+#Valores para la semana 2
+
+D_DIA$SEMANA_MES[D_DIA$DIA_MES > 14 & D_DIA$DIA_MES <= 21] = 3
+#Valores para la semana 3
+
+D_DIA$SEMANA_MES = as.factor(D_DIA$SEMANA_MES)
+
+D_DIA$FIN_SEMANA = as.numeric(D_DIA$FIN_SEMANA)
+
+D_DIA$FESTIVO = as.numeric(D_DIA$FESTIVO)
+
+D_DIA$MES = as.factor(D_DIA$MES)
+
+prom_herido = mean(D_DIA$CANTIDAD[D_DIA$GRAVEDAD == "HERIDO"])
+
+prom_muerto = mean(D_DIA$CANTIDAD[D_DIA$GRAVEDAD == "MUERTO"])
+
+prom_dano = mean(D_DIA$CANTIDAD[D_DIA$GRAVEDAD == "SOLO DAÑOS"])
+
+sd_herido = sd(D_DIA$CANTIDAD[D_DIA$GRAVEDAD == "HERIDO"])
+
+sd_muerto = sd(D_DIA$CANTIDAD[D_DIA$GRAVEDAD == "MUERTO"])
+
+sd_dano = sd(D_DIA$CANTIDAD[D_DIA$GRAVEDAD == "SOLO DAÑOS"])
+
+D_DIA$CANTIDAD_ESC[D_DIA$GRAVEDAD == "HERIDO"] = (D_DIA$CANTIDAD[D_DIA$GRAVEDAD == "HERIDO"] - prom_herido) / sd_herido
+
+D_DIA$CANTIDAD_ESC[D_DIA$GRAVEDAD == "MUERTO"] = (D_DIA$CANTIDAD[D_DIA$GRAVEDAD == "MUERTO"] - prom_muerto) / sd_muerto
+
+D_DIA$CANTIDAD_ESC[D_DIA$GRAVEDAD == "SOLO DAÑOS"] = (D_DIA$CANTIDAD[D_DIA$GRAVEDAD == "SOLO DAÑOS"] - prom_dano) / sd_dano
+
+DATA_DIA_HERIDO_ENTRENAMIENTO = D_DIA[D_DIA$ANO != 2018 & D_DIA$GRAVEDAD == "HERIDO",]
+
+DATA_DIA_MUERTO_ENTRENAMIENTO = D_DIA[D_DIA$ANO != 2018 & D_DIA$GRAVEDAD == "MUERTO",]
+
+DATA_DIA_DANO_ENTRENAMIENTO = D_DIA[D_DIA$ANO != 2018 & D_DIA$GRAVEDAD == "SOLO DAÑOS",]
+
+DATA_DIA_HERIDO_VALIDACION = D_DIA[D_DIA$ANO == 2018 & D_DIA$GRAVEDAD == "HERIDO",]
+
+DATA_DIA_MUERTO_VALIDACION = D_DIA[D_DIA$ANO == 2018 & D_DIA$GRAVEDAD == "MUERTO",]
+
+DATA_DIA_DANO_VALIDACION = D_DIA[D_DIA$ANO == 2018 & D_DIA$GRAVEDAD == "SOLO DAÑOS",]
+
+```
+
+## Predicción de accidentalidad diaria
+
+Primero, se ensayará un modelo de Random Forest en donde se realizará una selección de variables según la importancia de estas.
+
+```{r,echo = FALSE}
+bosque_herido = randomForest(CANTIDAD_ESC~.,
+                             importance=TRUE,
+                             ntree=750,
+                             data=DATA_DIA_HERIDO_ENTRENAMIENTO[,c(7,13,4,6,14,1,19,5,20)])
+
+DATA_DIA_HERIDO_ENTRENAMIENTO$PREDICHO_RF = round(bosque_herido$predicted * sd_herido + prom_herido)
+
+DATA_DIA_HERIDO_VALIDACION$PREDICHO_RF = round(predict(bosque_herido,newdata = DATA_DIA_HERIDO_VALIDACION) * sd_herido + prom_herido)
+
+bosque_muerto = randomForest(as.factor(CANTIDAD)~.,
+                             importance=TRUE,
+                             ntree=750,
+                             data=DATA_DIA_MUERTO_ENTRENAMIENTO[,c(9,4,6,7,5,18)])
+
+DATA_DIA_MUERTO_ENTRENAMIENTO$PREDICHO_RF = as.numeric(bosque_muerto$predicted)
+
+DATA_DIA_MUERTO_VALIDACION$PREDICHO_RF = as.numeric(predict(bosque_muerto,newdata = DATA_DIA_MUERTO_VALIDACION))
+
+bosque_dano = randomForest(CANTIDAD_ESC~.,
+                             importance=TRUE,
+                             ntree=750,
+                             data=DATA_DIA_DANO_ENTRENAMIENTO[,c(7,13,4,14,6,5,20)])
+
+DATA_DIA_DANO_ENTRENAMIENTO$PREDICHO_RF = round(bosque_dano$predicted * sd_dano + prom_dano)
+
+DATA_DIA_DANO_VALIDACION$PREDICHO_RF = round(predict(bosque_dano,newdata = DATA_DIA_DANO_VALIDACION) * sd_dano + prom_dano)
+
+dates_entrenamiento = c(DATA_DIA_DANO_ENTRENAMIENTO$FECHA,
+                        DATA_DIA_MUERTO_ENTRENAMIENTO$FECHA,
+                        DATA_DIA_HERIDO_ENTRENAMIENTO$FECHA)
+
+gravedades_entrenamiento = c(as.character(DATA_DIA_DANO_ENTRENAMIENTO$GRAVEDAD),
+                             as.character(DATA_DIA_MUERTO_ENTRENAMIENTO$GRAVEDAD),
+                             as.character(DATA_DIA_HERIDO_ENTRENAMIENTO$GRAVEDAD))
+
+reales_entrenamiento = c(DATA_DIA_DANO_ENTRENAMIENTO$CANTIDAD,
+                         DATA_DIA_MUERTO_ENTRENAMIENTO$CANTIDAD,
+                         DATA_DIA_HERIDO_ENTRENAMIENTO$CANTIDAD)
+
+predichos_entrenamiento = c(DATA_DIA_DANO_ENTRENAMIENTO$PREDICHO_RF,
+                            DATA_DIA_MUERTO_ENTRENAMIENTO$PREDICHO_RF,
+                            DATA_DIA_HERIDO_ENTRENAMIENTO$PREDICHO_RF)
+
+dates_validacion = c(DATA_DIA_DANO_VALIDACION$FECHA,
+                     DATA_DIA_MUERTO_VALIDACION$FECHA,
+                     DATA_DIA_HERIDO_VALIDACION$FECHA)
+
+gravedades_validacion = c(as.character(DATA_DIA_DANO_VALIDACION$GRAVEDAD),
+                          as.character(DATA_DIA_MUERTO_VALIDACION$GRAVEDAD),
+                          as.character(DATA_DIA_HERIDO_VALIDACION$GRAVEDAD))
+
+reales_validacion = c(DATA_DIA_DANO_VALIDACION$CANTIDAD,
+                      DATA_DIA_MUERTO_VALIDACION$CANTIDAD,
+                      DATA_DIA_HERIDO_VALIDACION$CANTIDAD)
+
+predichos_validacion = c(DATA_DIA_DANO_VALIDACION$PREDICHO_RF,
+                         DATA_DIA_MUERTO_VALIDACION$PREDICHO_RF,
+                         DATA_DIA_HERIDO_VALIDACION$PREDICHO_RF)
+
+RMSE_VALIDACION = RMSE(reales_validacion,predichos_validacion)
+#Cálculo del RMSE de la predicción
+
+CORR_VALIDACION = cor(reales_validacion,predichos_validacion)
+#Cálculo de la correlación entre la predicción y la realidad
+
+RMSE_ENTRENAMIENTO = RMSE(reales_entrenamiento,predichos_entrenamiento)
+#Cálculo del RMSE de la predicción
+
+CORR_ENTRENAMIENTO = cor(reales_entrenamiento,predichos_entrenamiento)
+#Cálculo de la correlación entre la predicción y la realidad
+
+R2_VALIDACION = 1 - sum((reales_validacion-predichos_validacion)^2)/sum((reales_validacion - mean(reales_validacion))^2)
+
+R2_ENTRENAMIENTO = 1 - sum((reales_entrenamiento-predichos_entrenamiento)^2)/sum((reales_entrenamiento - mean(reales_entrenamiento))^2)
+
+fig_validacion = plot_ly(x = predichos_validacion, 
+              color = gravedades_validacion) %>%
+  
+  add_markers(y =reales_validacion,
+              opacity = 0.5,
+              hoverinfo = 'text',
+              text = paste('</br>Real: ', reales_validacion,
+                           '</br>PREDICHO_RF: ', predichos_validacion,
+                           '</br>Fecha: ', dates_validacion),
+              showlegend = TRUE) %>%
+  
+  add_lines(y = seq(0,110,length.out = length(predichos_validacion)),
+            x = seq(0,110,length.out = length(predichos_validacion)),
+            line = list(color = 'red'),
+            name = "Identidad", 
+            showlegend = FALSE) %>%
+  
+  layout(xaxis = list(title = '<b> Predicho'),
+         yaxis = list(title = '<b> Real'),
+         title = "<b> Reales vs Predichos (Validación)",
+         annotations = list(text = paste("<b> <i> RMSE: ",round(RMSE_VALIDACION,4),"<br>",
+                                         "CORR: ",round(CORR_VALIDACION,4),"<br>",
+                                         "R<sup>2</sup>: ",round(R2_VALIDACION,4)),
+                            align='left',
+                            showarrow=FALSE,
+                            xref='paper',
+                            yref='paper',
+                            x=0.08,y=1))
+
+fig_entrenamiento = plot_ly(x = predichos_entrenamiento, 
+              color = gravedades_entrenamiento) %>%
+  
+  add_markers(y =reales_entrenamiento,
+              hoverinfo = 'text',
+              opacity = 0.5,
+              text = paste('</br>Real: ', reales_entrenamiento,
+                           '</br>Predicho: ', predichos_entrenamiento,
+                           '</br>Fecha: ', dates_entrenamiento),
+              showlegend = TRUE) %>%
+  
+  add_lines(y = seq(0,110,length.out = length(predichos_entrenamiento)),
+            x = seq(0,110,length.out = length(predichos_entrenamiento)),
+            line = list(color = 'red'),
+            name = "Identidad", 
+            showlegend = FALSE) %>%
+  
+  layout(xaxis = list(title = '<b> Predicho'),
+         yaxis = list(title = '<b> Real'),
+         title = "<b> Reales vs Predichos (Entrenamiento)",
+         annotations = list(text = paste("<b> <i> RMSE: ",round(RMSE_ENTRENAMIENTO,4),"<br>",
+                                         "CORR: ",round(CORR_ENTRENAMIENTO,4),"<br>",
+                                         "R<sup>2</sup>: ",round(R2_ENTRENAMIENTO,4)),
+                            align='left',
+                            showarrow=FALSE,
+                            xref='paper',
+                            yref='paper',
+                            x=0.08,y=1))
+```
+
+---
+
+```{r,echo=FALSE}
+fig_entrenamiento
+```
+
+---
+
+```{r,echo=FALSE}
+fig_validacion
+```
+
+---
+
+Al analizar los modelos realizados con la técnica de Random Forest, se encontró que la mejor opción es realizar un modelo individual para cada gravedad en específico. Así, se tienen 3 modelos con las siguientes características:
+
+1. **Gravedad** ***Herido***: Se obtuvo que el modelo que minimiza el error cuadrático medio total de las observaciones, en donde se conservaron únicamente las siguientes variables:
+
+    + `FESTIVO`: Si la fecha del incidente ocurrió en un día festivo se asigna el valor de 1, en otro caso se asigna 0.
+    
+    + `DIA_SEM`: Indica el día de la semana en la que ocurrió el incidente. Puede tomar el valor de lun, mar, ..., dom.
+    
+    + `DIA_ANO`: Indica el número del día dentro de cada año. Puede tomar el valor de 1, ..., 365.
+    
+    + `MES`: Indica el número del mes del año en que ocurrió el incidente. Puede tomar el valor de 1, ..., 12.
+    
+    + `FIN_SEMANA`: Si la fecha del incidente ocurrió en un día de fin de semana (sábado o domingo) se asigna el valor de 1, en otro caso se asigna 0.
+    
+    + `DIA_MES`: Indica el día dentro del mes en que ocurrió el incidente. Puede tomar el valor de 1, ..., 31.
+    
+    + `SEMANA_MES`: Indica la semana dentro del mes en que ocurrió el incidente. Puede tomar el valor de 1, ..., 5 siendo la semana 5 aquellas observaciones que tienen como valor en la variable `DIA_MES` un valor mayor o igual a 28.
+    
+    + `AÑO`: Indica el año en que ocurrió el incidente.
+<br><br>
+2. **Gravedad** ***Solo Daños***: Se obtuvo que el modelo que minimiza el error cuadrático medio total de las observaciones, en donde se conservaron únicamente las siguientes variables:
+
+    + `FESTIVO`: Si la fecha del incidente ocurrió en un día festivo se asigna el valor de 1, en otro caso se asigna 0.
+    
+    + `DIA_SEM`: Indica el día de la semana en la que ocurrió el incidente. Puede tomar el valor de lun, mar, ..., dom.
+    
+    + `DIA_ANO`: Indica el número del día dentro de cada año. Puede tomar el valor de 1, ..., 365.
+    
+    + `FIN_SEMANA`: Si la fecha del incidente ocurrió en un día de fin de semana (sábado o domingo) se asigna el valor de 1, en otro caso se asigna 0.
+    
+    + `MES`: Indica el número del mes del año en que ocurrió el incidente. Puede tomar el valor de 1, ..., 12.
+    
+    + `DIA_MES`: Indica el día dentro del mes en que ocurrió el incidente. Puede tomar el valor de 1, ..., 31.
+<br><br>
+3. **Gravedad** ***Muerto***: Se obtuvo que el modelo que minimiza el error cuadrático medio total de las observaciones, en donde se conservaron únicamente las siguientes variables:
+
+    + `FERIA_FLORES`: Si la fecha del incidente ocurrió en un día en el que se celebra la feria de las flores al interior de la ciurdad se asigna el valor de 1, en otro caso se asigna 0.
+    
+    + `DIA_ANO`: Indica el número del día dentro de cada año. Puede tomar el valor de 1, ..., 365.
+    
+    + `MES`: Indica el número del mes del año en que ocurrió el incidente. Puede tomar el valor de 1, ..., 12.
+    
+    + `FESTIVO`: Si la fecha del incidente ocurrió en un día festivo se asigna el valor de 1, en otro caso se asigna 0.
+    
+    + `DIA_MES`: Indica el día dentro del mes en que ocurrió el incidente. Puede tomar el valor de 1, ..., 31.
+<br><br>
+A continuación, se muestran las gráficas de importancia de variable para cada modelo realizado:
+
+---
+
+```{r,echo = FALSE}
+varImpPlot(bosque_herido, main = "Importancia de variables | Gravedad: Herido")
+```
+
+---
+
+```{r,echo = FALSE}
+varImpPlot(bosque_dano, main = "Importancia de variables | Gravedad: Solo Daños")
+```
+
+---
+
+```{r,echo = FALSE}
+varImpPlot(bosque_muerto, main = "Importancia de variables | Gravedad: Muerto")
+```
+
+---
+
+A continuación, se elaborarán dos modelos en donde no se tenga en cuenta el tipo de incidente, para conocer así la totalidad de incidentes ocurridos por día en la ciudad e identificar si la gravedad del incidente tiene relevancia al momento de predecir la accidentalidad en la ciudad.
+
+Para establecer la totalidad de incidentes en la ciudad, se probarán dos metodologías:
+
++ Agrupar los datos obtenidos en los modelos anteriores por día.
++ Realizar un modelo nuevo en donde no sea tenida en cuenta la variable `GRAVEDAD`
+
+Se escogerá como mejor modelo aquel que tenga un menor *RMSE*.
+
+### Agrupación de datos.
+<br></br>
+```{r,echo=FALSE}
+aux = data.frame("FECHA" = c(dates_entrenamiento,dates_validacion),
+                 "GRAVEDAD" = c(gravedades_entrenamiento,gravedades_validacion),
+                 "REALES" = c(reales_entrenamiento,reales_validacion),
+                 "PREDICHOS" = c(predichos_entrenamiento,predichos_validacion))
+
+DATA_DIA_COMPACTADA = aggregate(REALES~FECHA,data = aux,FUN = sum)
+DATA_DIA_COMPACTADA$PREDICHOS = aggregate(PREDICHOS~FECHA,data = aux,FUN = sum)$PREDICHOS
+
+
+REALES_COMPACTA_VALIDACION = DATA_DIA_COMPACTADA$REALES[DATA_DIA_COMPACTADA$FECHA>="2018-01-01"]
+
+PREDICHOS_COMPACTA_VALIDACION = DATA_DIA_COMPACTADA$PREDICHOS[DATA_DIA_COMPACTADA$FECHA>="2018-01-01"]
+
+REALES_COMPACTA_ENTRENAMIENTO = DATA_DIA_COMPACTADA$REALES[DATA_DIA_COMPACTADA$FECHA<"2018-01-01"]
+
+PREDICHOS_COMPACTA_ENTRENAMIENTO = DATA_DIA_COMPACTADA$PREDICHOS[DATA_DIA_COMPACTADA$FECHA<"2018-01-01"]
+
+DATES_COMPACTA_VALIDACION = DATA_DIA_COMPACTADA$FECHA[DATA_DIA_COMPACTADA$FECHA>="2018-01-01"]
+
+DATES_COMPACTA_ENTRENAMIENTO = DATA_DIA_COMPACTADA$FECHA[DATA_DIA_COMPACTADA$FECHA<"2018-01-01"]
+
+DIA_SEM_COMP_ENTRE = wday(DATES_COMPACTA_ENTRENAMIENTO,label = TRUE) 
+    #se obtiene el día de la semana del incidente en formato lun, ..., dom
+
+DIA_SEM_COMP_ENTRE = substring(DIA_SEM_COMP_ENTRE,1,3) 
+    #Corrección del día de la semana
+
+DIA_SEM_COMP_VALI = wday(DATES_COMPACTA_VALIDACION,label = TRUE) 
+    #se obtiene el día de la semana del incidente en formato lun, ..., dom
+
+DIA_SEM_COMP_VALI = substring(DIA_SEM_COMP_VALI,1,3) 
+    #Corrección del día de la semana
+
+RMSE_COMPACTADA_VALIDACION = RMSE(REALES_COMPACTA_VALIDACION,PREDICHOS_COMPACTA_VALIDACION)
+#Cálculo del RMSE de la predicción
+
+CORR_COMPACTADA_VALIDACION = cor(REALES_COMPACTA_VALIDACION,PREDICHOS_COMPACTA_VALIDACION)
+#Cálculo de la correlación entre la predicción y la realidad
+
+RMSE_COMPACTADA_ENTRENAMIENTO = RMSE(REALES_COMPACTA_ENTRENAMIENTO,PREDICHOS_COMPACTA_ENTRENAMIENTO)
+#Cálculo del RMSE de la predicción
+
+CORR_COMPACTADA_ENTRENAMIENTO = cor(REALES_COMPACTA_ENTRENAMIENTO,PREDICHOS_COMPACTA_ENTRENAMIENTO)
+#Cálculo de la correlación entre la predicción y la realidad
+
+R2_COMPACTADA_VALIDACION = 1 - sum((REALES_COMPACTA_VALIDACION-PREDICHOS_COMPACTA_VALIDACION)^2)/sum((REALES_COMPACTA_VALIDACION - mean(REALES_COMPACTA_VALIDACION))^2)
+
+R2_COMPACTADA_ENTRENAMIENTO = 1 - sum((REALES_COMPACTA_ENTRENAMIENTO-PREDICHOS_COMPACTA_ENTRENAMIENTO)^2)/sum((REALES_COMPACTA_ENTRENAMIENTO - mean(REALES_COMPACTA_ENTRENAMIENTO))^2)
+
+fig_compactada_validacion = plot_ly(x = PREDICHOS_COMPACTA_VALIDACION, 
+              color = DIA_SEM_COMP_VALI) %>%
+  
+  add_markers(y =REALES_COMPACTA_VALIDACION,
+              opacity = 0.5,
+              hoverinfo = 'text',
+              text = paste('</br>Real: ', REALES_COMPACTA_VALIDACION,
+                           '</br>Predicho: ', PREDICHOS_COMPACTA_VALIDACION,
+                           '</br>Fecha: ', DATES_COMPACTA_VALIDACION),
+              showlegend = TRUE) %>%
+  
+  add_lines(y = seq(50,170,length.out = length(PREDICHOS_COMPACTA_VALIDACION)),
+            x = seq(50,170,length.out = length(PREDICHOS_COMPACTA_VALIDACION)),
+            line = list(color = 'red'),
+            name = "Identidad", 
+            showlegend = FALSE) %>%
+  
+  layout(xaxis = list(title = '<b> Predicho'),
+         yaxis = list(title = '<b> Real'),
+         title = "<b> Reales vs Predichos (Validación)",
+         annotations = list(text = paste("<b> <i> RMSE: ",round(RMSE_COMPACTADA_VALIDACION,4),"<br>",
+                                         "CORR: ",round(CORR_COMPACTADA_VALIDACION,4),"<br>",
+                                         "R<sup>2</sup>: ",round(R2_COMPACTADA_VALIDACION,4)),
+                            align='left',
+                            showarrow=FALSE,
+                            xref='paper',
+                            yref='paper',
+                            x=0.08,y=1))
+
+fig_compactada_entrenamiento = plot_ly(x = PREDICHOS_COMPACTA_ENTRENAMIENTO, 
+              color = DIA_SEM_COMP_ENTRE) %>%
+  
+  add_markers(y =REALES_COMPACTA_ENTRENAMIENTO,
+              hoverinfo = 'text',
+              opacity = 0.5,
+              text = paste('</br>Real: ', REALES_COMPACTA_ENTRENAMIENTO,
+                           '</br>Predicho: ', PREDICHOS_COMPACTA_ENTRENAMIENTO,
+                           '</br>Fecha: ', DATES_COMPACTA_ENTRENAMIENTO),
+              showlegend = TRUE) %>%
+  
+  add_lines(y = seq(50,170,length.out = length(PREDICHOS_COMPACTA_ENTRENAMIENTO)),
+            x = seq(50,170,length.out = length(PREDICHOS_COMPACTA_ENTRENAMIENTO)),
+            line = list(color = 'red'),
+            name = "Identidad", 
+            showlegend = FALSE) %>%
+  
+  layout(xaxis = list(title = '<b> Predicho'),
+         yaxis = list(title = '<b> Real'),
+         title = "<b> Reales vs Predichos (Entrenamiento)",
+         annotations = list(text = paste("<b> <i> RMSE: ",round(RMSE_COMPACTADA_ENTRENAMIENTO,4),"<br>",
+                                         "CORR: ",round(CORR_COMPACTADA_ENTRENAMIENTO,4),"<br>",
+                                         "R<sup>2</sup>: ",round(R2_COMPACTADA_ENTRENAMIENTO,4)),
+                            align='left',
+                            showarrow=FALSE,
+                            xref='paper',
+                            yref='paper',
+                            x=0.08,y=1)) 
+```
+
+
+```{r,echo = FALSE}
+fig_compactada_entrenamiento
+```
+
+---
+
+```{r,echo = FALSE}
+fig_compactada_validacion
+```
+
+### Modelo sin tener en cuenta la gravedad.
+<br></br>
+```{r,echo=FALSE}
+DATA_DIA = aggregate(CANTIDAD~FECHA+DIA_ANO+DIA_MES+MES+DIA_SEM+FESTIVO+FIN_SEMANA+FERIA_FLORES+PARTIDOS_NAL+AMOR_AMISTAD+DIA_MADRE+DIA_PADRE,data = DATA_PREDICCION,FUN = sum)
+
+DATA_DIA$ANO = year(DATA_DIA$FECHA)
+#Extrayendo el año de la fecha
+
+DATA_DIA = DATA_DIA[order(DATA_DIA$FECHA),]
+
+row.names(DATA_DIA) = 1:length(DATA_DIA$FECHA)
+
+DATA_DIA$MES = as.factor(DATA_DIA$MES)
+
+DATA_DIA$MES = as.factor(DATA_DIA$MES)
+
+DATA_DIA$FIN_SEMANA = as.factor(DATA_DIA$FIN_SEMANA)
+
+DATA_DIA$SEMANA_MES = 5
+
+DATA_DIA$SEMANA_MES[DATA_DIA$DIA_MES <= 7] = 1
+#Valores para la semana 1
+
+DATA_DIA$SEMANA_MES[DATA_DIA$DIA_MES > 7 & DATA_DIA$DIA_MES <= 14] = 2
+#Valores para la semana 2
+
+DATA_DIA$SEMANA_MES[DATA_DIA$DIA_MES > 14 & DATA_DIA$DIA_MES <= 21] = 3
+#Valores para la semana 3
+
+DATA_DIA$SEMANA_MES[DATA_DIA$DIA_MES > 21 & DATA_DIA$DIA_MES <= 28] = 4
+#Valores para la semana 4
+
+DATA_DIA$SEMANA_MES = as.factor(DATA_DIA$SEMANA_MES)
+
+prom_cant_total = mean(DATA_DIA$CANTIDAD)
+#Promedio de la cantidad de incidentes
+  
+sd_cant_total = sd(DATA_DIA$CANTIDAD)
+#Desviación de la cantidad de incidentes
+
+DATA_DIA$CANTIDAD_EST = (DATA_DIA$CANTIDAD-prom_cant_total)/sd_cant_total
+#Estandarización de la respuesta
+
+Y_REAL_TOTAL_ENTRENAMIENTO = DATA_DIA$CANTIDAD[DATA_DIA$ANO != 2018]
+
+Y_REAL_TOTAL_VALIDACION = DATA_DIA$CANTIDAD[DATA_DIA$ANO == 2018]
+
+dates_total_entrenamiento = DATA_DIA$FECHA[DATA_DIA$ANO != 2018]
+
+dates_total_validacion = DATA_DIA$FECHA[DATA_DIA$ANO == 2018]
+
+set.seed(123)
+
+bosque_total = randomForest(CANTIDAD_EST~.,importance=TRUE,ntree=750,mtry=2,data = DATA_DIA[DATA_DIA$ANO != 2018,-c(1,13,8:12,14)])
+
+Y_PRED_TOTAL_ENTRENAMIENTO = round(bosque_total$predicted*sd_cant_total+prom_cant_total)
+
+Y_PRED_TOTAL_VALIDACION = round(predict(bosque_total,newdata = DATA_DIA[DATA_DIA$ANO == 2018,])*sd_cant_total+prom_cant_total)
+
+RMSE_TOTAL_ENTRENAMIENTO = RMSE(Y_PRED_TOTAL_ENTRENAMIENTO,Y_REAL_TOTAL_ENTRENAMIENTO)
+
+RMSE_TOTAL_VALIDACION = RMSE(Y_PRED_TOTAL_VALIDACION,Y_REAL_TOTAL_VALIDACION)
+
+CORR_TOTAL_ENTRENAMIENTO = cor(Y_PRED_TOTAL_ENTRENAMIENTO,Y_REAL_TOTAL_ENTRENAMIENTO)
+
+CORR_TOTAL_VALIDACION = cor(Y_PRED_TOTAL_VALIDACION,Y_REAL_TOTAL_VALIDACION)
+
+SST_TOTAL_ENTRENAMIENTO = mean((Y_REAL_TOTAL_ENTRENAMIENTO - mean(Y_REAL_TOTAL_ENTRENAMIENTO))^2)
+
+SSE_TOTAL_ENTRENAMIENTO = mean((Y_REAL_TOTAL_ENTRENAMIENTO - Y_PRED_TOTAL_ENTRENAMIENTO)^2)
+
+SST_TOTAL_VALIDACION = mean((Y_REAL_TOTAL_VALIDACION - mean(Y_REAL_TOTAL_VALIDACION))^2)
+
+SSE_TOTAL_VALIDACION = mean((Y_REAL_TOTAL_VALIDACION - Y_PRED_TOTAL_VALIDACION)^2)
+
+R2_TOTAL_VALIDACION = 1 - SSE_TOTAL_VALIDACION/SST_TOTAL_VALIDACION
+  
+R2_TOTAL_ENTRENAMIENTO = 1 - SSE_TOTAL_ENTRENAMIENTO/SST_TOTAL_ENTRENAMIENTO
+
+fig_total_entrenamiento = plot_ly(x = Y_PRED_TOTAL_ENTRENAMIENTO, 
+              color = as.factor(DATA_DIA$DIA_SEM[DATA_DIA$ANO != 2018])) %>%
+  
+  add_markers(y =Y_REAL_TOTAL_ENTRENAMIENTO,
+              hoverinfo = 'text',
+              opacity = 0.6,
+              text = paste('</br>Real: ', Y_REAL_TOTAL_ENTRENAMIENTO,
+                           '</br>Predicho: ', Y_PRED_TOTAL_ENTRENAMIENTO,
+                           '</br>Fecha: ', dates_total_entrenamiento,
+                           '</br>Día: ', DATA_DIA$DIA_SEM[DATA_DIA$ANO != 2018]),
+              showlegend = TRUE) %>%
+  
+  add_lines(y = seq(50,180,length.out = length(Y_PRED_TOTAL_ENTRENAMIENTO)),
+            x = seq(50,180,length.out = length(Y_PRED_TOTAL_ENTRENAMIENTO)),
+            line = list(color = 'red'),
+            name = "Identidad", 
+            showlegend = FALSE) %>%
+  
+  layout(xaxis = list(title = '<b> Predicho'),
+         yaxis = list(title = '<b> Real'),
+         title = "<b> Reales vs Predichos (Entrenamiento)",
+         annotations = list(text = paste("<b> <i> RMSE: ",round(RMSE_TOTAL_ENTRENAMIENTO,4),"<br>",
+                                         "CORR: ",round(CORR_TOTAL_ENTRENAMIENTO,4),"<br>",
+                                         "R<sup>2</sup>: ",round(R2_TOTAL_ENTRENAMIENTO,4)),
+                            align='left',
+                            showarrow=FALSE,
+                            xref='paper',
+                            yref='paper',
+                            x=0.08,y=1)) 
+
+fig_total_validacion = plot_ly(x = Y_PRED_TOTAL_VALIDACION, 
+              color = as.factor(DATA_DIA$DIA_SEM[DATA_DIA$ANO == 2018])) %>%
+  
+  add_markers(y =Y_REAL_TOTAL_VALIDACION,
+              hoverinfo = 'text',
+              opacity = 0.6,
+              text = paste('</br>Real: ', Y_REAL_TOTAL_VALIDACION,
+                           '</br>Predicho: ', Y_PRED_TOTAL_VALIDACION,
+                           '</br>Fecha: ', dates_total_validacion,
+                           '</br>Día: ', DATA_DIA$DIA_SEM[DATA_DIA$ANO == 2018]),
+              showlegend = TRUE) %>%
+  
+  add_lines(y = seq(50,180,length.out = length(Y_PRED_TOTAL_VALIDACION)),
+            x = seq(50,180,length.out = length(Y_PRED_TOTAL_VALIDACION)),
+            line = list(color = 'red'),
+            name = "Identidad", 
+            showlegend = FALSE) %>%
+  
+  layout(xaxis = list(title = '<b> Predicho'),
+         yaxis = list(title = '<b> Real'),
+         title = "<b> Reales vs Predichos (Validación)",
+         annotations = list(text = paste("<b> <i> RMSE: ",round(RMSE_TOTAL_VALIDACION,4),"<br>",
+                                         "CORR: ",round(CORR_TOTAL_VALIDACION,4),"<br>",
+                                         "R<sup>2</sup>: ",round(R2_TOTAL_VALIDACION,4)),
+                            align='left',
+                            showarrow=FALSE,
+                            xref='paper',
+                            yref='paper',
+                            x=0.08,y=1))
+
+rm(CORR_COMPACTADA_ENTRENAMIENTO,CORR_COMPACTADA_VALIDACION,SSE_TOTAL_ENTRENAMIENTO,SSE_TOTAL_VALIDACION,SST_TOTAL_ENTRENAMIENTO,SST_TOTAL_VALIDACION,Y_PRED_TOTAL_ENTRENAMIENTO,Y_PRED_TOTAL_VALIDACION,R2_COMPACTADA_ENTRENAMIENTO,R2_COMPACTADA_VALIDACION)
+```
+
+```{r,echo=FALSE}
+fig_total_entrenamiento
+```
+
+---
+
+```{r,echo=FALSE}
+fig_total_validacion
+```
+
+---
+
+Para el modelo de la totalidad de incidentes diarios, se usaron únicamente las siguientes variables:
+
++ `FESTIVO`: Si la fecha del incidente ocurrió en un día festivo se asigna el valor de 1, en otro caso se asigna 0.
+    
++ `DIA_SEM`: Indica el día de la semana en la que ocurrió el incidente. Puede tomar el valor de lun, mar, ..., dom.
+    
++ `DIA_ANO`: Indica el número del día dentro de cada año. Puede tomar el valor de 1, ..., 365.
+    
++ `MES`: Indica el número del mes del año en que ocurrió el incidente. Puede tomar el valor de 1, ..., 12.
+    
++ `FIN_SEMANA`: Si la fecha del incidente ocurrió en un día de fin de semana (sábado o domingo) se asigna el valor de 1, en otro caso se asigna 0.
+    
++ `DIA_MES`: Indica el día dentro del mes en que ocurrió el incidente. Puede tomar el valor de 1, ..., 31.
+    
++ `SEMANA_MES`: Indica la semana dentro del mes en que ocurrió el incidente. Puede tomar el valor de 1, ..., 5 siendo la semana 5 aquellas observaciones que tienen como valor en la variable `DIA_MES` un valor mayor o igual a 28.
+
+---
+
+```{r,echo = FALSE}
+
+varImpPlot(bosque_total,main = "Importancia de variables | Totalidad por día")
+
+```
+
+Como se logra observar en ambas metodologías probadas, los modelos ensayados tienen un valor de RMSE mayor al igual que un menor valor de $R^2$, por lo que se concluye que la exclusión de la gravedad del incidente desmejora los resultados y por lo tanto dicha variable no será descartada.
+
+En busca de mejorar los resultados obtenidos por los modelos de Random Forest, se ensayán dos algoritmos adicionales para cada tipo de gravedad:
+
++ Modelos Lineales Generalizados - Familia Poisson.
++ Máquinas de Soporte Vectorial con Función Kernel Radial.
+
+---
+
+### Modelo de Poisson
+
+Se probará ahora un modelo de regresión lineal generalizada de la familia Poisson, usando la misma metodología anteriormente descrita, realizando un modelo individual por cada tipo de gravedad y empleando las variables seleccionadas en Random Forest.
+
+```{r, echo = FALSE,warning= FALSE}
+
+poisson_herido = glm(CANTIDAD~.,
+                     data=DATA_DIA_HERIDO_ENTRENAMIENTO[,c(7,13,4,6,14,1,19,5,18)],
+                     family = "poisson")
+
+DATA_DIA_HERIDO_ENTRENAMIENTO$PREDICHO_GLM = round(poisson_herido$fitted.values)
+
+DATA_DIA_HERIDO_VALIDACION$PREDICHO_GLM = round(predict(poisson_herido,newdata = DATA_DIA_HERIDO_VALIDACION,type="response"))
+
+poisson_dano = glm(CANTIDAD~.,
+                     data=DATA_DIA_DANO_ENTRENAMIENTO[,c(7,13,4,14,6,5,18)],
+                     family = "poisson")
+
+DATA_DIA_DANO_ENTRENAMIENTO$PREDICHO_GLM = round(poisson_dano$fitted.values)
+
+DATA_DIA_DANO_VALIDACION$PREDICHO_GLM = round(predict(poisson_dano,newdata = DATA_DIA_DANO_VALIDACION,type="response"))
+
+poisson_muerto = glm(CANTIDAD~.,
+                     data=DATA_DIA_MUERTO_ENTRENAMIENTO[,c(9,4,6,7,5,18)],
+                     family = "poisson")
+
+DATA_DIA_MUERTO_ENTRENAMIENTO$PREDICHO_GLM = round(poisson_muerto$fitted.values)
+
+DATA_DIA_MUERTO_VALIDACION$PREDICHO_GLM = round(predict(poisson_muerto,newdata = DATA_DIA_MUERTO_VALIDACION,type="response"))
+
+predichos_validacion = c(DATA_DIA_DANO_VALIDACION$PREDICHO_GLM,
+                         DATA_DIA_MUERTO_VALIDACION$PREDICHO_GLM,
+                         DATA_DIA_HERIDO_VALIDACION$PREDICHO_GLM)
+
+predichos_entrenamiento = c(DATA_DIA_DANO_ENTRENAMIENTO$PREDICHO_GLM,
+                            DATA_DIA_MUERTO_ENTRENAMIENTO$PREDICHO_GLM,
+                            DATA_DIA_HERIDO_ENTRENAMIENTO$PREDICHO_GLM)
+
+
+
+RMSE_VALIDACION = RMSE(reales_validacion,predichos_validacion)
+#Cálculo del RMSE de la predicción
+
+CORR_VALIDACION = cor(reales_validacion,predichos_validacion)
+#Cálculo de la correlación entre la predicción y la realidad
+
+RMSE_ENTRENAMIENTO = RMSE(reales_entrenamiento,predichos_entrenamiento)
+#Cálculo del RMSE de la predicción
+
+CORR_ENTRENAMIENTO = cor(reales_entrenamiento,predichos_entrenamiento)
+#Cálculo de la correlación entre la predicción y la realidad
+
+R2_VALIDACION = 1 - sum((reales_validacion-predichos_validacion)^2)/sum((reales_validacion - mean(reales_validacion))^2)
+R2_ENTRENAMIENTO = 1 - sum((reales_entrenamiento-predichos_entrenamiento)^2)/sum((reales_entrenamiento - mean(reales_entrenamiento))^2)
+
+fig_validacion = plot_ly(x = predichos_validacion, 
+              color = gravedades_validacion) %>%
+  
+  add_markers(y =reales_validacion,
+              opacity = 0.5,
+              hoverinfo = 'text',
+              text = paste('</br>Real: ', reales_validacion,
+                           '</br>Predicho: ', predichos_validacion,
+                           '</br>Fecha: ', dates_validacion),
+              showlegend = TRUE) %>%
+  
+  add_lines(y = seq(0,110,length.out = length(predichos_validacion)),
+            x = seq(0,110,length.out = length(predichos_validacion)),
+            line = list(color = 'red'),
+            name = "Identidad", 
+            showlegend = FALSE) %>%
+  
+  layout(xaxis = list(title = '<b> Predicho'),
+         yaxis = list(title = '<b> Real'),
+         title = "<b> Reales vs Predichos (Validación)",
+         annotations = list(text = paste("<b> <i> RMSE: ",round(RMSE_VALIDACION,4),"<br>",
+                                         "CORR: ",round(CORR_VALIDACION,4),"<br>",
+                                         "R<sup>2</sup>: ",round(R2_VALIDACION,4)),
+                            align='left',
+                            showarrow=FALSE,
+                            xref='paper',
+                            yref='paper',
+                            x=0.08,y=1))
+
+fig_entrenamiento = plot_ly(x = predichos_entrenamiento, 
+              color = gravedades_entrenamiento) %>%
+  
+  add_markers(y =reales_entrenamiento,
+              hoverinfo = 'text',
+              opacity = 0.5,
+              text = paste('</br>Real: ', reales_entrenamiento,
+                           '</br>Predicho: ', predichos_entrenamiento,
+                           '</br>Fecha: ', dates_entrenamiento),
+              showlegend = TRUE) %>%
+  
+  add_lines(y = seq(0,110,length.out = length(predichos_entrenamiento)),
+            x = seq(0,110,length.out = length(predichos_entrenamiento)),
+            line = list(color = 'red'),
+            name = "Identidad", 
+            showlegend = FALSE) %>%
+  
+  layout(xaxis = list(title = '<b> Predicho'),
+         yaxis = list(title = '<b> Real'),
+         title = "<b> Reales vs Predichos (Entrenamiento)",
+         annotations = list(text = paste("<b> <i> RMSE: ",round(RMSE_ENTRENAMIENTO,4),"<br>",
+                                         "CORR: ",round(CORR_ENTRENAMIENTO,4),"<br>",
+                                         "R<sup>2</sup>: ",round(R2_ENTRENAMIENTO,4)),
+                            align='left',
+                            showarrow=FALSE,
+                            xref='paper',
+                            yref='paper',
+                            x=0.08,y=1)) 
+```
+
+```{r,echo = FALSE}
+fig_entrenamiento
+```
+
+---
+
+```{r,echo = FALSE}
+fig_validacion
+```
+
+---
+
+### Máquinas de Soporte Vectorial
+
+Por último, se emplearán Máquinas de Soporte Vectorial en donde se empleará una función Kernel Radial donde se optimizará el hiperparámetro $\gamma$, dado que se tiene la hipótesis que el valor empleado por defecto no es el más idóneo. Para el entrenamiento de estos modelos se usarán únicamente las variables seleccionadas al momento de implementar los modelos de Random Forest.
+
+```{r,echo = FALSE}
+RMSE_OPT_HERIDO = 1000
+RMSE_OPT_MUERTO = 1000
+RMSE_OPT_DANO = 1000
+y_real_herido = DATA_DIA_HERIDO_VALIDACION$CANTIDAD
+y_real_muerto = DATA_DIA_MUERTO_VALIDACION$CANTIDAD
+y_real_dano = DATA_DIA_DANO_VALIDACION$CANTIDAD
+lista_rmse_herido = c()
+lista_rmse_muerto = c()
+lista_rmse_dano = c()
+valores_gamma = seq(0,1,length.out = 300)
+
+for(gamma in valores_gamma){
+  
+  prueba_herido = svm(CANTIDAD_ESC~.,
+                      data=DATA_DIA_HERIDO_ENTRENAMIENTO[,c(7,13,4,6,14,1,19,5,20)],
+                      gamma = gamma)
+
+  y_pred_herido = round(predict(prueba_herido,newdata = DATA_DIA_HERIDO_VALIDACION) * sd_herido + prom_herido)
+  rmse_prueba_herido = RMSE(y_pred_herido,y_real_herido)
+  lista_rmse_herido = c(lista_rmse_herido,rmse_prueba_herido)
+  
+  prueba_muerto = svm(CANTIDAD_ESC~.,
+                      data=DATA_DIA_MUERTO_ENTRENAMIENTO[,c(9,4,6,7,5,20)],
+                      gamma = gamma)
+
+  y_pred_muerto = round(predict(prueba_muerto,newdata = DATA_DIA_MUERTO_VALIDACION) * sd_muerto + prom_muerto)
+  rmse_prueba_muerto = RMSE(y_pred_muerto,y_real_muerto)
+  lista_rmse_muerto = c(lista_rmse_muerto,rmse_prueba_muerto)
+
+  prueba_dano = svm(CANTIDAD_ESC~.,
+                    data=DATA_DIA_DANO_ENTRENAMIENTO[,c(7,13,4,14,6,5,20)],
+                    gamma = gamma)
+
+  y_pred_dano = round(predict(prueba_dano,newdata = DATA_DIA_DANO_VALIDACION) * sd_dano + prom_dano)
+  rmse_prueba_dano = RMSE(y_pred_dano,y_real_dano)
+  lista_rmse_dano = c(lista_rmse_dano,rmse_prueba_dano)
+  
+  if(rmse_prueba_herido<RMSE_OPT_HERIDO){
+    
+    svm_herido = prueba_herido
+    RMSE_OPT_HERIDO = rmse_prueba_herido
+    
+  }
+  
+  if(rmse_prueba_muerto<RMSE_OPT_MUERTO){
+    
+    svm_muerto = prueba_muerto
+    RMSE_OPT_MUERTO = rmse_prueba_muerto
+    
+  }
+  
+  if(rmse_prueba_dano<RMSE_OPT_DANO){
+    
+    svm_dano = prueba_dano
+    RMSE_OPT_DANO = rmse_prueba_dano
+    
+  }
+
+  rm(prueba_herido,rmse_prueba_herido,prueba_muerto,rmse_prueba_muerto,prueba_dano,rmse_prueba_dano,y_pred_dano,y_pred_muerto,y_pred_herido)
+  
+}
+
+plot_rmse_herido <- plot_ly(x = valores_gamma, 
+                            y = lista_rmse_herido, 
+                            type = 'scatter', 
+                            mode = 'lines',
+                            name = "RMSE") %>% 
+  add_trace(x = svm_herido$gamma,
+            y = RMSE_OPT_HERIDO,
+            mode="markers",
+            name="Óptimo",
+            textposition="bottom center",
+            marker = list(color = "red")) %>%
+  layout(title = "<b> RMSE vs &#x3B3; (Herido)",
+         xaxis = list(title="<b> &#x3B3;"),
+         yaxis = list(title = '<b> RMSE'))
+
+plot_rmse_dano <- plot_ly(x = valores_gamma, 
+                            y = lista_rmse_dano, 
+                            type = 'scatter', 
+                            mode = 'lines',
+                            name = "RMSE") %>% 
+  add_trace(x = svm_dano$gamma,
+            y = RMSE_OPT_DANO,
+            mode="markers",
+            name="Óptimo",
+            textposition="bottom center",
+            marker = list(color = "red")) %>%
+  layout(title = "<b> RMSE vs &#x3B3; (Solo Daño)",
+         xaxis = list(title="<b> &#x3B3;"),
+         yaxis = list(title = '<b> RMSE'))
+
+plot_rmse_muerto <- plot_ly(x = valores_gamma, 
+                            y = lista_rmse_muerto, 
+                            type = 'scatter', 
+                            mode = 'lines',
+                            name = "RMSE") %>% 
+  add_trace(x = svm_muerto$gamma,
+            y = RMSE_OPT_MUERTO,
+            mode="markers",
+            name="Óptimo",
+            textposition="bottom center",
+            marker = list(color = "red")) %>%
+  layout(title = "<b> RMSE vs &#x3B3; (Muerto)",
+         xaxis = list(title="<b> &#x3B3;"),
+         yaxis = list(title = '<b> RMSE'))
+
+
+```
+
+```{r,echo=FALSE}
+plot_rmse_herido
+```
+
+---
+
+```{r,echo=FALSE}
+plot_rmse_dano
+```
+
+---
+
+```{r,echo=FALSE}
+plot_rmse_muerto
+```
+---
+
+Se logra observar que la hipótesis es verdadera, ya que el punto óptimo encontrado para cada gravedad es diferente al valor que por defecto tiene la función. Ahora, se realizará el modelado de los datos en conjunto y evaluar si tiene mejores resultados que los modelos de RF y GLM
+
+---
+
+```{r, echo = FALSE}
+DATA_DIA_HERIDO_ENTRENAMIENTO$PREDICHO_SVM = round(svm_herido$fitted * sd_herido + prom_herido)
+
+DATA_DIA_HERIDO_VALIDACION$PREDICHO_SVM = round(predict(svm_herido,newdata = DATA_DIA_HERIDO_VALIDACION) * sd_herido + prom_herido)
+
+DATA_DIA_MUERTO_ENTRENAMIENTO$PREDICHO_SVM = round(svm_muerto$fitted * sd_muerto + prom_muerto)
+
+DATA_DIA_MUERTO_VALIDACION$PREDICHO_SVM = round(predict(svm_muerto,newdata = DATA_DIA_MUERTO_VALIDACION) * sd_muerto + prom_muerto)
+
+DATA_DIA_DANO_ENTRENAMIENTO$PREDICHO_SVM = round(svm_dano$fitted * sd_dano + prom_dano)
+
+DATA_DIA_DANO_VALIDACION$PREDICHO_SVM = round(predict(svm_dano,newdata = DATA_DIA_DANO_VALIDACION) * sd_dano + prom_dano)
+
+
+
+predichos_validacion = c(DATA_DIA_DANO_VALIDACION$PREDICHO_SVM,
+                         DATA_DIA_MUERTO_VALIDACION$PREDICHO_SVM,
+                         DATA_DIA_HERIDO_VALIDACION$PREDICHO_SVM)
+
+predichos_entrenamiento = c(DATA_DIA_DANO_ENTRENAMIENTO$PREDICHO_SVM,
+                            DATA_DIA_MUERTO_ENTRENAMIENTO$PREDICHO_SVM,
+                            DATA_DIA_HERIDO_ENTRENAMIENTO$PREDICHO_SVM)
+
+
+
+RMSE_VALIDACION = RMSE(reales_validacion,predichos_validacion)
+#Cálculo del RMSE de la predicción
+
+CORR_VALIDACION = cor(reales_validacion,predichos_validacion)
+#Cálculo de la correlación entre la predicción y la realidad
+
+RMSE_ENTRENAMIENTO = RMSE(reales_entrenamiento,predichos_entrenamiento)
+#Cálculo del RMSE de la predicción
+
+CORR_ENTRENAMIENTO = cor(reales_entrenamiento,predichos_entrenamiento)
+#Cálculo de la correlación entre la predicción y la realidad
+
+R2_VALIDACION = 1 - sum((reales_validacion-predichos_validacion)^2)/sum((reales_validacion - mean(reales_validacion))^2)
+R2_ENTRENAMIENTO = 1 - sum((reales_entrenamiento-predichos_entrenamiento)^2)/sum((reales_entrenamiento - mean(reales_entrenamiento))^2)
+
+fig_validacion = plot_ly(x = predichos_validacion, 
+              color = as.character(gravedades_validacion)) %>%
+  
+  add_markers(y =reales_validacion,
+              opacity = 0.5,
+              hoverinfo = 'text',
+              text = paste('</br>Real: ', reales_validacion,
+                           '</br>Predicho: ', predichos_validacion,
+                           '</br>Fecha: ', dates_validacion),
+              showlegend = TRUE) %>%
+  
+  add_lines(y = seq(0,110,length.out = length(predichos_validacion)),
+            x = seq(0,110,length.out = length(predichos_validacion)),
+            line = list(color = 'red'),
+            name = "Identidad", 
+            showlegend = FALSE) %>%
+  
+  layout(xaxis = list(title = '<b> Predicho'),
+         yaxis = list(title = '<b> Real'),
+         title = "<b> Reales vs Predichos (Validación)",
+         annotations = list(text = paste("<b> <i> RMSE: ",round(RMSE_VALIDACION,4),"<br>",
+                                         "CORR: ",round(CORR_VALIDACION,4),"<br>",
+                                         "R<sup>2</sup>: ",round(R2_VALIDACION,4)),
+                            align='left',
+                            showarrow=FALSE,
+                            xref='paper',
+                            yref='paper',
+                            x=0.08,y=1))
+
+fig_entrenamiento = plot_ly(x = predichos_entrenamiento, 
+              color = as.character(gravedades_entrenamiento)) %>%
+  
+  add_markers(y =reales_entrenamiento,
+              hoverinfo = 'text',
+              opacity = 0.5,
+              text = paste('</br>Real: ', reales_entrenamiento,
+                           '</br>Predicho: ', predichos_entrenamiento,
+                           '</br>Fecha: ', dates_entrenamiento),
+              showlegend = TRUE) %>%
+  
+  add_lines(y = seq(0,110,length.out = length(predichos_entrenamiento)),
+            x = seq(0,110,length.out = length(predichos_entrenamiento)),
+            line = list(color = 'red'),
+            name = "Identidad", 
+            showlegend = FALSE) %>%
+  
+  layout(xaxis = list(title = '<b> Predicho'),
+         yaxis = list(title = '<b> Real'),
+         title = "<b> Reales vs Predichos (Entrenamiento)",
+         annotations = list(text = paste("<b> <i> RMSE: ",round(RMSE_ENTRENAMIENTO,4),"<br>",
+                                         "CORR: ",round(CORR_ENTRENAMIENTO,4),"<br>",
+                                         "R<sup>2</sup>: ",round(R2_ENTRENAMIENTO,4)),
+                            align='left',
+                            showarrow=FALSE,
+                            xref='paper',
+                            yref='paper',
+                            x=0.08,y=1)) 
+
+```
+
+
+```{r,echo = FALSE}
+fig_entrenamiento
+```
+
+```{r,echo = FALSE}
+fig_validacion
+```
+
+---
+
+Se observa que hay una mejora en el valor del RMSE obtenido con la metodología de optimización del hiperparámetro $\gamma$ para cada modelo de SVM. 
+
+```{r,echo=FALSE}
+RMSE_MUERTO_RF = round(RMSE(DATA_DIA_MUERTO_VALIDACION$CANTIDAD,DATA_DIA_MUERTO_VALIDACION$PREDICHO_RF),4)
+RMSE_MUERTO_GLM = round(RMSE(DATA_DIA_MUERTO_VALIDACION$CANTIDAD,DATA_DIA_MUERTO_VALIDACION$PREDICHO_GLM),4)
+RMSE_MUERTO_SVM = round(RMSE(DATA_DIA_MUERTO_VALIDACION$CANTIDAD,DATA_DIA_MUERTO_VALIDACION$PREDICHO_SVM),4)
+RMSE_HERIDO_RF = round(RMSE(DATA_DIA_HERIDO_VALIDACION$CANTIDAD,DATA_DIA_HERIDO_VALIDACION$PREDICHO_RF),4)
+RMSE_HERIDO_GLM = round(RMSE(DATA_DIA_HERIDO_VALIDACION$CANTIDAD,DATA_DIA_HERIDO_VALIDACION$PREDICHO_GLM),4)
+RMSE_HERIDO_SVM = round(RMSE(DATA_DIA_HERIDO_VALIDACION$CANTIDAD,DATA_DIA_HERIDO_VALIDACION$PREDICHO_SVM),4)
+RMSE_DANO_RF = round(RMSE(DATA_DIA_DANO_VALIDACION$CANTIDAD,DATA_DIA_DANO_VALIDACION$PREDICHO_RF),4)
+RMSE_DANO_GLM = round(RMSE(DATA_DIA_DANO_VALIDACION$CANTIDAD,DATA_DIA_DANO_VALIDACION$PREDICHO_GLM),4)
+RMSE_DANO_SVM = round(RMSE(DATA_DIA_DANO_VALIDACION$CANTIDAD,DATA_DIA_DANO_VALIDACION$PREDICHO_SVM),4)
+
+
+
+```
+
+Para determinar el modelo final, se comparará el valor del RMSE para cada gravedad de los modelos ensayados, y se elegirá aquel que tenga un menor valor.
+
+|Gravedad|Random Forest|GLM|SVM|
+|---|---|---|---|
+|**Muerto**|`r RMSE_MUERTO_RF`|**`r RMSE_MUERTO_GLM`**|`r RMSE_MUERTO_SVM`|
+|**Herido**|`r RMSE_HERIDO_RF`|`r RMSE_HERIDO_GLM`|**`r RMSE_HERIDO_SVM`**|
+|**Solo Daños**|**`r RMSE_DANO_RF`**|`r RMSE_DANO_GLM`|`r RMSE_DANO_SVM`|
+
+Se observa que para cada tipo de gravedad, el modelo que logra minimizar su RMSE es diferente. Por esta razón, se empleará un modelo de predicción diferente para cada tipo de gravedad.
+
+```{r,echo = FALSE}
+predichos_validacion = c(DATA_DIA_DANO_VALIDACION$PREDICHO_RF,
+                         DATA_DIA_MUERTO_VALIDACION$PREDICHO_GLM,
+                         DATA_DIA_HERIDO_VALIDACION$PREDICHO_SVM)
+
+predichos_entrenamiento = c(DATA_DIA_DANO_ENTRENAMIENTO$PREDICHO_RF,
+                            DATA_DIA_MUERTO_ENTRENAMIENTO$PREDICHO_GLM,
+                            DATA_DIA_HERIDO_ENTRENAMIENTO$PREDICHO_SVM)
+
+
+
+RMSE_VALIDACION = RMSE(reales_validacion,predichos_validacion)
+#Cálculo del RMSE de la predicción
+
+CORR_VALIDACION = cor(reales_validacion,predichos_validacion)
+#Cálculo de la correlación entre la predicción y la realidad
+
+RMSE_ENTRENAMIENTO = RMSE(reales_entrenamiento,predichos_entrenamiento)
+#Cálculo del RMSE de la predicción
+
+CORR_ENTRENAMIENTO = cor(reales_entrenamiento,predichos_entrenamiento)
+#Cálculo de la correlación entre la predicción y la realidad
+
+R2_VALIDACION = 1 - sum((reales_validacion-predichos_validacion)^2)/sum((reales_validacion - mean(reales_validacion))^2)
+R2_ENTRENAMIENTO = 1 - sum((reales_entrenamiento-predichos_entrenamiento)^2)/sum((reales_entrenamiento - mean(reales_entrenamiento))^2)
+
+fig_validacion = plot_ly(x = predichos_validacion, 
+              color = as.character(gravedades_validacion)) %>%
+  
+  add_markers(y =reales_validacion,
+              opacity = 0.5,
+              hoverinfo = 'text',
+              text = paste('</br>Real: ', reales_validacion,
+                           '</br>Predicho: ', predichos_validacion,
+                           '</br>Fecha: ', dates_validacion),
+              showlegend = TRUE) %>%
+  
+  add_lines(y = seq(0,110,length.out = length(predichos_validacion)),
+            x = seq(0,110,length.out = length(predichos_validacion)),
+            line = list(color = 'red'),
+            name = "Identidad", 
+            showlegend = FALSE) %>%
+  
+  layout(xaxis = list(title = '<b> Predicho'),
+         yaxis = list(title = '<b> Real'),
+         title = "<b> Reales vs Predichos (Validación) - Ensamble",
+         annotations = list(text = paste("<b> <i> RMSE: ",round(RMSE_VALIDACION,4),"<br>",
+                                         "CORR: ",round(CORR_VALIDACION,4),"<br>",
+                                         "R<sup>2</sup>: ",round(R2_VALIDACION,4)),
+                            align='left',
+                            showarrow=FALSE,
+                            xref='paper',
+                            yref='paper',
+                            x=0.08,y=1))
+
+fig_entrenamiento = plot_ly(x = predichos_entrenamiento, 
+              color = as.character(gravedades_entrenamiento)) %>%
+  
+  add_markers(y =reales_entrenamiento,
+              hoverinfo = 'text',
+              opacity = 0.5,
+              text = paste('</br>Real: ', reales_entrenamiento,
+                           '</br>Predicho: ', predichos_entrenamiento,
+                           '</br>Fecha: ', dates_entrenamiento),
+              showlegend = TRUE) %>%
+  
+  add_lines(y = seq(0,110,length.out = length(predichos_entrenamiento)),
+            x = seq(0,110,length.out = length(predichos_entrenamiento)),
+            line = list(color = 'red'),
+            name = "Identidad", 
+            showlegend = FALSE) %>%
+  
+  layout(xaxis = list(title = '<b> Predicho'),
+         yaxis = list(title = '<b> Real'),
+         title = "<b> Reales vs Predichos (Entrenamiento) - Ensamble",
+         annotations = list(text = paste("<b> <i> RMSE: ",round(RMSE_ENTRENAMIENTO,4),"<br>",
+                                         "CORR: ",round(CORR_ENTRENAMIENTO,4),"<br>",
+                                         "R<sup>2</sup>: ",round(R2_ENTRENAMIENTO,4)),
+                            align='left',
+                            showarrow=FALSE,
+                            xref='paper',
+                            yref='paper',
+                            x=0.08,y=1)) 
+```
+
+---
+
+```{r,echo = FALSE}
+fig_entrenamiento
+```
+
+---
+
+```{r,echo = FALSE}
+fig_validacion
+```
+Se observa así, que la mejor forma de predecir la accidentalidad diaria al interior de la ciudad es realizando un ensable de algoritmos en donde se entrena un modelo diferente por cada gravedad, y luego agrupando los resultados.
+
+
+## Predicción de accidentalidad mensual
+
+Para determinar el mejor modelo de predicción de la accidentalidad mensual en la ciudad, realizará la prueba de dos metodologías buscando aquella que logre minizar el RMSE. Dichas metodologías son:
+
++ Agrupar los resultados obtenidos en la predicción diaria.
++ Realizar un modelo de predicción nuevo por cada gravedad con una ventana de tiempo mensual.
+
+### 1. Agrupación de datos
+<br></br>
+```{r, echo=FALSE}
+aux_entrenamiento = data.frame("FECHA" = dates_entrenamiento,
+                                        "GRAVEDAD" = gravedades_entrenamiento,
+                                        "CANTIDAD" = reales_entrenamiento,
+                                        "PREDICHO" = predichos_entrenamiento)
+
+aux_validacion = data.frame("FECHA" = dates_validacion,
+                                        "GRAVEDAD" = gravedades_validacion,
+                                        "CANTIDAD" = reales_validacion,
+                                        "PREDICHO" = predichos_validacion)
+
+aux_entrenamiento$MES = month(aux_entrenamiento$FECHA)
+
+aux_entrenamiento$ANO = year(aux_entrenamiento$FECHA)
+
+aux_validacion$MES = month(aux_validacion$FECHA)
+
+aux_validacion$ANO = year(aux_validacion$FECHA)
+
+DATA_MES_ENTRENAMIENTO = aggregate(CANTIDAD ~ GRAVEDAD+MES+ANO, data = aux_entrenamiento, FUN = sum)
+DATA_MES_ENTRENAMIENTO$PREDICHO_DIA = aggregate(PREDICHO ~ GRAVEDAD+MES+ANO, data = aux_entrenamiento, FUN = sum)$PREDICHO
+
+DATA_MES_VALIDACION = aggregate(CANTIDAD ~ GRAVEDAD+MES+ANO, data = aux_validacion, FUN = sum)
+DATA_MES_VALIDACION$PREDICHO_DIA = aggregate(PREDICHO ~ GRAVEDAD+MES+ANO, data = aux_validacion, FUN = sum)$PREDICHO
+
+DATA_MES_HERIDO_ENTRENAMIENTO = DATA_MES_ENTRENAMIENTO[DATA_MES_ENTRENAMIENTO$GRAVEDAD == "HERIDO" & DATA_MES_ENTRENAMIENTO$ANO != 2018,]
+DATA_MES_MUERTO_ENTRENAMIENTO = DATA_MES_ENTRENAMIENTO[DATA_MES_ENTRENAMIENTO$GRAVEDAD == "MUERTO" & DATA_MES_ENTRENAMIENTO$ANO != 2018,]
+DATA_MES_DANO_ENTRENAMIENTO = DATA_MES_ENTRENAMIENTO[DATA_MES_ENTRENAMIENTO$GRAVEDAD == "SOLO DAÑOS" & DATA_MES_ENTRENAMIENTO$ANO != 2018,]
+
+DATA_MES_HERIDO_VALIDACION = DATA_MES_VALIDACION[DATA_MES_VALIDACION$GRAVEDAD == "HERIDO" & DATA_MES_VALIDACION$ANO == 2018,]
+DATA_MES_MUERTO_VALIDACION = DATA_MES_VALIDACION[DATA_MES_VALIDACION$GRAVEDAD == "MUERTO" & DATA_MES_VALIDACION$ANO == 2018,]
+DATA_MES_DANO_VALIDACION = DATA_MES_VALIDACION[DATA_MES_VALIDACION$GRAVEDAD == "SOLO DAÑOS" & DATA_MES_VALIDACION$ANO == 2018,]
+
+prom_dano_mes = mean(c(DATA_MES_DANO_VALIDACION$CANTIDAD,DATA_MES_DANO_ENTRENAMIENTO$CANTIDAD))
+prom_herido_mes = mean(c(DATA_MES_HERIDO_VALIDACION$CANTIDAD,DATA_MES_HERIDO_ENTRENAMIENTO$CANTIDAD))
+prom_muerto_mes = mean(c(DATA_MES_MUERTO_VALIDACION$CANTIDAD,DATA_MES_MUERTO_ENTRENAMIENTO$CANTIDAD))
+
+sd_dano_mes = sd(c(DATA_MES_DANO_VALIDACION$CANTIDAD,DATA_MES_DANO_ENTRENAMIENTO$CANTIDAD))
+sd_herido_mes = sd(c(DATA_MES_HERIDO_VALIDACION$CANTIDAD,DATA_MES_HERIDO_ENTRENAMIENTO$CANTIDAD))
+sd_muerto_mes = sd(c(DATA_MES_MUERTO_VALIDACION$CANTIDAD,DATA_MES_MUERTO_ENTRENAMIENTO$CANTIDAD))
+
+DATA_MES_HERIDO_VALIDACION$CANTIDAD_ESC = (DATA_MES_HERIDO_VALIDACION$CANTIDAD - prom_herido_mes)/sd_herido_mes
+DATA_MES_HERIDO_ENTRENAMIENTO$CANTIDAD_ESC = (DATA_MES_HERIDO_ENTRENAMIENTO$CANTIDAD - prom_herido_mes)/sd_herido_mes
+DATA_MES_MUERTO_VALIDACION$CANTIDAD_ESC = (DATA_MES_MUERTO_VALIDACION$CANTIDAD - prom_muerto_mes)/sd_muerto_mes
+DATA_MES_MUERTO_ENTRENAMIENTO$CANTIDAD_ESC = (DATA_MES_MUERTO_ENTRENAMIENTO$CANTIDAD - prom_muerto_mes)/sd_muerto_mes
+DATA_MES_DANO_VALIDACION$CANTIDAD_ESC = (DATA_MES_DANO_VALIDACION$CANTIDAD - prom_dano_mes)/sd_dano_mes
+DATA_MES_DANO_ENTRENAMIENTO$CANTIDAD_ESC = (DATA_MES_DANO_ENTRENAMIENTO$CANTIDAD - prom_dano_mes)/sd_dano_mes
+
+rm(DATA_MES_VALIDACION,DATA_MES_ENTRENAMIENTO,aux_validacion,aux_entrenamiento)
+
+mes_entrenamiento = c(DATA_MES_DANO_ENTRENAMIENTO$MES,
+                      DATA_MES_MUERTO_ENTRENAMIENTO$MES,
+                      DATA_MES_HERIDO_ENTRENAMIENTO$MES)
+
+gravedades_entrenamiento = c(as.character(DATA_MES_DANO_ENTRENAMIENTO$GRAVEDAD),
+                             as.character(DATA_MES_MUERTO_ENTRENAMIENTO$GRAVEDAD),
+                             as.character(DATA_MES_HERIDO_ENTRENAMIENTO$GRAVEDAD))
+
+reales_entrenamiento = c(DATA_MES_DANO_ENTRENAMIENTO$CANTIDAD,
+                         DATA_MES_MUERTO_ENTRENAMIENTO$CANTIDAD,
+                         DATA_MES_HERIDO_ENTRENAMIENTO$CANTIDAD)
+
+predichos_entrenamiento = c(DATA_MES_DANO_ENTRENAMIENTO$PREDICHO_DIA,
+                            DATA_MES_MUERTO_ENTRENAMIENTO$PREDICHO_DIA,
+                            DATA_MES_HERIDO_ENTRENAMIENTO$PREDICHO_DIA)
+
+mes_validacion = c(DATA_MES_DANO_VALIDACION$MES,
+                   DATA_MES_MUERTO_VALIDACION$MES,
+                   DATA_MES_HERIDO_VALIDACION$MES)
+
+gravedades_validacion = c(as.character(DATA_MES_DANO_VALIDACION$GRAVEDAD),
+                          as.character(DATA_MES_MUERTO_VALIDACION$GRAVEDAD),
+                          as.character(DATA_MES_HERIDO_VALIDACION$GRAVEDAD))
+
+reales_validacion = c(DATA_MES_DANO_VALIDACION$CANTIDAD,
+                      DATA_MES_MUERTO_VALIDACION$CANTIDAD,
+                      DATA_MES_HERIDO_VALIDACION$CANTIDAD)
+
+predichos_validacion = c(DATA_MES_DANO_VALIDACION$PREDICHO_DIA,
+                         DATA_MES_MUERTO_VALIDACION$PREDICHO_DIA,
+                         DATA_MES_HERIDO_VALIDACION$PREDICHO_DIA)
+
+RMSE_VALIDACION = RMSE(reales_validacion,predichos_validacion)
+#Cálculo del RMSE de la predicción
+
+CORR_VALIDACION = cor(reales_validacion,predichos_validacion)
+#Cálculo de la correlación entre la predicción y la realidad
+
+RMSE_ENTRENAMIENTO = RMSE(reales_entrenamiento,predichos_entrenamiento)
+#Cálculo del RMSE de la predicción
+
+CORR_ENTRENAMIENTO = cor(reales_entrenamiento,predichos_entrenamiento)
+#Cálculo de la correlación entre la predicción y la realidad
+
+R2_VALIDACION = 1 - sum((reales_validacion-predichos_validacion)^2)/sum((reales_validacion - mean(reales_validacion))^2)
+R2_ENTRENAMIENTO = 1 - sum((reales_entrenamiento-predichos_entrenamiento)^2)/sum((reales_entrenamiento - mean(reales_entrenamiento))^2)
+
+fig_validacion = plot_ly(x = predichos_validacion, 
+              color = as.character(gravedades_validacion)) %>%
+  
+  add_markers(y =reales_validacion,
+              opacity = 0.5,
+              hoverinfo = 'text',
+              text = paste('</br>Real: ', reales_validacion,
+                           '</br>Predicho: ', predichos_validacion,
+                           '</br>Mes: ', mes_validacion),
+              showlegend = TRUE) %>%
+  
+  add_lines(y = seq(0,2500,length.out = length(predichos_validacion)),
+            x = seq(0,2500,length.out = length(predichos_validacion)),
+            line = list(color = 'red'),
+            name = "Identidad", 
+            showlegend = FALSE) %>%
+  
+  layout(xaxis = list(title = '<b> Predicho'),
+         yaxis = list(title = '<b> Real'),
+         title = "<b> Reales vs Predichos (Validación)",
+         annotations = list(text = paste("<b> <i> RMSE: ",round(RMSE_VALIDACION,4),"<br>",
+                                         "CORR: ",round(CORR_VALIDACION,4),"<br>",
+                                         "R<sup>2</sup>: ",round(R2_VALIDACION,4)),
+                            align='left',
+                            showarrow=FALSE,
+                            xref='paper',
+                            yref='paper',
+                            x=0.08,y=1))
+
+fig_entrenamiento = plot_ly(x = predichos_entrenamiento, 
+              color = as.character(gravedades_entrenamiento)) %>%
+  
+  add_markers(y =reales_entrenamiento,
+              hoverinfo = 'text',
+              opacity = 0.5,
+              text = paste('</br>Real: ', reales_entrenamiento,
+                           '</br>Predicho: ', predichos_entrenamiento,
+                           '</br>Mes: ', mes_entrenamiento),
+              showlegend = TRUE) %>%
+  
+  add_lines(y = seq(0,2500,length.out = length(predichos_entrenamiento)),
+            x = seq(0,2500,length.out = length(predichos_entrenamiento)),
+            line = list(color = 'red'),
+            name = "Identidad", 
+            showlegend = FALSE) %>%
+  
+  layout(xaxis = list(title = '<b> Predicho'),
+         yaxis = list(title = '<b> Real'),
+         title = "<b> Reales vs Predichos (Entrenamiento)",
+         annotations = list(text = paste("<b> <i> RMSE: ",round(RMSE_ENTRENAMIENTO,4),"<br>",
+                                         "CORR: ",round(CORR_ENTRENAMIENTO,4),"<br>",
+                                         "R<sup>2</sup>: ",round(R2_ENTRENAMIENTO,4)),
+                            align='left',
+                            showarrow=FALSE,
+                            xref='paper',
+                            yref='paper',
+                            x=0.08,y=1)) 
+
+```
+
+```{r,echo=FALSE}
+fig_entrenamiento
+```
+
+---
+
+```{r,echo=FALSE}
+fig_validacion
+```
+
+###  2. Random Forest
+<br></br>
+```{r, echo = FALSE}
+set.seed(123)
+bosque_dano_mes = randomForest(CANTIDAD_ESC~MES,
+                             importance=TRUE,
+                             ntree=750,
+                             data=DATA_MES_DANO_ENTRENAMIENTO)
+
+DATA_MES_DANO_VALIDACION$PREDICHO_RF = round(predict(bosque_dano_mes,newdata = DATA_MES_DANO_VALIDACION) * sd_dano_mes + prom_dano_mes)
+DATA_MES_DANO_ENTRENAMIENTO$PREDICHO_RF = round(bosque_dano_mes$predicted * sd_dano_mes + prom_dano_mes)
+
+set.seed(123)
+bosque_muerto_mes = randomForest(CANTIDAD_ESC~MES+ANO,
+                             importance=TRUE,
+                             ntree=750,
+                             data=DATA_MES_MUERTO_ENTRENAMIENTO)
+
+DATA_MES_MUERTO_VALIDACION$PREDICHO_RF = round(predict(bosque_muerto_mes,newdata = DATA_MES_MUERTO_VALIDACION) * sd_muerto_mes + prom_muerto_mes)
+DATA_MES_MUERTO_ENTRENAMIENTO$PREDICHO_RF = round(bosque_muerto_mes$predicted * sd_muerto_mes + prom_muerto_mes)
+
+set.seed(123)
+bosque_herido_mes = randomForest(CANTIDAD_ESC~MES+ANO,
+                             importance=TRUE,
+                             ntree=750,
+                             data=DATA_MES_HERIDO_ENTRENAMIENTO)
+
+DATA_MES_HERIDO_VALIDACION$PREDICHO_RF = round(predict(bosque_muerto_mes,newdata = DATA_MES_HERIDO_VALIDACION) * sd_herido_mes + prom_herido_mes)
+DATA_MES_HERIDO_ENTRENAMIENTO$PREDICHO_RF = round(bosque_muerto_mes$predicted * sd_herido_mes + prom_herido_mes)
+
+predichos_entrenamiento = c(DATA_MES_DANO_ENTRENAMIENTO$PREDICHO_RF,
+                            DATA_MES_MUERTO_ENTRENAMIENTO$PREDICHO_RF,
+                            DATA_MES_HERIDO_ENTRENAMIENTO$PREDICHO_RF)
+
+predichos_validacion = c(DATA_MES_DANO_VALIDACION$PREDICHO_RF,
+                         DATA_MES_MUERTO_VALIDACION$PREDICHO_RF,
+                         DATA_MES_HERIDO_VALIDACION$PREDICHO_RF)
+
+RMSE_VALIDACION = RMSE(reales_validacion,predichos_validacion)
+#Cálculo del RMSE de la predicción
+
+CORR_VALIDACION = cor(reales_validacion,predichos_validacion)
+#Cálculo de la correlación entre la predicción y la realidad
+
+RMSE_ENTRENAMIENTO = RMSE(reales_entrenamiento,predichos_entrenamiento)
+#Cálculo del RMSE de la predicción
+
+CORR_ENTRENAMIENTO = cor(reales_entrenamiento,predichos_entrenamiento)
+#Cálculo de la correlación entre la predicción y la realidad
+
+R2_VALIDACION = 1 - sum((reales_validacion-predichos_validacion)^2)/sum((reales_validacion - mean(reales_validacion))^2)
+R2_ENTRENAMIENTO = 1 - sum((reales_entrenamiento-predichos_entrenamiento)^2)/sum((reales_entrenamiento - mean(reales_entrenamiento))^2)
+
+fig_validacion = plot_ly(x = predichos_validacion, 
+              color = as.character(gravedades_validacion)) %>%
+  
+  add_markers(y =reales_validacion,
+              opacity = 0.5,
+              hoverinfo = 'text',
+              text = paste('</br>Real: ', reales_validacion,
+                           '</br>Predicho: ', predichos_validacion,
+                           '</br>Mes: ', mes_validacion),
+              showlegend = TRUE) %>%
+  
+  add_lines(y = seq(0,2500,length.out = length(predichos_validacion)),
+            x = seq(0,2500,length.out = length(predichos_validacion)),
+            line = list(color = 'red'),
+            name = "Identidad", 
+            showlegend = FALSE) %>%
+  
+  layout(xaxis = list(title = '<b> Predicho'),
+         yaxis = list(title = '<b> Real'),
+         title = "<b> Reales vs Predichos (Validación)",
+         annotations = list(text = paste("<b> <i> RMSE: ",round(RMSE_VALIDACION,4),"<br>",
+                                         "CORR: ",round(CORR_VALIDACION,4),"<br>",
+                                         "R<sup>2</sup>: ",round(R2_VALIDACION,4)),
+                            align='left',
+                            showarrow=FALSE,
+                            xref='paper',
+                            yref='paper',
+                            x=0.08,y=1))
+
+fig_entrenamiento = plot_ly(x = predichos_entrenamiento, 
+              color = as.character(gravedades_entrenamiento)) %>%
+  
+  add_markers(y =reales_entrenamiento,
+              hoverinfo = 'text',
+              opacity = 0.5,
+              text = paste('</br>Real: ', reales_entrenamiento,
+                           '</br>Predicho: ', predichos_entrenamiento,
+                           '</br>Mes: ', mes_entrenamiento),
+              showlegend = TRUE) %>%
+  
+  add_lines(y = seq(0,2500,length.out = length(predichos_entrenamiento)),
+            x = seq(0,2500,length.out = length(predichos_entrenamiento)),
+            line = list(color = 'red'),
+            name = "Identidad", 
+            showlegend = FALSE) %>%
+  
+  layout(xaxis = list(title = '<b> Predicho'),
+         yaxis = list(title = '<b> Real'),
+         title = "<b> Reales vs Predichos (Entrenamiento)",
+         annotations = list(text = paste("<b> <i> RMSE: ",round(RMSE_ENTRENAMIENTO,4),"<br>",
+                                         "CORR: ",round(CORR_ENTRENAMIENTO,4),"<br>",
+                                         "R<sup>2</sup>: ",round(R2_ENTRENAMIENTO,4)),
+                            align='left',
+                            showarrow=FALSE,
+                            xref='paper',
+                            yref='paper',
+                            x=0.08,y=1)) 
+
+
+```
+
+```{r,echo = FALSE}
+fig_entrenamiento
+```
+
+---
+
+```{r, echo=FALSE}
+fig_validacion
+```
+
+### 3. Modelo Lineal Generalizado - Familia Poisson
+<br></br>
+```{r, echo = FALSE}
+poisson_dano_mes = glm(CANTIDAD~MES,
+                       data=DATA_MES_DANO_ENTRENAMIENTO,
+                       family = "poisson")
+
+DATA_MES_DANO_VALIDACION$PREDICHO_GLM = round(predict(poisson_dano_mes,newdata = DATA_MES_DANO_VALIDACION,type="response"))
+DATA_MES_DANO_ENTRENAMIENTO$PREDICHO_GLM = round(poisson_dano_mes$fitted.values)
+
+poisson_muerto_mes = glm(CANTIDAD~MES+ANO,
+                         data=DATA_MES_MUERTO_ENTRENAMIENTO,
+                         family = "poisson")
+
+DATA_MES_MUERTO_VALIDACION$PREDICHO_GLM = round(predict(poisson_muerto_mes,newdata = DATA_MES_MUERTO_VALIDACION,type="response"))
+DATA_MES_MUERTO_ENTRENAMIENTO$PREDICHO_GLM = round(poisson_muerto_mes$fitted.values)
+
+poisson_herido_mes = glm(CANTIDAD~MES+ANO,
+                         data=DATA_MES_HERIDO_ENTRENAMIENTO,
+                         family = "poisson")
+
+DATA_MES_HERIDO_VALIDACION$PREDICHO_GLM = round(predict(poisson_herido_mes,newdata = DATA_MES_HERIDO_VALIDACION,type="response"))
+DATA_MES_HERIDO_ENTRENAMIENTO$PREDICHO_GLM = round(poisson_herido_mes$fitted.values )
+
+predichos_entrenamiento = c(DATA_MES_DANO_ENTRENAMIENTO$PREDICHO_GLM,
+                            DATA_MES_MUERTO_ENTRENAMIENTO$PREDICHO_GLM,
+                            DATA_MES_HERIDO_ENTRENAMIENTO$PREDICHO_GLM)
+
+predichos_validacion = c(DATA_MES_DANO_VALIDACION$PREDICHO_GLM,
+                         DATA_MES_MUERTO_VALIDACION$PREDICHO_GLM,
+                         DATA_MES_HERIDO_VALIDACION$PREDICHO_GLM)
+
+RMSE_VALIDACION = RMSE(reales_validacion,predichos_validacion)
+#Cálculo del RMSE de la predicción
+
+CORR_VALIDACION = cor(reales_validacion,predichos_validacion)
+#Cálculo de la correlación entre la predicción y la realidad
+
+RMSE_ENTRENAMIENTO = RMSE(reales_entrenamiento,predichos_entrenamiento)
+#Cálculo del RMSE de la predicción
+
+CORR_ENTRENAMIENTO = cor(reales_entrenamiento,predichos_entrenamiento)
+#Cálculo de la correlación entre la predicción y la realidad
+
+R2_VALIDACION = 1 - sum((reales_validacion-predichos_validacion)^2)/sum((reales_validacion - mean(reales_validacion))^2)
+R2_ENTRENAMIENTO = 1 - sum((reales_entrenamiento-predichos_entrenamiento)^2)/sum((reales_entrenamiento - mean(reales_entrenamiento))^2)
+
+fig_validacion = plot_ly(x = predichos_validacion, 
+              color = as.character(gravedades_validacion)) %>%
+  
+  add_markers(y =reales_validacion,
+              opacity = 0.5,
+              hoverinfo = 'text',
+              text = paste('</br>Real: ', reales_validacion,
+                           '</br>Predicho: ', predichos_validacion,
+                           '</br>Mes: ', mes_validacion),
+              showlegend = TRUE) %>%
+  
+  add_lines(y = seq(0,2500,length.out = length(predichos_validacion)),
+            x = seq(0,2500,length.out = length(predichos_validacion)),
+            line = list(color = 'red'),
+            name = "Identidad", 
+            showlegend = FALSE) %>%
+  
+  layout(xaxis = list(title = '<b> Predicho'),
+         yaxis = list(title = '<b> Real'),
+         title = "<b> Reales vs Predichos (Validación)",
+         annotations = list(text = paste("<b> <i> RMSE: ",round(RMSE_VALIDACION,4),"<br>",
+                                         "CORR: ",round(CORR_VALIDACION,4),"<br>",
+                                         "R<sup>2</sup>: ",round(R2_VALIDACION,4)),
+                            align='left',
+                            showarrow=FALSE,
+                            xref='paper',
+                            yref='paper',
+                            x=0.08,y=1))
+
+fig_entrenamiento = plot_ly(x = predichos_entrenamiento, 
+              color = as.character(gravedades_entrenamiento)) %>%
+  
+  add_markers(y =reales_entrenamiento,
+              hoverinfo = 'text',
+              opacity = 0.5,
+              text = paste('</br>Real: ', reales_entrenamiento,
+                           '</br>Predicho: ', predichos_entrenamiento,
+                           '</br>Mes: ', mes_entrenamiento),
+              showlegend = TRUE) %>%
+  
+  add_lines(y = seq(0,2500,length.out = length(predichos_entrenamiento)),
+            x = seq(0,2500,length.out = length(predichos_entrenamiento)),
+            line = list(color = 'red'),
+            name = "Identidad", 
+            showlegend = FALSE) %>%
+  
+  layout(xaxis = list(title = '<b> Predicho'),
+         yaxis = list(title = '<b> Real'),
+         title = "<b> Reales vs Predichos (Entrenamiento)",
+         annotations = list(text = paste("<b> <i> RMSE: ",round(RMSE_ENTRENAMIENTO,4),"<br>",
+                                         "CORR: ",round(CORR_ENTRENAMIENTO,4),"<br>",
+                                         "R<sup>2</sup>: ",round(R2_ENTRENAMIENTO,4)),
+                            align='left',
+                            showarrow=FALSE,
+                            xref='paper',
+                            yref='paper',
+                            x=0.08,y=1)) 
+```
+
+```{r, echo=FALSE}
+fig_entrenamiento
+```
+
+---
+
+```{r, echo=FALSE}
+fig_validacion
+```
+
+### 4. Máquinas de Soporte Vectorial
+
+Al igual que en la predicción de accidentalidad diaria, se optimizará el parámetro $\gamma$ buscando una reducción en el RMSE para cada tipo de accidentalidad.
+
+```{r, echo=FALSE}
+
+RMSE_OPT_HERIDO = 1000
+RMSE_OPT_MUERTO = 1000
+RMSE_OPT_DANO = 1000
+y_real_herido = DATA_MES_HERIDO_VALIDACION$CANTIDAD
+y_real_muerto = DATA_MES_MUERTO_VALIDACION$CANTIDAD
+y_real_dano = DATA_MES_DANO_VALIDACION$CANTIDAD
+lista_rmse_herido = c()
+lista_rmse_muerto = c()
+lista_rmse_dano = c()
+valores_gamma_herido = seq(0,1,length.out = 10000)
+valores_gamma_muerto = seq(0,1,length.out = 100)
+valores_gamma_dano = seq(5,7,length.out = 10000)
+
+for(gamma in valores_gamma_herido){
+  
+  prueba_herido = svm(CANTIDAD_ESC~MES+ANO,
+                      data=DATA_MES_HERIDO_ENTRENAMIENTO,
+                      gamma = gamma)
+
+  y_pred_herido = round(predict(prueba_herido,newdata = DATA_MES_HERIDO_VALIDACION) * sd_herido_mes + prom_herido_mes)
+  rmse_prueba_herido = RMSE(y_pred_herido,y_real_herido)
+  lista_rmse_herido = c(lista_rmse_herido,rmse_prueba_herido)
+  
+  
+  if(rmse_prueba_herido<RMSE_OPT_HERIDO){
+    
+    svm_herido_mes = prueba_herido
+    RMSE_OPT_HERIDO = rmse_prueba_herido
+    
+  }
+  
+  rm(prueba_herido,rmse_prueba_herido,y_pred_herido)
+  
+}
+
+for(gamma in valores_gamma_muerto){
+  
+  prueba_muerto = svm(CANTIDAD_ESC~MES,
+                      data=DATA_MES_MUERTO_ENTRENAMIENTO,
+                      gamma = gamma)
+
+  y_pred_muerto = round(predict(prueba_muerto,newdata = DATA_MES_MUERTO_VALIDACION) * sd_muerto_mes + prom_muerto_mes)
+  rmse_prueba_muerto = RMSE(y_pred_muerto,y_real_muerto)
+  lista_rmse_muerto = c(lista_rmse_muerto,rmse_prueba_muerto)
+  
+  if(rmse_prueba_muerto<RMSE_OPT_MUERTO){
+    
+    svm_muerto_mes = prueba_muerto
+    RMSE_OPT_MUERTO = rmse_prueba_muerto
+    
+  }
+  
+
+  rm(prueba_muerto,rmse_prueba_muerto,y_pred_muerto)
+  
+}
+
+for(gamma in valores_gamma_dano){
+  
+  prueba_dano = svm(CANTIDAD_ESC~MES,
+                    data=DATA_MES_DANO_ENTRENAMIENTO,
+                    gamma = gamma)
+
+  y_pred_dano = round(predict(prueba_dano,newdata = DATA_MES_DANO_VALIDACION) * sd_dano_mes + prom_dano_mes)
+  rmse_prueba_dano = RMSE(y_pred_dano,y_real_dano)
+  lista_rmse_dano = c(lista_rmse_dano,rmse_prueba_dano)
+  
+  if(rmse_prueba_dano<RMSE_OPT_DANO){
+    
+    svm_dano_mes = prueba_dano
+    RMSE_OPT_DANO = rmse_prueba_dano
+    
+  }
+
+  rm(prueba_dano,rmse_prueba_dano,y_pred_dano)
+  
+}
+
+plot_rmse_herido <- plot_ly(x = valores_gamma_herido, 
+                            y = lista_rmse_herido, 
+                            type = 'scatter', 
+                            mode = 'lines',
+                            name = "RMSE") %>% 
+  add_trace(x = svm_herido_mes$gamma,
+            y = RMSE_OPT_HERIDO,
+            mode="markers",
+            name="Óptimo",
+            textposition="bottom center",
+            marker = list(color = "red")) %>%
+  layout(title = "<b> RMSE vs &#x3B3; (Herido)",
+         xaxis = list(title="<b> &#x3B3;"),
+         yaxis = list(title = '<b> RMSE'))
+
+plot_rmse_dano <- plot_ly(x = valores_gamma_dano, 
+                            y = lista_rmse_dano, 
+                            type = 'scatter', 
+                            mode = 'lines',
+                            name = "RMSE") %>% 
+  add_trace(x = svm_dano_mes$gamma,
+            y = RMSE_OPT_DANO,
+            mode="markers",
+            name="Óptimo",
+            textposition="bottom center",
+            marker = list(color = "red")) %>%
+  layout(title = "<b> RMSE vs &#x3B3; (Solo Daño)",
+         xaxis = list(title="<b> &#x3B3;"),
+         yaxis = list(title = '<b> RMSE'))
+
+plot_rmse_muerto <- plot_ly(x = valores_gamma_muerto, 
+                            y = lista_rmse_muerto, 
+                            type = 'scatter', 
+                            mode = 'lines',
+                            name = "RMSE") %>% 
+  add_trace(x = svm_muerto_mes$gamma,
+            y = RMSE_OPT_MUERTO,
+            mode="markers",
+            name="Óptimo",
+            textposition="bottom center",
+            marker = list(color = "red")) %>%
+  layout(title = "<b> RMSE vs &#x3B3; (Muerto)",
+         xaxis = list(title="<b> &#x3B3;"),
+         yaxis = list(title = '<b> RMSE'))
+```
+
+```{r, echo=FALSE}
+plot_rmse_herido
+```
+
+---
+
+```{r,echo=FALSE}
+plot_rmse_dano
+```
+
+---
+
+```{r,echo=FALSE}
+plot_rmse_muerto
+```
+
+Se observa nuevamente que el parámetro por defecto que tiene la función no es el óptimo para ninguna gravedad, por lo que la optimización de este es una buena estrategia para el mejoramiento de la capacidad predictiva del modelo. A continuación se muestran los resultados en conjunto.
+
+```{r,echo=FALSE}
+DATA_MES_HERIDO_ENTRENAMIENTO$PREDICHO_SVM = round(svm_herido_mes$fitted * sd_herido_mes + prom_herido_mes)
+
+DATA_MES_HERIDO_VALIDACION$PREDICHO_SVM = round(predict(svm_herido_mes,newdata = DATA_MES_HERIDO_VALIDACION) * sd_herido_mes + prom_herido_mes)
+
+DATA_MES_MUERTO_ENTRENAMIENTO$PREDICHO_SVM = round(svm_muerto_mes$fitted * sd_muerto + prom_muerto)
+
+DATA_MES_MUERTO_VALIDACION$PREDICHO_SVM = round(predict(svm_muerto_mes,newdata = DATA_MES_MUERTO_VALIDACION) * sd_muerto_mes + prom_muerto_mes)
+
+DATA_MES_DANO_ENTRENAMIENTO$PREDICHO_SVM = round(svm_dano_mes$fitted * sd_dano_mes + prom_dano_mes)
+
+DATA_MES_DANO_VALIDACION$PREDICHO_SVM = round(predict(svm_dano_mes,newdata = DATA_MES_DANO_VALIDACION) * sd_dano_mes + prom_dano_mes)
+
+
+
+predichos_validacion = c(DATA_MES_DANO_VALIDACION$PREDICHO_SVM,
+                         DATA_MES_MUERTO_VALIDACION$PREDICHO_SVM,
+                         DATA_MES_HERIDO_VALIDACION$PREDICHO_SVM)
+
+predichos_entrenamiento = c(DATA_MES_DANO_ENTRENAMIENTO$PREDICHO_SVM,
+                            DATA_MES_MUERTO_ENTRENAMIENTO$PREDICHO_SVM,
+                            DATA_MES_HERIDO_ENTRENAMIENTO$PREDICHO_SVM)
+
+
+
+RMSE_VALIDACION = RMSE(reales_validacion,predichos_validacion)
+#Cálculo del RMSE de la predicción
+
+CORR_VALIDACION = cor(reales_validacion,predichos_validacion)
+#Cálculo de la correlación entre la predicción y la realidad
+
+RMSE_ENTRENAMIENTO = RMSE(reales_entrenamiento,predichos_entrenamiento)
+#Cálculo del RMSE de la predicción
+
+CORR_ENTRENAMIENTO = cor(reales_entrenamiento,predichos_entrenamiento)
+#Cálculo de la correlación entre la predicción y la realidad
+
+R2_VALIDACION = 1 - sum((reales_validacion-predichos_validacion)^2)/sum((reales_validacion - mean(reales_validacion))^2)
+R2_ENTRENAMIENTO = 1 - sum((reales_entrenamiento-predichos_entrenamiento)^2)/sum((reales_entrenamiento - mean(reales_entrenamiento))^2)
+
+fig_validacion = plot_ly(x = predichos_validacion, 
+              color = as.character(gravedades_validacion)) %>%
+  
+  add_markers(y =reales_validacion,
+              opacity = 0.5,
+              hoverinfo = 'text',
+              text = paste('</br>Real: ', reales_validacion,
+                           '</br>Predicho: ', predichos_validacion,
+                           '</br>Mes: ', mes_validacion),
+              showlegend = TRUE) %>%
+  
+  add_lines(y = seq(0,2500,length.out = length(predichos_validacion)),
+            x = seq(0,2500,length.out = length(predichos_validacion)),
+            line = list(color = 'red'),
+            name = "Identidad", 
+            showlegend = FALSE) %>%
+  
+  layout(xaxis = list(title = '<b> Predicho'),
+         yaxis = list(title = '<b> Real'),
+         title = "<b> Reales vs Predichos (Validación)",
+         annotations = list(text = paste("<b> <i> RMSE: ",round(RMSE_VALIDACION,4),"<br>",
+                                         "CORR: ",round(CORR_VALIDACION,4),"<br>",
+                                         "R<sup>2</sup>: ",round(R2_VALIDACION,4)),
+                            align='left',
+                            showarrow=FALSE,
+                            xref='paper',
+                            yref='paper',
+                            x=0.08,y=1))
+
+fig_entrenamiento = plot_ly(x = predichos_entrenamiento, 
+              color = as.character(gravedades_entrenamiento)) %>%
+  
+  add_markers(y =reales_entrenamiento,
+              hoverinfo = 'text',
+              opacity = 0.5,
+              text = paste('</br>Real: ', reales_entrenamiento,
+                           '</br>Predicho: ', predichos_entrenamiento,
+                           '</br>Mes: ', mes_entrenamiento),
+              showlegend = TRUE) %>%
+  
+  add_lines(y = seq(0,2500,length.out = length(predichos_entrenamiento)),
+            x = seq(0,2500,length.out = length(predichos_entrenamiento)),
+            line = list(color = 'red'),
+            name = "Identidad", 
+            showlegend = FALSE) %>%
+  
+  layout(xaxis = list(title = '<b> Predicho'),
+         yaxis = list(title = '<b> Real'),
+         title = "<b> Reales vs Predichos (Entrenamiento)",
+         annotations = list(text = paste("<b> <i> RMSE: ",round(RMSE_ENTRENAMIENTO,4),"<br>",
+                                         "CORR: ",round(CORR_ENTRENAMIENTO,4),"<br>",
+                                         "R<sup>2</sup>: ",round(R2_ENTRENAMIENTO,4)),
+                            align='left',
+                            showarrow=FALSE,
+                            xref='paper',
+                            yref='paper',
+                            x=0.08,y=1)) 
+
+
+```
+
+---
+
+```{r,echo=FALSE}
+fig_entrenamiento
+```
+
+---
+
+```{r,echo=FALSE}
+fig_validacion
+```
+
+```{r,echo=FALSE}
+RMSE_MUERTO_DIA = round(RMSE(DATA_MES_MUERTO_VALIDACION$CANTIDAD,DATA_MES_MUERTO_VALIDACION$PREDICHO_DIA),4)
+RMSE_MUERTO_RF = round(RMSE(DATA_MES_MUERTO_VALIDACION$CANTIDAD,DATA_MES_MUERTO_VALIDACION$PREDICHO_RF),4)
+RMSE_MUERTO_GLM = round(RMSE(DATA_MES_MUERTO_VALIDACION$CANTIDAD,DATA_MES_MUERTO_VALIDACION$PREDICHO_GLM),4)
+RMSE_MUERTO_SVM = round(RMSE(DATA_MES_MUERTO_VALIDACION$CANTIDAD,DATA_MES_MUERTO_VALIDACION$PREDICHO_SVM),4)
+RMSE_HERIDO_DIA = round(RMSE(DATA_MES_HERIDO_VALIDACION$CANTIDAD,DATA_MES_HERIDO_VALIDACION$PREDICHO_DIA),4)
+RMSE_HERIDO_RF = round(RMSE(DATA_MES_HERIDO_VALIDACION$CANTIDAD,DATA_MES_HERIDO_VALIDACION$PREDICHO_RF),4)
+RMSE_HERIDO_GLM = round(RMSE(DATA_MES_HERIDO_VALIDACION$CANTIDAD,DATA_MES_HERIDO_VALIDACION$PREDICHO_GLM),4)
+RMSE_HERIDO_SVM = round(RMSE(DATA_MES_HERIDO_VALIDACION$CANTIDAD,DATA_MES_HERIDO_VALIDACION$PREDICHO_SVM),4)
+RMSE_DANO_DIA = round(RMSE(DATA_MES_DANO_VALIDACION$CANTIDAD,DATA_MES_DANO_VALIDACION$PREDICHO_DIA),4)
+RMSE_DANO_RF = round(RMSE(DATA_MES_DANO_VALIDACION$CANTIDAD,DATA_MES_DANO_VALIDACION$PREDICHO_RF),4)
+RMSE_DANO_GLM = round(RMSE(DATA_MES_DANO_VALIDACION$CANTIDAD,DATA_MES_DANO_VALIDACION$PREDICHO_GLM),4)
+RMSE_DANO_SVM = round(RMSE(DATA_MES_DANO_VALIDACION$CANTIDAD,DATA_MES_DANO_VALIDACION$PREDICHO_SVM),4)
+
+
+
+```
+
+Para determinar el modelo final, se comparará el valor del RMSE para cada gravedad de los modelos ensayados, y se elegirá aquel que tenga un menor valor.
+
+|Gravedad|Suma Día|Random Forest|GLM|SVM|
+|---|---|---|---|---|
+|**Muerto**|`r RMSE_MUERTO_DIA`|`r RMSE_MUERTO_RF`|`r RMSE_MUERTO_GLM`|**`r RMSE_MUERTO_SVM`**|
+|**Herido**|**`r RMSE_HERIDO_DIA`**|`r RMSE_HERIDO_RF`|`r RMSE_HERIDO_GLM`|`r RMSE_HERIDO_SVM`|
+|**Solo Daños**|**`r RMSE_DANO_DIA`**|`r RMSE_DANO_RF`|`r RMSE_DANO_GLM`|`r RMSE_DANO_SVM`|
+
+Aunque se observa que el modelo que mejor RMSE de validación entrega para la gravedad muerto es el de Máquinas de Soporte Vectorial, dicho modelo entrega un único valor para sus predicciones por lo cual será descartado y se empleará el segundo mejor, es decir el modelo lineal generalizado - familia Poisson.
+
+```{r,echo = FALSE}
+
+predichos_validacion = c(DATA_MES_DANO_VALIDACION$PREDICHO_DIA,
+                         DATA_MES_MUERTO_VALIDACION$PREDICHO_GLM,
+                         DATA_MES_HERIDO_VALIDACION$PREDICHO_DIA)
+
+predichos_entrenamiento = c(DATA_MES_DANO_ENTRENAMIENTO$PREDICHO_DIA,
+                            DATA_MES_MUERTO_ENTRENAMIENTO$PREDICHO_GLM,
+                            DATA_MES_HERIDO_ENTRENAMIENTO$PREDICHO_DIA)
+
+DATA_MES_ENTRENAMIENTO = rbind(DATA_MES_DANO_ENTRENAMIENTO,DATA_MES_MUERTO_ENTRENAMIENTO,DATA_MES_HERIDO_ENTRENAMIENTO)
+DATA_MES_ENTRENAMIENTO$PREDICCION = predichos_entrenamiento
+
+DATA_MES_VALIDACION = rbind(DATA_MES_DANO_VALIDACION,DATA_MES_MUERTO_VALIDACION,DATA_MES_HERIDO_VALIDACION)
+DATA_MES_VALIDACION$PREDICCION = predichos_validacion
+
+
+RMSE_VALIDACION = RMSE(reales_validacion,predichos_validacion)
+#Cálculo del RMSE de la predicción
+
+CORR_VALIDACION = cor(reales_validacion,predichos_validacion)
+#Cálculo de la correlación entre la predicción y la realidad
+
+RMSE_ENTRENAMIENTO = RMSE(reales_entrenamiento,predichos_entrenamiento)
+#Cálculo del RMSE de la predicción
+
+CORR_ENTRENAMIENTO = cor(reales_entrenamiento,predichos_entrenamiento)
+#Cálculo de la correlación entre la predicción y la realidad
+
+R2_VALIDACION = 1 - sum((reales_validacion-predichos_validacion)^2)/sum((reales_validacion - mean(reales_validacion))^2)
+R2_ENTRENAMIENTO = 1 - sum((reales_entrenamiento-predichos_entrenamiento)^2)/sum((reales_entrenamiento - mean(reales_entrenamiento))^2)
+
+fig_validacion = plot_ly(x = predichos_validacion, 
+              color = as.character(gravedades_validacion)) %>%
+  
+  add_markers(y =reales_validacion,
+              opacity = 0.5,
+              hoverinfo = 'text',
+              text = paste('</br>Real: ', reales_validacion,
+                           '</br>Predicho: ', predichos_validacion,
+                           '</br>Mes: ', mes_validacion),
+              showlegend = TRUE) %>%
+  
+  add_lines(y = seq(0,2500,length.out = length(predichos_validacion)),
+            x = seq(0,2500,length.out = length(predichos_validacion)),
+            line = list(color = 'red'),
+            name = "Identidad", 
+            showlegend = FALSE) %>%
+  
+  layout(xaxis = list(title = '<b> Predicho'),
+         yaxis = list(title = '<b> Real'),
+         title = "<b> Reales vs Predichos (Validación) - Ensamble",
+         annotations = list(text = paste("<b> <i> RMSE: ",round(RMSE_VALIDACION,4),"<br>",
+                                         "CORR: ",round(CORR_VALIDACION,4),"<br>",
+                                         "R<sup>2</sup>: ",round(R2_VALIDACION,4)),
+                            align='left',
+                            showarrow=FALSE,
+                            xref='paper',
+                            yref='paper',
+                            x=0.08,y=1))
+
+fig_entrenamiento = plot_ly(x = predichos_entrenamiento, 
+              color = as.character(gravedades_entrenamiento)) %>%
+  
+  add_markers(y =reales_entrenamiento,
+              hoverinfo = 'text',
+              opacity = 0.5,
+              text = paste('</br>Real: ', reales_entrenamiento,
+                           '</br>Predicho: ', predichos_entrenamiento,
+                           '</br>Mes: ', mes_entrenamiento),
+              showlegend = TRUE) %>%
+  
+  add_lines(y = seq(0,2500,length.out = length(predichos_entrenamiento)),
+            x = seq(0,2500,length.out = length(predichos_entrenamiento)),
+            line = list(color = 'red'),
+            name = "Identidad", 
+            showlegend = FALSE) %>%
+  
+  layout(xaxis = list(title = '<b> Predicho'),
+         yaxis = list(title = '<b> Real'),
+         title = "<b> Reales vs Predichos (Entrenamiento) - Ensamble",
+         annotations = list(text = paste("<b> <i> RMSE: ",round(RMSE_ENTRENAMIENTO,4),"<br>",
+                                         "CORR: ",round(CORR_ENTRENAMIENTO,4),"<br>",
+                                         "R<sup>2</sup>: ",round(R2_ENTRENAMIENTO,4)),
+                            align='left',
+                            showarrow=FALSE,
+                            xref='paper',
+                            yref='paper',
+                            x=0.08,y=1)) 
+```
+
+```{r,echo=FALSE}
+fig_entrenamiento
+```
+
+---
+
+```{r,echo=FALSE}
+fig_validacion
+```
+
+# Resultados
+
+Como resultados finales del trabajo se obtiene:
+
+1. Para la predicción de la accidentalidad diaria se empleará 3 modelos, uno por cada tipo de gravedad, en donde se tienen las siguientes especificaciones:
+
+    + Gravedad *Muerto*: Se empleará un modelo lineal generalizado de la familia Poisson en donde las variables predictoras son: `MES`, `DIA_ANO`, `FERIA_FLORES`, `DIA_MES` y `FESTIVO`.
+    + Gravedad *Herido*: Se empleará un modelo de máquinas de soporte vectorial con función Kernel radial, en donde el parámetro $\gamma$ óptimo es `r round(svm_herido$gamma,4)` y en donde las variables predictoras son: `FESTIVO`, `DIA_SEM`, `MES`, `DIA_ANO`, `FIN_SEMANA`, `AÑO`, `SEMANA_MES` y `DIA_MES`.
+    + Gravedad *Solo Daños*: Se empleará un modelo de Random Forest, en donde las variables predictoras son: `FESTIVO`, `DIA_SEM`, `DIA_ANO`, `FIN_SEMANA`, `MES` y `DIA_MES`.
+
+2. Para la predicción de la accidentalidad mensual se empleará una estrategia mixta en donde para la gravedad *Herido* y *Solo Daño* se emplearán los resultados obtenidos en la accidentalidad diaria y únicamente se sumarán por mes, y para la gravedad *Muerto* se realizará un modelo lineal generalizado Poisson en donde las variables predictoras son el año y el mes.
+
+3. Para la predicción semanal se empleará los resultados obtenidos en la prediccion diaria y se sumarán de acuerdo a las semanas.
+
+Para graficar las predicicones realizadas en los años 2019 y 2020, se guardó en el archivo *predicciones.csv* y *datos_mes.csv* los datos correspondientes a las fechas comprendidas entre enero 1 de 2019 y diciembre 31 de 2020.
+
+# Referencias
+
+Aci, C. & Ozden, C. (2018). Predicting the Severity of Motor Vehicle Accident Injuries in Adana-Turkey Using Machine Learning Methods and Detailed Meteorological Data. *International Journal of Intelligent Systems and Applications in Engineering*, 6(1), 72-79. https://doi.org/10.18201/ijisae.2018637934
+<br></br>
+Fawcett, L., Thorpe, N., Matthews, J. & Kremer, K. (2017). A novel Bayesian hierarchical model for road safety hotspot prediction. *Accident Analysis and Prevention*, 99, 262-271. https://doi.org/10.1016/j.aap.2016.11.021
+<br></br>
+Gu, Y., Qian, Z. & Chen, F. (2016). From Twitter to detector: Real-time traffic incident detection using social media data. *Transportation Research Part C: Emerging Technologies*, 67, 321-342. https://doi.org/10.1016/j.trc.2016.02.011
+<br></br>
+Rahman, M. S., Abdel-Aty, M., Hasan, S. & Cai, Q. (2019). Applying machine learning approaches to analyze the vulnerable road-users’ crashes at statewide traffic analysis zones. *Journal of Safety Research*, 70, 275-288. https://doi.org/10.1016/j.jsr.2019.04.008
+<br></br>
+World Health Organization. (2018). *Global status report on road safety 2018*. https://www.who.int/violence_injury_prevention/road_safety_status/2018/en/
+<br></br>
+Zheng, M., Li, T., Zhu, R., Chen, J., Ma, Z., Tang, M., Cui, Z. & Wang, Z. (2019). Traffic accident’s severity prediction: A deep-learning approach-based CNN network. *IEEE Access*, 7, 39897-39910. https://doi.org/10.1109/ACCESS.2019.2903319
+
+
