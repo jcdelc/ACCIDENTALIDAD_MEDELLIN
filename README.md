@@ -6,3 +6,7 @@ En este repositorio se encuentran los códigos y reportes técnicos elaborados p
 
 
 [Predicción de la accidentalidad 2019 - 2020](https://rpubs.com/jcdelc/prediccion_accidentalidad)
+
+[Vídeo promocional](https://www.youtube.com/watch?v=hNP3xKL3cbs&feature=youtu.be)
+
+[Aplicación web](https://jcdelc.shinyapps.io/accidentalidad/)
