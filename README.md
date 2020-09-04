@@ -9,6 +9,6 @@ En este repositorio se encuentran los códigos y reportes técnicos elaborados p
 
 [Agrupamiento de barrios por accidentalidad](https://rpubs.com/jcdelc/agrupamiento_barrios)
 
-[Vídeo promocional](https://www.youtube.com/watch?v=hNP3xKL3cbs&feature=youtu.be)
+[Vídeo promocional](https://youtu.be/h-iGtlopvYk)
 
 [Aplicación web](https://jcdelc.shinyapps.io/accidentalidad/)
