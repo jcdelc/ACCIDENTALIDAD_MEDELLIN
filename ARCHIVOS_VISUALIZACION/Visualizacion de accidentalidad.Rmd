@@ -1,0 +1,1695 @@
+---
+title: "Visualizacion de mapas"
+author: "Juan Camilo Del Rio Cuervo, David Palacio Jiménez, Farid Alonso Saad Plata, Juan Felipe Hernandez Zuluaga, Kelly Johanna Jiménez Avalos"
+date: "26/8/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r,include = FALSE}
+library(lubridate)
+library(ggmap)
+library(MASS)
+library(ISLR)
+library(dplyr)
+library(digest)
+library(randomForest)
+library(glue)
+library(dummies)
+library(factoextra)
+library(class)
+library(stringr)
+library(ggplot2)
+library(FNN)
+library(rpart)
+require(reshape)
+library(plotly)
+library(caret)
+library(lattice)
+library(e1071)
+library(rgdal)
+library(leaflet)
+
+```
+
+# Introducción
+
+---
+
+Los accidentes de tránsito representan actualmente un problema a nivel mundial debido a los impactos sociales y económicos que representan (Aci &amp; Ozden, 2018) . Las cifras anuales promedio de muertes están alrededor de 1.35 millones de personas y 50 millones de heridos, de los cuales una gran cantidad quedan con discapacidades permanentes a causa de las lesiones en estos eventos (World Health Organization, 2018).
+
+Durante el último lustro, se identifican en la literatura diversos enfoques para abordar la predicción de accidentes de tránsito. Algunos autores se han inclinado por estudiar la cantidad de accidentes en áreas densamente transitadas (Fawcett *Et Al.*, 2017; Rahman *Et Al.*, 2019); otros se han concentrado
+en predecir qué tan severas son las consecuencias de acuerdo al tipo de accidente (Zheng *Et Al.*, 2019); algunos más ambiciosos han pretendido detectar en tiempo real los accidentes (Gu *Et Al.*, 2016) ; entre otros.
+
+Esto da cuenta de la importancia en la adquisición datos de accidentes de tránsito, ya que permiten a los investigadores proponer aproximaciones para entender mejor la situación y brindar soluciones que contribuyan a la implementación de estrategias para disminuir estas cifras de accidentalidad en los distintos centros urbanos del mundo.
+
+En busca de resolver algunas preguntas en cuanto a la accidentalidad en el municipio de Medellín (Colombia), se hará uso de los datos abiertos que se encuentran en MEData para emplear técnicas de analítica predictiva y evaluar el desempeño de los modelos desarrollados para la predicción de la
+accidentalidad entre los años 2014 a 2018.
+
+---
+
+# Actividades de ETL
+
+A continuación, se realizará la carga inicial de los datos y el pre-procesamiento inicial de los mismos. Los datos empleados en este trabajo son diferentes a los que se encuentran en la página web de [datos abiertos de movilidad](https://geomedellin-m-medellin.opendata.arcgis.com/search), dado que se tuvo la oportunidad de hablar directamente con la persona encargada del mantenimiento de las bases de datos del portal y suministró una base de datos más limpia.
+
+
+```{r, warning=FALSE}
+DATA = read.csv(
+      file = "Incidentes2014_2020.csv",
+      header = TRUE,
+      sep = ";",
+      encoding="UTF"
+      ) #Carga de la primera base de datos
+
+DATA = DATA[DATA$nombre.comuna != "",] #Se eliminan datos vacios al final de la tabla
+
+BARRIO = read.csv(
+      file = 'BARRIOS_NUEVOS.csv',
+      header = TRUE,
+      sep = ";",
+      encoding="UTF"
+) #Tabla auxiliar para unificar el nombre de los BARRIOs
+
+for(i in BARRIO$NOMBRE){
+  DATA$BARRIO[DATA$BARRIO == i] = BARRIO$BARRIO[BARRIO$NOMBRE == i]
+} #Unificación de las COMUNAs en el dataset de entrenamiento
+
+DATA = DATA[,-c(1,5,6,8,14,10)] #Eliminando columnas sin importancia
+
+DATA$CANTIDAD = 1 #Asignandole a cada observación el valor de 1, indicando que es 1 accidente
+
+DATA$GRAVEDAD = factor(DATA$GRAVEDAD) #Volviendo factor la variable
+
+DATA$CLASE_ACCIDENTE = factor(DATA$CLASE_ACCIDENTE) #Volviendo factor la variable
+
+DATA$FECHA = as.Date(DATA$FECHA,format = "%d/%m/%Y") #Volviendo fecha la variable
+
+DATA$HORA_ACCIDENTE = as.numeric(substr(DATA$HORA_ACCIDENTE,1,2)) #Extrayendo la hora del suceso 0, ..., 23
+
+rm(BARRIO,i)
+```
+
+Se observa que al interior de la información existen observaciones en donde el nombre del barrio no tiene información o esta es incoherente, por lo que esta será imputada para no tener que borrar los datos. Para esto, se usará un algoritmo de $KNN$ con $K = 1$ teniendo como covariables la `LATITUD` y `LONGITUD`, obteniendo así la asignación del incidente más cercano que si tiene en su información el nombre del barrio en que ocurrió.
+
+```{r}
+
+DATA_TRAIN = DATA[-which(is.na(DATA$LATITUD)),c("LATITUD","LONGITUD","BARRIO")]
+DATA_TRAIN$BARRIO = as.character(DATA_TRAIN$BARRIO)
+
+BARRIO_PREDICHO = knn(train = DATA_TRAIN[DATA_TRAIN$BARRIO != "SN",c("LATITUD","LONGITUD")],
+                      test = DATA_TRAIN[DATA_TRAIN$BARRIO == "SN",c("LATITUD","LONGITUD")],
+                      cl = DATA_TRAIN[DATA_TRAIN$BARRIO != "SN","BARRIO"],
+                      k = 1) 
+# Entrenamiento del KNN con K=1 para asignar el nombre del BARRIO más cercano a los datos que no lo tienen
+
+
+DATA_TRAIN$BARRIO[DATA_TRAIN$BARRIO == "SN"] = as.character(BARRIO_PREDICHO) 
+#Asignación de BARRIOs corregidos
+
+DATA_TRAIN = DATA_TRAIN[DATA_TRAIN$LATITUD != DATA_TRAIN$LATITUD[11] & DATA_TRAIN$LONGITUD != DATA_TRAIN$LONGITUD[11],] 
+#Eliminación de los datos que están con georeferenciación errónea
+
+DATA$BARRIO[as.numeric(row.names(DATA_TRAIN))] = DATA_TRAIN$BARRIO 
+
+rm(DATA_TRAIN,BARRIO_PREDICHO)
+
+```
+
+```{r,echo=FALSE}
+
+FERIA_FLORES = read.csv(
+      file = 'FERIA_FLORES.csv',
+      header = TRUE,
+      sep = ";") #Carga de tabla auxiliar para saber si el día pertenece a la feria de las flores
+
+DATA$DIA_ANO = yday(DATA$FECHA) 
+#se obtiene el día del año 
+
+DATA$DIA_MES = mday(DATA$FECHA) 
+#Dia del mes 
+
+DATA$MES = month(DATA$FECHA) 
+#Extraer el número del mes del año
+
+DATA$FERIA_FLORES = 0 #creación de la variable FERIA_FLORES
+
+DATA$DIA_SEM = wday(DATA$FECHA,label = TRUE) #se obtiene el día de la semana del incidente en formato lun, ..., dom
+
+DATA$DIA_SEM = substring(DATA$DIA_SEM,1,3) #Corrección del día de la semana
+
+DATA$DIA_SEM = factor(DATA$DIA_SEM)
+
+DATA$MES = month(DATA$FECHA) #Extraer el número del mes del año
+
+DATA$DIA_MES = mday(DATA$FECHA) #Dia del mes 
+
+for(i in 1:nrow(FERIA_FLORES)){
+  DATA$FERIA_FLORES[(DATA$DIA_MES == FERIA_FLORES$DIA[i]) & 
+                  (DATA$MES == FERIA_FLORES$MES[i]) &
+                  (DATA$ANO == FERIA_FLORES$ANO[i])]=1
+} #Si el día es feria de flores se asigna el valor de 1
+
+rownames(DATA) = 1:length(DATA$FECHA) #Reset de los index del dataframe
+
+DATA$FIN_SEMANA = 0 #creación de variable Fin de semana
+DATA$FIN_SEMANA[DATA$DIA_SEM == "dom"] = 1
+DATA$FIN_SEMANA[DATA$DIA_SEM == "sáb"] = 1
+
+DATA$HORA_ACCIDENTE = as.numeric(substr(DATA$HORA_ACCIDENTE,1,2)) #Extrayendo la hora del suceso 0, ..., 23
+
+DATA$MOMENTO_DIA = ""
+
+DATA$MOMENTO_DIA[DATA$HORA_ACCIDENTE < 6] = "MADRUGADA"
+DATA$MOMENTO_DIA[DATA$HORA_ACCIDENTE >= 6 & DATA$HORA_ACCIDENTE < 12] = "MAÑANA"
+DATA$MOMENTO_DIA[DATA$HORA_ACCIDENTE >= 12 & DATA$HORA_ACCIDENTE < 19] = "TARDE"
+DATA$MOMENTO_DIA[DATA$HORA_ACCIDENTE >= 19 ] = "NOCHE"
+
+DATA = DATA[DATA$MOMENTO_DIA != "",] 
+#Eliminando observaciones que no tienen hora del suceso (4 observaciones)
+
+rm(FERIA_FLORES,i)
+```
+
+```{r}
+DATA_CLUSTER = DATA[DATA$BARRIO != "SN" & DATA$ANO <= 2018,] #Conjunto de datos que será usado en clusterización
+DATA_CLUSTER = DATA_CLUSTER[-which(is.na(DATA_CLUSTER)),]
+rownames(DATA_CLUSTER) = 1:length(DATA_CLUSTER$LATITUD)
+
+rm(DATA)
+```
+
+### Arreglando observaciones que no tienen en su comuna un valor válido
+
+```{r}
+
+DATA_CLUSTER$COMUNA = as.factor(DATA_CLUSTER$COMUNA)
+
+TRAIN = DATA_CLUSTER[DATA_CLUSTER$COMUNA != "Sin Inf",c("LATITUD","LONGITUD","COMUNA")]
+
+TEST = DATA_CLUSTER[DATA_CLUSTER$COMUNA == "Sin Inf",c("LATITUD","LONGITUD")]
+
+COMUNA_PREDICHO = knn(train = TRAIN[,c("LATITUD","LONGITUD")],
+                      test = TEST,
+                      cl = TRAIN$COMUNA,
+                      k = 1)
+# Entrenamiento del KNN con K=1 para asignar el nombre de la comuna más cercana a los datos que no lo tienen
+
+DATA_CLUSTER$COMUNA[as.numeric(row.names(TEST))] = COMUNA_PREDICHO
+
+rm(COMUNA_PREDICHO,TRAIN,TEST)
+
+```
+
+```{r}
+#Arreglando el formato de las variables y sus valores según lo requerido para graficación de mapas
+DATA_CLUSTER$DIA_SEM = as.character(DATA_CLUSTER$DIA_SEM)
+DATA_CLUSTER$GRAVEDAD = as.character(DATA_CLUSTER$GRAVEDAD)
+DATA_CLUSTER$MES[DATA_CLUSTER$MES == 1] = "ENERO"
+DATA_CLUSTER$MES[DATA_CLUSTER$MES == 2] = "FEBRERO"
+DATA_CLUSTER$MES[DATA_CLUSTER$MES == 3] = "MARZO"
+DATA_CLUSTER$MES[DATA_CLUSTER$MES == 4] = "ABRIL"
+DATA_CLUSTER$MES[DATA_CLUSTER$MES == 5] = "MAYO"
+DATA_CLUSTER$MES[DATA_CLUSTER$MES == 6] = "JUNIO"
+DATA_CLUSTER$MES[DATA_CLUSTER$MES == 7] = "JULIO"
+DATA_CLUSTER$MES[DATA_CLUSTER$MES == 8] = "AGOSTO"
+DATA_CLUSTER$MES[DATA_CLUSTER$MES == 9] = "SEPTIEMBRE"
+DATA_CLUSTER$MES[DATA_CLUSTER$MES == 10] = "OCTUBRE"
+DATA_CLUSTER$MES[DATA_CLUSTER$MES == 11] = "NOVIEMBRE"
+DATA_CLUSTER$MES[DATA_CLUSTER$MES == 12] = "DICIEMBRE"
+DATA_CLUSTER$DIA_SEM[DATA_CLUSTER$DIA_SEM == "lun"] = "LUNES"
+DATA_CLUSTER$DIA_SEM[DATA_CLUSTER$DIA_SEM == "mar"] = "MARTES"
+DATA_CLUSTER$DIA_SEM[DATA_CLUSTER$DIA_SEM == "mié"] = "MIERCOLES"
+DATA_CLUSTER$DIA_SEM[DATA_CLUSTER$DIA_SEM == "jue"] = "JUEVES"
+DATA_CLUSTER$DIA_SEM[DATA_CLUSTER$DIA_SEM == "vie"] = "VIERNES"
+DATA_CLUSTER$DIA_SEM[DATA_CLUSTER$DIA_SEM == "sáb"] = "SABADO"
+DATA_CLUSTER$DIA_SEM[DATA_CLUSTER$DIA_SEM == "dom"] = "DOMINGO"
+DATA_CLUSTER$GRAVEDAD[DATA_CLUSTER$GRAVEDAD == "SOLO DAÑOS"] = "DANO"
+DATA_CLUSTER$FIN_SEMANA[DATA_CLUSTER$FIN_SEMANA == 1] = "FINSEMANA"
+DATA_CLUSTER$FIN_SEMANA[DATA_CLUSTER$FIN_SEMANA == 0] = "SEMANA"
+```
+
+
+```{r}
+#Carga del GeoJSON para graficación de mapas
+DATA_MAPA = readOGR("OPENDATA_Catastro_CTM12.geojson",use_iconv = TRUE, encoding = "UTF-8")
+
+#Creación de variables para arreglar problemas de combinación de barrio y comuna errónea
+DATA_CLUSTER$BARRIO_COMUNA = paste(DATA_CLUSTER$BARRIO,DATA_CLUSTER$COMUNA,sep="-")
+DATA_MAPA@data$BARRIO_COMUNA = paste(DATA_MAPA@data$NOMBRE_BARRIO,DATA_MAPA@data$NOMBRE_COMUNA,sep="-")
+```
+
+```{r}
+#Encontrando aquellas observaciones que tienen error en su combinación BARRIO-COMUNA
+verdaderos = DATA_MAPA@data$BARRIO_COMUNA
+totales = unique(DATA_CLUSTER$BARRIO_COMUNA)
+lista_buenos = c()
+lista_malos = c()
+for(i in totales){
+  
+  if(i %in% verdaderos){
+    
+    lista_buenos = c(lista_buenos,i)
+    
+  } else {
+    
+    lista_malos = c(lista_malos,i)
+    
+  }
+  
+}
+
+```
+
+```{r}
+#Arreglo de las observaciones en los campos Barrio y Comuna donde  tienen error en la combinación BARRIO - COMUNA
+
+#Arreglando el formato de las variables Barrio y Comuna como caracter
+DATA_CLUSTER$BARRIO = as.factor(DATA_CLUSTER$BARRIO)
+DATA_CLUSTER$COMUNA = as.factor(DATA_CLUSTER$COMUNA)
+
+#Separando datos con combinación BARRIO-COMUNA buena y mala
+TEST = DATA_CLUSTER[DATA_CLUSTER$BARRIO_COMUNA %in% lista_malos,c("LATITUD","LONGITUD")]
+TRAIN = DATA_CLUSTER[DATA_CLUSTER$BARRIO_COMUNA %in% lista_buenos,c("LATITUD","LONGITUD","BARRIO","COMUNA")]
+
+#Arreglando el barrio según la observación más cercana de acuerdo a sus coordenadas
+ARREGLO_BARRIOS = knn(train = TRAIN[,c("LATITUD","LONGITUD")],
+                      test = TEST,
+                      cl = TRAIN$BARRIO,
+                      k = 1)
+#Arreglando la comuna según la observación más cercana de acuerdo a sus coordenadas
+ARREGLO_COMUNAS = knn(train = TRAIN[,c("LATITUD","LONGITUD")],
+                      test = TEST,
+                      cl = TRAIN$COMUNA,
+                      k = 1)
+
+#Ingreso de los valores arreglados en el dataframe original
+DATA_CLUSTER$BARRIO[DATA_CLUSTER$BARRIO_COMUNA %in% lista_malos] = (ARREGLO_BARRIOS)
+DATA_CLUSTER$COMUNA[DATA_CLUSTER$BARRIO_COMUNA %in% lista_malos] = (ARREGLO_COMUNAS)
+DATA_CLUSTER$BARRIO_COMUNA = paste(DATA_CLUSTER$BARRIO,DATA_CLUSTER$COMUNA,sep="-")
+
+rm(TEST,TRAIN,ARREGLO_BARRIOS,ARREGLO_COMUNAS,i,lista_buenos,lista_malos,totales,verdaderos)
+
+```
+
+
+```{r}
+#Creación de variables en donde se guardan los posibles valores que pueden tomar según se escoja el mapa
+ano_datos = 2014:2018
+
+mes_datos = sort(unique(DATA_CLUSTER$MES))
+
+gravedad_datos = sort(unique(DATA_CLUSTER$GRAVEDAD))
+
+semana_datos = sort(unique(DATA_CLUSTER$DIA_SEM))
+
+momento_datos = sort(unique(DATA_CLUSTER$MOMENTO_DIA))
+
+#Selección de variables de interés al momento de graficar para optimizar la velocidad de cálculo
+DATA_CLUSTER = DATA_CLUSTER[,c("BARRIO_COMUNA","ANO","MES","GRAVEDAD","DIA_SEM","MOMENTO_DIA","CANTIDAD")]
+DATA_CLUSTER = DATA_CLUSTER[order(DATA_CLUSTER$ANO,DATA_CLUSTER$MES,DATA_CLUSTER$GRAVEDAD,DATA_CLUSTER$DIA_SEM,DATA_CLUSTER$MOMENTO_DIA),]
+rownames(DATA_CLUSTER) = 1:length(DATA_CLUSTER$BARRIO)
+
+aux2 = data.frame("BARRIO_COMUNA" = unique(DATA_CLUSTER$BARRIO_COMUNA))
+aux2$CANTIDAD_TOTAL_ = 0
+aux2 = aux2[order(aux2$BARRIO_COMUNA),]
+rownames(aux2) = 1:dim(aux2)[1]
+```
+
+
+
+
+### sin especificación
+
+```{r}
+GRAFICAR = aggregate(CANTIDAD~BARRIO_COMUNA, data = DATA_CLUSTER, FUN = sum)
+colnames(GRAFICAR) = c("BARRIO_COMUNA","ACCIDENTES_TOTALES")
+
+aux2[,"CANTIDAD_TOTAL_"] = 0
+
+aux2[aux2$BARRIO_COMUNA %in% GRAFICAR$BARRIO_COMUNA,"CANTIDAD_TOTAL_"] = GRAFICAR$ACCIDENTES_TOTALES
+
+rm(GRAFICAR)
+
+```
+
+
+### Por momento
+
+```{r}
+
+for(momento in momento_datos){
+  
+  name = paste("CANTIDAD_TOTAL_",momento,"_",sep="")
+  
+  aux = DATA_CLUSTER[DATA_CLUSTER$MOMENTO_DIA == momento,c("BARRIO_COMUNA","CANTIDAD")]
+  
+  l = length(aux$BARRIO_COMUNA)
+          
+  aux2[,name] = 0
+  
+  if(l > 0){
+    
+    GRAFICAR = aggregate(CANTIDAD~BARRIO_COMUNA, data = aux, FUN = sum)
+    
+    colnames(GRAFICAR) = c("BARRIO_COMUNA","ACCIDENTES_TOTALES")
+    
+    c = 1:length(GRAFICAR$BARRIO_COMUNA)
+  
+    aux2[aux2$BARRIO_COMUNA %in% GRAFICAR$BARRIO_COMUNA,name] = GRAFICAR$ACCIDENTES_TOTALES
+    
+  }
+
+}
+
+```
+
+### Por año
+
+```{r}
+
+for(ano in ano_datos){
+  
+  name = paste("CANTIDAD_TOTAL_",ano,"_",sep="")
+  
+  aux = DATA_CLUSTER[DATA_CLUSTER$ANO == ano,c("BARRIO_COMUNA","CANTIDAD")]
+  
+  l = length(aux$BARRIO_COMUNA)
+          
+  aux2[,name] = 0
+  
+  if(l > 0){
+    
+    GRAFICAR = aggregate(CANTIDAD~BARRIO_COMUNA, data = aux, FUN = sum)
+    
+    colnames(GRAFICAR) = c("BARRIO_COMUNA","ACCIDENTES_TOTALES")
+    
+    c = 1:length(GRAFICAR$BARRIO_COMUNA)
+  
+    aux2[aux2$BARRIO_COMUNA %in% GRAFICAR$BARRIO_COMUNA,name] = GRAFICAR$ACCIDENTES_TOTALES
+    
+  }
+
+}
+
+```
+
+### Por mes
+
+```{r}
+
+for(mes in mes_datos){
+  
+  name = paste("CANTIDAD_TOTAL_",mes,"_",sep="")
+  
+  aux = DATA_CLUSTER[DATA_CLUSTER$MES == mes,c("BARRIO_COMUNA","CANTIDAD")]
+  
+  l = length(aux$BARRIO_COMUNA)
+          
+  aux2[,name] = 0
+  
+  if(l > 0){
+    
+    GRAFICAR = aggregate(CANTIDAD~BARRIO_COMUNA, data = aux, FUN = sum)
+    
+    colnames(GRAFICAR) = c("BARRIO_COMUNA","ACCIDENTES_TOTALES")
+    
+    c = 1:length(GRAFICAR$BARRIO_COMUNA)
+  
+    aux2[aux2$BARRIO_COMUNA %in% GRAFICAR$BARRIO_COMUNA,name] = GRAFICAR$ACCIDENTES_TOTALES
+    
+  }
+  
+}
+
+```
+
+### Por gravedad
+
+```{r}
+
+for(gravedad in gravedad_datos){
+  
+  name = paste("CANTIDAD_TOTAL_",gravedad,"_",sep="")
+  
+  aux = DATA_CLUSTER[DATA_CLUSTER$GRAVEDAD == gravedad,c("BARRIO_COMUNA","CANTIDAD")]
+  
+  l = length(aux$BARRIO_COMUNA)
+          
+  aux2[,name] = 0
+  
+  if(l > 0){
+    
+    GRAFICAR = aggregate(CANTIDAD~BARRIO_COMUNA, data = aux, FUN = sum)
+    
+    colnames(GRAFICAR) = c("BARRIO_COMUNA","ACCIDENTES_TOTALES")
+    
+    c = 1:length(GRAFICAR$BARRIO_COMUNA)
+  
+    aux2[aux2$BARRIO_COMUNA %in% GRAFICAR$BARRIO_COMUNA,name] = GRAFICAR$ACCIDENTES_TOTALES
+    
+  }
+
+}
+
+```
+
+### Por semana
+
+```{r}
+
+for(semana in semana_datos){
+  
+  name = paste("CANTIDAD_TOTAL_",semana,"_",sep="")
+  
+  aux = DATA_CLUSTER[DATA_CLUSTER$DIA_SEM == semana,c("BARRIO_COMUNA","CANTIDAD")]
+  
+  l = length(aux$BARRIO_COMUNA)
+          
+  aux2[,name] = 0
+  
+  if(l > 0){
+    
+    GRAFICAR = aggregate(CANTIDAD~BARRIO_COMUNA, data = aux, FUN = sum)
+    
+    colnames(GRAFICAR) = c("BARRIO_COMUNA","ACCIDENTES_TOTALES")
+    
+    c = 1:length(GRAFICAR$BARRIO_COMUNA)
+  
+    aux2[aux2$BARRIO_COMUNA %in% GRAFICAR$BARRIO_COMUNA,name] = GRAFICAR$ACCIDENTES_TOTALES
+    
+  }
+
+}
+
+```
+
+### Por año y por mes
+
+```{r}
+
+for(ano in ano_datos){
+  
+  for(mes in mes_datos){
+    
+    name = paste("CANTIDAD_TOTAL_",ano,"_",mes,"_",sep="")
+    
+    aux = DATA_CLUSTER[DATA_CLUSTER$ANO == ano,]
+  
+    aux = aux[aux$MES == mes,c("BARRIO_COMUNA","CANTIDAD")]
+  
+    l = length(aux$BARRIO_COMUNA)
+          
+    aux2[,name] = 0
+    
+    if(l > 0){
+      
+      GRAFICAR = aggregate(CANTIDAD~BARRIO_COMUNA, data = aux, FUN = sum)
+      
+      colnames(GRAFICAR) = c("BARRIO_COMUNA","ACCIDENTES_TOTALES")
+      
+      c = 1:length(GRAFICAR$BARRIO_COMUNA)
+    
+      aux2[aux2$BARRIO_COMUNA %in% GRAFICAR$BARRIO_COMUNA,name] = GRAFICAR$ACCIDENTES_TOTALES
+      
+    }
+
+  }
+  
+}
+```
+
+
+
+### Por año y por gravedad
+
+```{r}
+
+for(ano in ano_datos){
+  
+  for(gravedad in gravedad_datos){
+    
+    name = paste("CANTIDAD_TOTAL_",ano,"_",gravedad,"_",sep="")
+    
+    aux = DATA_CLUSTER[DATA_CLUSTER$ANO == ano,]
+  
+    aux = aux[aux$GRAVEDAD == gravedad,c("BARRIO_COMUNA","CANTIDAD")]
+  
+    l = length(aux$BARRIO_COMUNA)
+          
+    aux2[,name] = 0
+    
+    if(l > 0){
+      
+      GRAFICAR = aggregate(CANTIDAD~BARRIO_COMUNA, data = aux, FUN = sum)
+      
+      colnames(GRAFICAR) = c("BARRIO_COMUNA","ACCIDENTES_TOTALES")
+      
+      c = 1:length(GRAFICAR$BARRIO_COMUNA)
+    
+      aux2[aux2$BARRIO_COMUNA %in% GRAFICAR$BARRIO_COMUNA,name] = GRAFICAR$ACCIDENTES_TOTALES
+      
+    }
+
+  }
+  
+}
+```
+
+### Por año y por semana
+
+```{r}
+
+for(ano in ano_datos){
+  
+  for(semana in semana_datos){
+    
+    name = paste("CANTIDAD_TOTAL_",ano,"_",semana,"_",sep="")
+    
+    aux = DATA_CLUSTER[DATA_CLUSTER$ANO == ano,]
+  
+    aux = aux[aux$DIA_SEM == semana,c("BARRIO_COMUNA","CANTIDAD")]
+  
+    l = length(aux$BARRIO_COMUNA)
+          
+    aux2[,name] = 0
+    
+    if(l > 0){
+      
+      GRAFICAR = aggregate(CANTIDAD~BARRIO_COMUNA, data = aux, FUN = sum)
+      
+      colnames(GRAFICAR) = c("BARRIO_COMUNA","ACCIDENTES_TOTALES")
+      
+      c = 1:length(GRAFICAR$BARRIO_COMUNA)
+    
+      aux2[aux2$BARRIO_COMUNA %in% GRAFICAR$BARRIO_COMUNA,name] = GRAFICAR$ACCIDENTES_TOTALES
+      
+    }
+
+  }
+  
+}
+```
+
+### Por mes y por gravedad
+
+```{r}
+
+for(mes in mes_datos){
+  
+  for(gravedad in gravedad_datos){
+    
+    name = paste("CANTIDAD_TOTAL_",mes,"_",gravedad,"_",sep="")
+    
+    aux = DATA_CLUSTER[DATA_CLUSTER$MES == mes,]
+  
+    aux = aux[aux$GRAVEDAD == gravedad,c("BARRIO_COMUNA","CANTIDAD")]
+  
+    l = length(aux$BARRIO_COMUNA)
+          
+    aux2[,name] = 0
+    
+    if(l > 0){
+      
+      GRAFICAR = aggregate(CANTIDAD~BARRIO_COMUNA, data = aux, FUN = sum)
+      
+      colnames(GRAFICAR) = c("BARRIO_COMUNA","ACCIDENTES_TOTALES")
+      
+      c = 1:length(GRAFICAR$BARRIO_COMUNA)
+    
+      aux2[aux2$BARRIO_COMUNA %in% GRAFICAR$BARRIO_COMUNA,name] = GRAFICAR$ACCIDENTES_TOTALES
+      
+    }
+
+  }
+  
+}
+```
+
+### Por mes y por semana
+
+```{r}
+
+for(mes in mes_datos){
+  
+  for(semana in semana_datos){
+    
+    name = paste("CANTIDAD_TOTAL_",mes,"_",semana,"_",sep="")
+    
+    aux = DATA_CLUSTER[DATA_CLUSTER$MES == mes,]
+  
+    aux = aux[aux$DIA_SEM == semana,c("BARRIO_COMUNA","CANTIDAD")]
+  
+    l = length(aux$BARRIO_COMUNA)
+          
+    aux2[,name] = 0
+    
+    if(l > 0){
+      
+      GRAFICAR = aggregate(CANTIDAD~BARRIO_COMUNA, data = aux, FUN = sum)
+      
+      colnames(GRAFICAR) = c("BARRIO_COMUNA","ACCIDENTES_TOTALES")
+      
+      c = 1:length(GRAFICAR$BARRIO_COMUNA)
+    
+      aux2[aux2$BARRIO_COMUNA %in% GRAFICAR$BARRIO_COMUNA,name] = GRAFICAR$ACCIDENTES_TOTALES
+      
+    }
+
+  }
+  
+}
+
+```
+
+### Por gravedad y por semana
+
+```{r}
+
+for(gravedad in gravedad_datos){
+  
+  for(semana in semana_datos){
+    
+    name = paste("CANTIDAD_TOTAL_",gravedad,"_",semana,"_",sep="")
+    
+    aux = DATA_CLUSTER[DATA_CLUSTER$GRAVEDAD == gravedad,]
+  
+    aux = aux[aux$DIA_SEM == semana,c("BARRIO_COMUNA","CANTIDAD")]
+  
+    l = length(aux$BARRIO_COMUNA)
+          
+    aux2[,name] = 0
+    
+    if(l > 0){
+      
+      GRAFICAR = aggregate(CANTIDAD~BARRIO_COMUNA, data = aux, FUN = sum)
+      
+      colnames(GRAFICAR) = c("BARRIO_COMUNA","ACCIDENTES_TOTALES")
+      
+      c = 1:length(GRAFICAR$BARRIO_COMUNA)
+    
+      aux2[aux2$BARRIO_COMUNA %in% GRAFICAR$BARRIO_COMUNA,name] = GRAFICAR$ACCIDENTES_TOTALES
+      
+    }
+    
+  }
+  
+}
+
+```
+
+### Por semana y momento
+
+```{r}
+  
+for(semana in semana_datos){
+  
+  for(momento in momento_datos){
+
+    name = paste("CANTIDAD_TOTAL_",semana,"_",momento,"_",sep="")
+    
+    aux = DATA_CLUSTER[DATA_CLUSTER$DIA_SEM == semana,]
+  
+    aux = aux[aux$MOMENTO_DIA == momento,c("BARRIO_COMUNA","CANTIDAD")]
+    
+    l = length(aux$BARRIO_COMUNA)
+          
+    aux2[,name] = 0
+    
+    if(l > 0){
+      
+      GRAFICAR = aggregate(CANTIDAD~BARRIO_COMUNA, data = aux, FUN = sum)
+      
+      colnames(GRAFICAR) = c("BARRIO_COMUNA","ACCIDENTES_TOTALES")
+      
+      c = 1:length(GRAFICAR$BARRIO_COMUNA)
+    
+      aux2[aux2$BARRIO_COMUNA %in% GRAFICAR$BARRIO_COMUNA,name] = GRAFICAR$ACCIDENTES_TOTALES
+      
+    }
+    
+  }
+
+}
+
+```
+
+### Por año y momento
+
+```{r}
+  
+for(ano in ano_datos){
+  
+  for(momento in momento_datos){
+
+    name = paste("CANTIDAD_TOTAL_",ano,"_",momento,"_",sep="")
+    
+    aux = DATA_CLUSTER[DATA_CLUSTER$ANO == ano,]
+  
+    aux = aux[aux$MOMENTO_DIA == momento,c("BARRIO_COMUNA","CANTIDAD")]
+    
+    l = length(aux$BARRIO_COMUNA)
+          
+    aux2[,name] = 0
+    
+    if(l > 0){
+      
+      GRAFICAR = aggregate(CANTIDAD~BARRIO_COMUNA, data = aux, FUN = sum)
+      
+      colnames(GRAFICAR) = c("BARRIO_COMUNA","ACCIDENTES_TOTALES")
+      
+      c = 1:length(GRAFICAR$BARRIO_COMUNA)
+    
+      aux2[aux2$BARRIO_COMUNA %in% GRAFICAR$BARRIO_COMUNA,name] = GRAFICAR$ACCIDENTES_TOTALES
+      
+    }
+    
+  }
+
+}
+
+```
+
+### Por mes y momento
+
+```{r}
+  
+for(mes in mes_datos){
+  
+  for(momento in momento_datos){
+
+    name = paste("CANTIDAD_TOTAL_",mes,"_",momento,"_",sep="")
+    
+    aux = DATA_CLUSTER[DATA_CLUSTER$MES == mes,]
+  
+    aux = aux[aux$MOMENTO_DIA == momento,c("BARRIO_COMUNA","CANTIDAD")]
+    
+    l = length(aux$BARRIO_COMUNA)
+          
+    aux2[,name] = 0
+    
+    if(l > 0){
+      
+      GRAFICAR = aggregate(CANTIDAD~BARRIO_COMUNA, data = aux, FUN = sum)
+      
+      colnames(GRAFICAR) = c("BARRIO_COMUNA","ACCIDENTES_TOTALES")
+      
+      c = 1:length(GRAFICAR$BARRIO_COMUNA)
+    
+      aux2[aux2$BARRIO_COMUNA %in% GRAFICAR$BARRIO_COMUNA,name] = GRAFICAR$ACCIDENTES_TOTALES
+      
+    }
+    
+  }
+
+}
+
+```
+
+### Por gravedad y momento
+
+```{r}
+  
+for(gravedad in gravedad_datos){
+  
+  for(momento in momento_datos){
+
+    name = paste("CANTIDAD_TOTAL_",gravedad,"_",momento,"_",sep="")
+    
+    aux = DATA_CLUSTER[DATA_CLUSTER$GRAVEDAD == gravedad,]
+  
+    aux = aux[aux$MOMENTO_DIA == momento,c("BARRIO_COMUNA","CANTIDAD")]
+    
+    l = length(aux$BARRIO_COMUNA)
+          
+    aux2[,name] = 0
+    
+    if(l > 0){
+      
+      GRAFICAR = aggregate(CANTIDAD~BARRIO_COMUNA, data = aux, FUN = sum)
+      
+      colnames(GRAFICAR) = c("BARRIO_COMUNA","ACCIDENTES_TOTALES")
+      
+      c = 1:length(GRAFICAR$BARRIO_COMUNA)
+    
+      aux2[aux2$BARRIO_COMUNA %in% GRAFICAR$BARRIO_COMUNA,name] = GRAFICAR$ACCIDENTES_TOTALES
+      
+    }
+    
+  }
+
+}
+
+```
+
+### Por año, mes y gravedad
+
+```{r}
+
+for(ano in ano_datos){
+  
+  for(mes in mes_datos){
+      
+    for(gravedad in gravedad_datos){
+    
+      name = paste("CANTIDAD_TOTAL_",ano,"_",mes,"_",gravedad,"_",sep="")
+  
+      aux = DATA_CLUSTER[DATA_CLUSTER$ANO == ano,]
+      
+      aux = aux[aux$MES == mes,]
+  
+      aux = aux[aux$GRAVEDAD == gravedad,c("BARRIO_COMUNA","CANTIDAD")]
+      
+      l = length(aux$BARRIO_COMUNA)
+          
+      aux2[,name] = 0
+      
+      if(l > 0){
+        
+        GRAFICAR = aggregate(CANTIDAD~BARRIO_COMUNA, data = aux, FUN = sum)
+        
+        colnames(GRAFICAR) = c("BARRIO_COMUNA","ACCIDENTES_TOTALES")
+        
+        c = 1:length(GRAFICAR$BARRIO_COMUNA)
+      
+        aux2[aux2$BARRIO_COMUNA %in% GRAFICAR$BARRIO_COMUNA,name] = GRAFICAR$ACCIDENTES_TOTALES
+        
+      }
+
+    }
+  
+  }
+  
+}
+
+```
+
+### Por año, gravedad y semana
+
+```{r}
+
+for(ano in ano_datos){
+  
+  for(gravedad in gravedad_datos){
+      
+    for(semana in semana_datos){
+    
+      name = paste("CANTIDAD_TOTAL_",ano,"_",gravedad,"_",semana,"_",sep="")
+  
+      aux = DATA_CLUSTER[DATA_CLUSTER$ANO == ano,]
+      
+      aux = aux[aux$GRAVEDAD == gravedad,]
+  
+      aux = aux[aux$DIA_SEM == semana,c("BARRIO_COMUNA","CANTIDAD")]
+      
+      l = length(aux$BARRIO_COMUNA)
+          
+      aux2[,name] = 0
+      
+      if(l > 0){
+        
+        GRAFICAR = aggregate(CANTIDAD~BARRIO_COMUNA, data = aux, FUN = sum)
+        
+        colnames(GRAFICAR) = c("BARRIO_COMUNA","ACCIDENTES_TOTALES")
+        
+        c = 1:length(GRAFICAR$BARRIO_COMUNA)
+      
+        aux2[aux2$BARRIO_COMUNA %in% GRAFICAR$BARRIO_COMUNA,name] = GRAFICAR$ACCIDENTES_TOTALES
+        
+      }
+
+    }
+  
+  }
+  
+}
+
+```
+
+### Por año, mes y semana
+
+```{r}
+
+for(ano in ano_datos){
+  
+  for(mes in mes_datos){
+      
+    for(semana in semana_datos){
+    
+      name = paste("CANTIDAD_TOTAL_",ano,"_",mes,"_",semana,"_",sep="")
+  
+      aux = DATA_CLUSTER[DATA_CLUSTER$ANO == ano,]
+      
+      aux = aux[aux$MES == mes,]
+  
+      aux = aux[aux$DIA_SEM == semana,c("BARRIO_COMUNA","CANTIDAD")]
+      
+      l = length(aux$BARRIO_COMUNA)
+          
+      aux2[,name] = 0
+      
+      if(l > 0){
+        
+        GRAFICAR = aggregate(CANTIDAD~BARRIO_COMUNA, data = aux, FUN = sum)
+        
+        colnames(GRAFICAR) = c("BARRIO_COMUNA","ACCIDENTES_TOTALES")
+        
+        c = 1:length(GRAFICAR$BARRIO_COMUNA)
+      
+        aux2[aux2$BARRIO_COMUNA %in% GRAFICAR$BARRIO_COMUNA,name] = GRAFICAR$ACCIDENTES_TOTALES
+        
+      }
+
+    }
+  
+  }
+  
+}
+
+```
+
+### Por mes, gravedad y semana
+
+```{r}
+
+for(mes in mes_datos){
+  
+  for(gravedad in gravedad_datos){
+      
+    for(semana in semana_datos){
+    
+      name = paste("CANTIDAD_TOTAL_",mes,"_",gravedad,"_",semana,"_",sep="")
+  
+      aux = DATA_CLUSTER[DATA_CLUSTER$MES == mes,]
+      
+      aux = aux[aux$GRAVEDAD == gravedad,]
+  
+      aux = aux[aux$DIA_SEM == semana,c("BARRIO_COMUNA","CANTIDAD")]
+      
+      l = length(aux$BARRIO_COMUNA)
+          
+      aux2[,name] = 0
+      
+      if(l > 0){
+        
+        GRAFICAR = aggregate(CANTIDAD~BARRIO_COMUNA, data = aux, FUN = sum)
+        
+        colnames(GRAFICAR) = c("BARRIO_COMUNA","ACCIDENTES_TOTALES")
+        
+        c = 1:length(GRAFICAR$BARRIO_COMUNA)
+      
+        aux2[aux2$BARRIO_COMUNA %in% GRAFICAR$BARRIO_COMUNA,name] = GRAFICAR$ACCIDENTES_TOTALES
+        
+      }
+
+    }
+  
+  }
+  
+}
+
+```
+
+### Por gravedad, semana y momento
+
+```{r}
+
+for(gravedad in gravedad_datos){
+  
+  for(semana in semana_datos){
+    
+    for(momento in momento_datos){
+
+      name = paste("CANTIDAD_TOTAL_",gravedad,"_",semana,"_",momento,"_",sep="")
+      
+      aux = DATA_CLUSTER[DATA_CLUSTER$GRAVEDAD == gravedad,]
+      
+      aux = aux[aux$DIA_SEM == semana,]
+  
+      aux = aux[aux$MOMENTO_DIA == momento,c("BARRIO_COMUNA","CANTIDAD")]
+      
+      l = length(aux$BARRIO_COMUNA)
+          
+      aux2[,name] = 0
+      
+      if(l > 0){
+        
+        GRAFICAR = aggregate(CANTIDAD~BARRIO_COMUNA, data = aux, FUN = sum)
+        
+        colnames(GRAFICAR) = c("BARRIO_COMUNA","ACCIDENTES_TOTALES")
+        
+        c = 1:length(GRAFICAR$BARRIO_COMUNA)
+      
+        aux2[aux2$BARRIO_COMUNA %in% GRAFICAR$BARRIO_COMUNA,name] = GRAFICAR$ACCIDENTES_TOTALES
+        
+      }
+      
+    }
+
+  }
+  
+}
+
+```
+
+### Por año, semana y momento
+
+```{r}
+
+for(ano in ano_datos){
+  
+  for(semana in semana_datos){
+    
+    for(momento in momento_datos){
+
+      name = paste("CANTIDAD_TOTAL_",ano,"_",semana,"_",momento,"_",sep="")
+      
+      aux = DATA_CLUSTER[DATA_CLUSTER$ANO == ano,]
+      
+      aux = aux[aux$DIA_SEM == semana,]
+  
+      aux = aux[aux$MOMENTO_DIA == momento,c("BARRIO_COMUNA","CANTIDAD")]
+      
+      l = length(aux$BARRIO_COMUNA)
+          
+      aux2[,name] = 0
+      
+      if(l > 0){
+        
+        GRAFICAR = aggregate(CANTIDAD~BARRIO_COMUNA, data = aux, FUN = sum)
+        
+        colnames(GRAFICAR) = c("BARRIO_COMUNA","ACCIDENTES_TOTALES")
+        
+        c = 1:length(GRAFICAR$BARRIO_COMUNA)
+      
+        aux2[aux2$BARRIO_COMUNA %in% GRAFICAR$BARRIO_COMUNA,name] = GRAFICAR$ACCIDENTES_TOTALES
+        
+      }
+      
+    }
+
+  }
+  
+}
+
+```
+
+### Por año, gravedad y momento
+
+```{r}
+
+for(ano in ano_datos){
+  
+  for(gravedad in gravedad_datos){
+    
+    for(momento in momento_datos){
+
+      name = paste("CANTIDAD_TOTAL_",ano,"_",gravedad,"_",momento,"_",sep="")
+      
+      aux = DATA_CLUSTER[DATA_CLUSTER$ANO == ano,]
+      
+      aux = aux[aux$GRAVEDAD == gravedad,]
+  
+      aux = aux[aux$MOMENTO_DIA == momento,c("BARRIO_COMUNA","CANTIDAD")]
+      
+      l = length(aux$BARRIO_COMUNA)
+          
+      aux2[,name] = 0
+      
+      if(l > 0){
+        
+        GRAFICAR = aggregate(CANTIDAD~BARRIO_COMUNA, data = aux, FUN = sum)
+        
+        colnames(GRAFICAR) = c("BARRIO_COMUNA","ACCIDENTES_TOTALES")
+        
+        c = 1:length(GRAFICAR$BARRIO_COMUNA)
+      
+        aux2[aux2$BARRIO_COMUNA %in% GRAFICAR$BARRIO_COMUNA,name] = GRAFICAR$ACCIDENTES_TOTALES
+        
+      }
+      
+    }
+
+  }
+  
+}
+
+```
+
+### Por año, mes y momento
+
+```{r}
+s = 0
+for(ano in ano_datos){
+  
+  for(mes in mes_datos){
+    
+    for(momento in momento_datos){
+      
+      name = paste("CANTIDAD_TOTAL_",ano,"_",mes,"_",momento,"_",sep="")
+      
+      aux = DATA_CLUSTER[DATA_CLUSTER$ANO == ano,]
+      
+      aux = aux[aux$MES == mes,]
+  
+      aux = aux[aux$MOMENTO_DIA == momento,c("BARRIO_COMUNA","CANTIDAD")]
+      
+      l = length(aux$BARRIO_COMUNA)
+          
+      aux2[,name] = 0
+      
+      if(l > 0){
+        
+        GRAFICAR = aggregate(CANTIDAD~BARRIO_COMUNA, data = aux, FUN = sum)
+        
+        colnames(GRAFICAR) = c("BARRIO_COMUNA","ACCIDENTES_TOTALES")
+        
+        c = 1:length(GRAFICAR$BARRIO_COMUNA)
+      
+        aux2[aux2$BARRIO_COMUNA %in% GRAFICAR$BARRIO_COMUNA,name] = GRAFICAR$ACCIDENTES_TOTALES
+        
+      }
+      
+    }
+
+  }
+  
+}
+
+```
+
+### Por mes, semana y momento
+
+```{r}
+
+for(mes in mes_datos){
+  
+  for(semana in semana_datos){
+    
+    for(momento in momento_datos){
+
+      name = paste("CANTIDAD_TOTAL_",mes,"_",semana,"_",momento,"_",sep="")
+      
+      aux = DATA_CLUSTER[DATA_CLUSTER$MES == mes,]
+      
+      aux = aux[aux$DIA_SEM == semana,]
+  
+      aux = aux[aux$MOMENTO_DIA == momento,c("BARRIO_COMUNA","CANTIDAD")]
+      
+      l = length(aux$BARRIO_COMUNA)
+          
+      aux2[,name] = 0
+      
+      if(l > 0){
+        
+        GRAFICAR = aggregate(CANTIDAD~BARRIO_COMUNA, data = aux, FUN = sum)
+        
+        colnames(GRAFICAR) = c("BARRIO_COMUNA","ACCIDENTES_TOTALES")
+        
+        c = 1:length(GRAFICAR$BARRIO_COMUNA)
+      
+        aux2[aux2$BARRIO_COMUNA %in% GRAFICAR$BARRIO_COMUNA,name] = GRAFICAR$ACCIDENTES_TOTALES
+        
+      }
+      
+    }
+
+  }
+  
+}
+
+```
+
+### Por mes, gravedad y momento
+
+```{r}
+
+for(mes in mes_datos){
+  
+  for(gravedad in gravedad_datos){
+    
+    for(momento in momento_datos){
+
+      name = paste("CANTIDAD_TOTAL_",mes,"_",gravedad,"_",momento,"_",sep="")
+      
+      aux = DATA_CLUSTER[DATA_CLUSTER$MES == mes,]
+      
+      aux = aux[aux$GRAVEDAD == gravedad,]
+  
+      aux = aux[aux$MOMENTO_DIA == momento,c("BARRIO_COMUNA","CANTIDAD")]
+      
+      l = length(aux$BARRIO_COMUNA)
+          
+      aux2[,name] = 0
+      
+      if(l > 0){
+        
+        GRAFICAR = aggregate(CANTIDAD~BARRIO_COMUNA, data = aux, FUN = sum)
+        
+        colnames(GRAFICAR) = c("BARRIO_COMUNA","ACCIDENTES_TOTALES")
+        
+        c = 1:length(GRAFICAR$BARRIO_COMUNA)
+      
+        aux2[aux2$BARRIO_COMUNA %in% GRAFICAR$BARRIO_COMUNA,name] = GRAFICAR$ACCIDENTES_TOTALES
+        
+      }
+      
+    }
+
+  }
+  
+}
+
+```
+
+### Por año, mes, gravedad y semana
+
+```{r}
+
+for(ano in ano_datos){
+  
+  for(mes in mes_datos){
+      
+    for(gravedad in gravedad_datos){
+      
+      for(semana in semana_datos){
+    
+        name = paste("CANTIDAD_TOTAL_",ano,"_",mes,"_",gravedad,"_",semana,"_",sep="")
+        
+        aux = DATA_CLUSTER[DATA_CLUSTER$ANO == ano,]
+      
+        aux = aux[aux$MES == mes,]
+        
+        aux = aux[aux$GRAVEDAD == gravedad,]
+    
+        aux = aux[aux$DIA_SEM == semana,c("BARRIO_COMUNA","CANTIDAD")]
+        
+        l = length(aux$BARRIO_COMUNA)
+          
+        aux2[,name] = 0
+        
+        if(l > 0){
+          
+          GRAFICAR = aggregate(CANTIDAD~BARRIO_COMUNA, data = aux, FUN = sum)
+          
+          colnames(GRAFICAR) = c("BARRIO_COMUNA","ACCIDENTES_TOTALES")
+          
+          c = 1:length(GRAFICAR$BARRIO_COMUNA)
+        
+          aux2[aux2$BARRIO_COMUNA %in% GRAFICAR$BARRIO_COMUNA,name] = GRAFICAR$ACCIDENTES_TOTALES
+          
+        }
+        
+      }
+      
+    }
+  
+  }
+  
+}
+
+
+
+```
+
+### Por mes, gravedad, semana y momento
+
+```{r}
+
+for(mes in mes_datos){
+    
+  for(gravedad in gravedad_datos){
+    
+    for(semana in semana_datos){
+      
+      for(momento in momento_datos){
+  
+        name = paste("CANTIDAD_TOTAL_",mes,"_",gravedad,"_",semana,"_",momento,"_",sep="")
+        
+        aux = DATA_CLUSTER[DATA_CLUSTER$MES == mes,]
+      
+        aux = aux[aux$GRAVEDAD == gravedad,]
+        
+        aux = aux[aux$DIA_SEM == semana,]
+    
+        aux = aux[aux$MOMENTO_DIA == momento,c("BARRIO_COMUNA","CANTIDAD")]
+        
+        l = length(aux$BARRIO_COMUNA)
+          
+        aux2[,name] = 0
+        
+        if(l > 0){
+          
+          GRAFICAR = aggregate(CANTIDAD~BARRIO_COMUNA, data = aux, FUN = sum)
+          
+          colnames(GRAFICAR) = c("BARRIO_COMUNA","ACCIDENTES_TOTALES")
+          
+          c = 1:length(GRAFICAR$BARRIO_COMUNA)
+        
+          aux2[aux2$BARRIO_COMUNA %in% GRAFICAR$BARRIO_COMUNA,name] = GRAFICAR$ACCIDENTES_TOTALES
+          
+        }
+        
+      }
+
+    }
+    
+  }
+
+}
+
+
+```
+
+### Por año, mes, semana y momento
+
+```{r}
+
+for(ano in ano_datos){
+    
+  for(mes in mes_datos){
+    
+    for(semana in semana_datos){
+      
+      for(momento in momento_datos){
+        
+        name = paste("CANTIDAD_TOTAL_",ano,"_",mes,"_",semana,"_",momento,"_",sep="")
+        
+        aux = DATA_CLUSTER[DATA_CLUSTER$ANO == ano,]
+      
+        aux = aux[aux$MES == mes,]
+        
+        aux = aux[aux$DIA_SEM == semana,]
+    
+        aux = aux[aux$MOMENTO_DIA == momento,c("BARRIO_COMUNA","CANTIDAD")]
+        
+        l = length(aux$BARRIO_COMUNA)
+          
+        aux2[,name] = 0
+        
+        if(l > 0){
+          
+          GRAFICAR = aggregate(CANTIDAD~BARRIO_COMUNA, data = aux, FUN = sum)
+          
+          colnames(GRAFICAR) = c("BARRIO_COMUNA","ACCIDENTES_TOTALES")
+          
+          c = 1:length(GRAFICAR$BARRIO_COMUNA)
+        
+          aux2[aux2$BARRIO_COMUNA %in% GRAFICAR$BARRIO_COMUNA,name] = GRAFICAR$ACCIDENTES_TOTALES
+          
+        }
+        
+      }
+
+    }
+    
+  }
+
+}
+
+
+
+```
+
+### Por año, mes, gravedad y momento
+
+```{r}
+
+for(ano in ano_datos){
+    
+  for(mes in mes_datos){
+    
+    for(gravedad in gravedad_datos){
+      
+      for(momento in momento_datos){
+        
+        name = paste("CANTIDAD_TOTAL_",ano,"_",mes,"_",gravedad,"_",momento,"_",sep="")
+        
+        aux = DATA_CLUSTER[DATA_CLUSTER$ANO == ano,]
+      
+        aux = aux[aux$MES == mes,]
+        
+        aux = aux[aux$GRAVEDAD == gravedad,]
+    
+        aux = aux[aux$MOMENTO_DIA == momento,c("BARRIO_COMUNA","CANTIDAD")]
+        
+        l = length(aux$BARRIO_COMUNA)
+          
+        aux2[,name] = 0
+        
+        if(l > 0){
+          
+          GRAFICAR = aggregate(CANTIDAD~BARRIO_COMUNA, data = aux, FUN = sum)
+          
+          colnames(GRAFICAR) = c("BARRIO_COMUNA","ACCIDENTES_TOTALES")
+          
+          c = 1:length(GRAFICAR$BARRIO_COMUNA)
+        
+          aux2[aux2$BARRIO_COMUNA %in% GRAFICAR$BARRIO_COMUNA,name] = GRAFICAR$ACCIDENTES_TOTALES
+          
+        }
+      
+      }
+
+    }
+    
+  }
+
+}
+
+
+
+```
+
+### Por año, gravedad, semana y momento
+
+```{r}
+
+for(ano in ano_datos){
+    
+  for(gravedad in gravedad_datos){
+    
+    for(semana in semana_datos){
+      
+      for(momento in momento_datos){
+        
+        name = paste("CANTIDAD_TOTAL_",ano,"_",gravedad,"_",semana,"_",momento,"_",sep="")
+        
+        aux = DATA_CLUSTER[DATA_CLUSTER$ANO == ano,]
+      
+        aux = aux[aux$GRAVEDAD == gravedad,]
+        
+        aux = aux[aux$SEMANA == semana,]
+    
+        aux = aux[aux$MOMENTO_DIA == momento,c("BARRIO_COMUNA","CANTIDAD")]
+        
+        l = length(aux$BARRIO_COMUNA)
+          
+        aux2[,name] = 0
+        
+        if(l > 0){
+          
+          GRAFICAR = aggregate(CANTIDAD~BARRIO_COMUNA, data = aux, FUN = sum)
+          
+          colnames(GRAFICAR) = c("BARRIO_COMUNA","ACCIDENTES_TOTALES")
+          
+          c = 1:length(GRAFICAR$BARRIO_COMUNA)
+        
+          aux2[aux2$BARRIO_COMUNA %in% GRAFICAR$BARRIO_COMUNA,name] = GRAFICAR$ACCIDENTES_TOTALES
+          
+        }
+      
+      }
+
+    }
+    
+  }
+
+}
+
+
+
+```
+
+### Por año, mes, gravedad, semana y momento
+
+```{r}
+
+for(ano in ano_datos){
+  
+  for(mes in mes_datos){
+      
+    for(gravedad in gravedad_datos){
+      
+      for(semana in semana_datos){
+        
+        for(momento in momento_datos){
+          
+          name = paste("CANTIDAD_TOTAL_",ano,"_",mes,"_",gravedad,"_",semana,"_",momento,"_",sep="")
+          
+          aux = DATA_CLUSTER[DATA_CLUSTER$ANO == ano,]
+      
+          aux = aux[aux$MES == mes,]
+          
+          aux = aux[aux$GRAVEDAD == gravedad,]
+          
+          aux = aux[aux$DIA_SEM == semana,]
+      
+          aux = aux[aux$MOMENTO_DIA == momento,c("BARRIO_COMUNA","CANTIDAD")]
+          
+          l = length(aux$BARRIO_COMUNA)
+          
+          aux2[,name] = 0
+          
+          if(l > 0){
+            
+            GRAFICAR = aggregate(CANTIDAD~BARRIO_COMUNA, data = aux, FUN = sum)
+            
+            colnames(GRAFICAR) = c("BARRIO_COMUNA","ACCIDENTES_TOTALES")
+            
+            c = 1:length(GRAFICAR$BARRIO_COMUNA)
+          
+            aux2[aux2$BARRIO_COMUNA %in% GRAFICAR$BARRIO_COMUNA,name] = GRAFICAR$ACCIDENTES_TOTALES
+            
+          }
+          
+          
+        }
+
+      }
+      
+    }
+  
+  }
+  
+}
+
+rm(ano,gravedad,semana,mes,momento)
+
+```
+
+
+```{r}
+columnas = colnames(aux2)[2:dim(aux2)[2]]
+barrio_comuna_mapas = DATA_MAPA@data$BARRIO_COMUNA
+
+presente = c()
+faltante = c()
+for(i in barrio_comuna_mapas){
+  
+  if(i %in% aux2$BARRIO_COMUNA){
+    
+    presente = c(presente,i)
+    
+  } else {
+    
+    faltante = c(faltante,i)
+    
+  }
+  
+}
+
+faltante = data.frame("BARRIO_COMUNA" = faltante)
+faltante[,columnas] = 0
+
+aux2 = rbind(aux2,faltante)
+
+aux2$ORDEN = 0
+for(i in 1:length(barrio_comuna_mapas)){
+  
+  aux2$ORDEN[aux2$BARRIO_COMUNA == barrio_comuna_mapas[i]] = i
+  
+}
+
+aux2 = aux2[order(aux2$ORDEN),]
+rownames(aux2) = 1:dim(aux2)[1]
+aux2$ORDEN[162]=121
+aux2 = aux2[order(aux2$ORDEN),]
+rownames(aux2) = 1:dim(aux2)[1]
+aux2 = rbind(aux2,aux2[aux2$BARRIO_COMUNA == "Aguas Frias-ALTAVISTA",])
+aux2$ORDEN[length(aux2$ORDEN)]=143
+aux2 = aux2[order(aux2$ORDEN),]
+rownames(aux2) = 1:dim(aux2)[1]
+aux2 = rbind(aux2,aux2[aux2$BARRIO_COMUNA == "Trece de Noviembre-VILLA HERMOSA",])
+aux2$ORDEN[length(aux2$ORDEN)]=1
+aux2 = aux2[order(aux2$ORDEN),]
+rownames(aux2) = 1:dim(aux2)[1]
+aux2 = rbind(aux2,aux2[aux2$BARRIO_COMUNA == "Altos del Poblado-EL POBLADO",])
+aux2$ORDEN[length(aux2$ORDEN)]=200
+aux2 = aux2[order(aux2$ORDEN),]
+rownames(aux2) = 1:dim(aux2)[1]
+aux2 = rbind(aux2,aux2[aux2$BARRIO_COMUNA == "Oriente-MANRIQUE",])
+aux2$ORDEN[length(aux2$ORDEN)]=256
+aux2 = aux2[order(aux2$ORDEN),]
+rownames(aux2) = 1:dim(aux2)[1]
+aux2 = aux2[,-(length(aux2))]
+
+DATA_MAPA@data[,columnas] = aux2[,columnas]
+
+rm(aux2,columnas,i,faltante,presente)
+```
+
+
+### Mapas de prueba
+
+```{r}
+input = data.frame(ANO_MAPA="T",MES_MAPA="T",GRAVEDAD_MAPA="T",SEMANA_MAPA="T",MOMENTO_MAPA="T")
+```
+
+
+```{r}
+
+ano_mapa = ifelse(input$ANO_MAPA == "T","",paste(input$ANO_MAPA,"_",sep=""))
+            
+mes_mapa = ifelse(input$MES_MAPA == "T","",paste(input$MES_MAPA,"_",sep=""))
+
+gravedad_mapa = ifelse(input$GRAVEDAD_MAPA == "T","",paste(input$GRAVEDAD_MAPA,"_",sep=""))
+
+semana_mapa = ifelse(input$SEMANA_MAPA == "T","",paste(input$SEMANA_MAPA,"_",sep=""))
+
+momento_mapa = ifelse(input$MOMENTO_MAPA == "T","",paste(input$SEMANA_MAPA,"_",sep=""))
+
+pal1 = colorNumeric("plasma",NULL)
+pal2 = colorNumeric("Blues",NULL)
+
+name = paste("CANTIDAD_TOTAL_",ano_mapa,mes_mapa,gravedad_mapa,semana_mapa,sep="")
+
+labels = sprintf("<strong>%s</strong><br/>Cantidad de incidentes: %g",
+                  DATA_MAPA$NOMBRE_BARRIO, DATA_MAPA@data[,name]
+) %>% lapply(htmltools::HTML)
+
+leaflet(DATA_MAPA) %>%
+    addTiles() %>%
+    addProviderTiles(providers$HERE.basicMap, 
+                     options = providerTileOptions(
+                         id = "mapbox.light",
+                         accessToken = Sys.getenv('MAPBOX_ACCESS_TOKEN'))) %>%
+    addPolygons(stroke = T,
+                weight = 1,
+                fillColor = ifelse(DATA_MAPA@data[,name]>0,pal1(DATA_MAPA@data[,name]),pal2(DATA_MAPA@data[,name])),
+                opacity = 0.6,
+                color = "black",
+                dashArray = "0",
+                fillOpacity = 0.6,
+                label = labels,
+                highlight = highlightOptions(
+                    weight = 5,
+                    color = "#666",
+                    dashArray = "",
+                    fillOpacity = 0.8,
+                    bringToFront = TRUE) )%>% 
+    addLegend(pal = pal1, 
+              values = DATA_MAPA@data[,name],
+              opacity = 0.5, 
+              title = paste("<center> <b> Cantidad de incidentes"),
+              position = "topright")
+
+
+
+
+```
+
+
+
