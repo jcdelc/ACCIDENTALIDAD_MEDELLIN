@@ -1,0 +1,2194 @@
+﻿FECHA;GRAVEDAD;DIA_ANO;MES;DIA_MES;DIA_SEM;ANO;SEMANA_MES;FIN_SEMANA;FERIA_FLORES;FESTIVO;CANTIDAD
+2019-01-01;Herido;1;Enero;1;Martes;2019;1;No;No;Si;56
+2019-01-02;Herido;2;Enero;2;Miércoles;2019;1;No;No;No;62
+2019-01-03;Herido;3;Enero;3;Jueves;2019;1;No;No;No;62
+2019-01-04;Herido;4;Enero;4;Viernes;2019;1;No;No;No;64
+2019-01-05;Herido;5;Enero;5;Sábado;2019;1;Si;No;No;60
+2019-01-06;Herido;6;Enero;6;Domingo;2019;1;Si;No;No;53
+2019-01-07;Herido;7;Enero;7;Lunes;2019;1;No;No;Si;54
+2019-01-08;Herido;8;Enero;8;Martes;2019;2;No;No;No;59
+2019-01-09;Herido;9;Enero;9;Miércoles;2019;2;No;No;No;60
+2019-01-10;Herido;10;Enero;10;Jueves;2019;2;No;No;No;59
+2019-01-11;Herido;11;Enero;11;Viernes;2019;2;No;No;No;62
+2019-01-12;Herido;12;Enero;12;Sábado;2019;2;Si;No;No;59
+2019-01-13;Herido;13;Enero;13;Domingo;2019;2;Si;No;No;52
+2019-01-14;Herido;14;Enero;14;Lunes;2019;2;No;No;No;59
+2019-01-15;Herido;15;Enero;15;Martes;2019;3;No;No;No;64
+2019-01-16;Herido;16;Enero;16;Miércoles;2019;3;No;No;No;64
+2019-01-17;Herido;17;Enero;17;Jueves;2019;3;No;No;No;63
+2019-01-18;Herido;18;Enero;18;Viernes;2019;3;No;No;No;66
+2019-01-19;Herido;19;Enero;19;Sábado;2019;3;Si;No;No;60
+2019-01-20;Herido;20;Enero;20;Domingo;2019;3;Si;No;No;52
+2019-01-21;Herido;21;Enero;21;Lunes;2019;3;No;No;No;64
+2019-01-22;Herido;22;Enero;22;Martes;2019;4;No;No;No;63
+2019-01-23;Herido;23;Enero;23;Miércoles;2019;4;No;No;No;65
+2019-01-24;Herido;24;Enero;24;Jueves;2019;4;No;No;No;64
+2019-01-25;Herido;25;Enero;25;Viernes;2019;4;No;No;No;67
+2019-01-26;Herido;26;Enero;26;Sábado;2019;4;Si;No;No;60
+2019-01-27;Herido;27;Enero;27;Domingo;2019;4;Si;No;No;54
+2019-01-28;Herido;28;Enero;28;Lunes;2019;4;No;No;No;64
+2019-01-29;Herido;29;Enero;29;Martes;2019;4;No;No;No;65
+2019-01-30;Herido;30;Enero;30;Miércoles;2019;4;No;No;No;67
+2019-01-31;Herido;31;Enero;31;Jueves;2019;4;No;No;No;66
+2019-02-01;Herido;32;Febrero;1;Viernes;2019;1;No;No;No;72
+2019-02-02;Herido;33;Febrero;2;Sábado;2019;1;Si;No;No;67
+2019-02-03;Herido;34;Febrero;3;Domingo;2019;1;Si;No;No;60
+2019-02-04;Herido;35;Febrero;4;Lunes;2019;1;No;No;No;71
+2019-02-05;Herido;36;Febrero;5;Martes;2019;1;No;No;No;71
+2019-02-06;Herido;37;Febrero;6;Miércoles;2019;1;No;No;No;70
+2019-02-07;Herido;38;Febrero;7;Jueves;2019;1;No;No;No;70
+2019-02-08;Herido;39;Febrero;8;Viernes;2019;2;No;No;No;69
+2019-02-09;Herido;40;Febrero;9;Sábado;2019;2;Si;No;No;66
+2019-02-10;Herido;41;Febrero;10;Domingo;2019;2;Si;No;No;58
+2019-02-11;Herido;42;Febrero;11;Lunes;2019;2;No;No;No;67
+2019-02-12;Herido;43;Febrero;12;Martes;2019;2;No;No;No;66
+2019-02-13;Herido;44;Febrero;13;Miércoles;2019;2;No;No;No;67
+2019-02-14;Herido;45;Febrero;14;Jueves;2019;2;No;No;No;65
+2019-02-15;Herido;46;Febrero;15;Viernes;2019;3;No;No;No;71
+2019-02-16;Herido;47;Febrero;16;Sábado;2019;3;Si;No;No;66
+2019-02-17;Herido;48;Febrero;17;Domingo;2019;3;Si;No;No;56
+2019-02-18;Herido;49;Febrero;18;Lunes;2019;3;No;No;No;69
+2019-02-19;Herido;50;Febrero;19;Martes;2019;3;No;No;No;69
+2019-02-20;Herido;51;Febrero;20;Miércoles;2019;3;No;No;No;69
+2019-02-21;Herido;52;Febrero;21;Jueves;2019;3;No;No;No;68
+2019-02-22;Herido;53;Febrero;22;Viernes;2019;4;No;No;No;72
+2019-02-23;Herido;54;Febrero;23;Sábado;2019;4;Si;No;No;66
+2019-02-24;Herido;55;Febrero;24;Domingo;2019;4;Si;No;No;59
+2019-02-25;Herido;56;Febrero;25;Lunes;2019;4;No;No;No;69
+2019-02-26;Herido;57;Febrero;26;Martes;2019;4;No;No;No;69
+2019-02-27;Herido;58;Febrero;27;Miércoles;2019;4;No;No;No;71
+2019-02-28;Herido;59;Febrero;28;Jueves;2019;4;No;No;No;69
+2019-03-01;Herido;60;Marzo;1;Viernes;2019;1;No;No;No;67
+2019-03-02;Herido;61;Marzo;2;Sábado;2019;1;Si;No;No;65
+2019-03-03;Herido;62;Marzo;3;Domingo;2019;1;Si;No;No;58
+2019-03-04;Herido;63;Marzo;4;Lunes;2019;1;No;No;No;65
+2019-03-05;Herido;64;Marzo;5;Martes;2019;1;No;No;No;66
+2019-03-06;Herido;65;Marzo;6;Miércoles;2019;1;No;No;No;65
+2019-03-07;Herido;66;Marzo;7;Jueves;2019;1;No;No;No;65
+2019-03-08;Herido;67;Marzo;8;Viernes;2019;2;No;No;No;64
+2019-03-09;Herido;68;Marzo;9;Sábado;2019;2;Si;No;No;64
+2019-03-10;Herido;69;Marzo;10;Domingo;2019;2;Si;No;No;55
+2019-03-11;Herido;70;Marzo;11;Lunes;2019;2;No;No;No;60
+2019-03-12;Herido;71;Marzo;12;Martes;2019;2;No;No;No;61
+2019-03-13;Herido;72;Marzo;13;Miércoles;2019;2;No;No;No;62
+2019-03-14;Herido;73;Marzo;14;Jueves;2019;2;No;No;No;61
+2019-03-15;Herido;74;Marzo;15;Viernes;2019;3;No;No;No;65
+2019-03-16;Herido;75;Marzo;16;Sábado;2019;3;Si;No;No;62
+2019-03-17;Herido;76;Marzo;17;Domingo;2019;3;Si;No;No;53
+2019-03-18;Herido;77;Marzo;18;Lunes;2019;3;No;No;No;63
+2019-03-19;Herido;78;Marzo;19;Martes;2019;3;No;No;No;64
+2019-03-20;Herido;79;Marzo;20;Miércoles;2019;3;No;No;No;64
+2019-03-21;Herido;80;Marzo;21;Jueves;2019;3;No;No;No;64
+2019-03-22;Herido;81;Marzo;22;Viernes;2019;4;No;No;No;64
+2019-03-23;Herido;82;Marzo;23;Sábado;2019;4;Si;No;No;61
+2019-03-24;Herido;83;Marzo;24;Domingo;2019;4;Si;No;No;52
+2019-03-25;Herido;84;Marzo;25;Lunes;2019;4;No;No;Si;54
+2019-03-26;Herido;85;Marzo;26;Martes;2019;4;No;No;No;62
+2019-03-27;Herido;86;Marzo;27;Miércoles;2019;4;No;No;No;65
+2019-03-28;Herido;87;Marzo;28;Jueves;2019;4;No;No;No;64
+2019-03-29;Herido;88;Marzo;29;Viernes;2019;4;No;No;No;65
+2019-03-30;Herido;89;Marzo;30;Sábado;2019;4;Si;No;No;61
+2019-03-31;Herido;90;Marzo;31;Domingo;2019;4;Si;No;No;54
+2019-04-01;Herido;91;Abril;1;Lunes;2019;1;No;No;No;68
+2019-04-02;Herido;92;Abril;2;Martes;2019;1;No;No;No;68
+2019-04-03;Herido;93;Abril;3;Miércoles;2019;1;No;No;No;68
+2019-04-04;Herido;94;Abril;4;Jueves;2019;1;No;No;No;66
+2019-04-05;Herido;95;Abril;5;Viernes;2019;1;No;No;No;69
+2019-04-06;Herido;96;Abril;6;Sábado;2019;1;Si;No;No;61
+2019-04-07;Herido;97;Abril;7;Domingo;2019;1;Si;No;No;53
+2019-04-08;Herido;98;Abril;8;Lunes;2019;2;No;No;No;63
+2019-04-09;Herido;99;Abril;9;Martes;2019;2;No;No;No;63
+2019-04-10;Herido;100;Abril;10;Miércoles;2019;2;No;No;No;64
+2019-04-11;Herido;101;Abril;11;Jueves;2019;2;No;No;No;61
+2019-04-12;Herido;102;Abril;12;Viernes;2019;2;No;No;No;65
+2019-04-13;Herido;103;Abril;13;Sábado;2019;2;Si;No;No;61
+2019-04-14;Herido;104;Abril;14;Domingo;2019;2;Si;No;No;52
+2019-04-15;Herido;105;Abril;15;Lunes;2019;3;No;No;No;64
+2019-04-16;Herido;106;Abril;16;Martes;2019;3;No;No;No;66
+2019-04-17;Herido;107;Abril;17;Miércoles;2019;3;No;No;No;66
+2019-04-18;Herido;108;Abril;18;Jueves;2019;3;No;No;Si;50
+2019-04-19;Herido;109;Abril;19;Viernes;2019;3;No;No;Si;51
+2019-04-20;Herido;110;Abril;20;Sábado;2019;3;Si;No;No;59
+2019-04-21;Herido;111;Abril;21;Domingo;2019;3;Si;No;No;50
+2019-04-22;Herido;112;Abril;22;Lunes;2019;4;No;No;No;64
+2019-04-23;Herido;113;Abril;23;Martes;2019;4;No;No;No;66
+2019-04-24;Herido;114;Abril;24;Miércoles;2019;4;No;No;No;68
+2019-04-25;Herido;115;Abril;25;Jueves;2019;4;No;No;No;65
+2019-04-26;Herido;116;Abril;26;Viernes;2019;4;No;No;No;68
+2019-04-27;Herido;117;Abril;27;Sábado;2019;4;Si;No;No;61
+2019-04-28;Herido;118;Abril;28;Domingo;2019;4;Si;No;No;54
+2019-04-29;Herido;119;Abril;29;Lunes;2019;4;No;No;No;65
+2019-04-30;Herido;120;Abril;30;Martes;2019;4;No;No;No;67
+2019-05-01;Herido;121;Mayo;1;Miércoles;2019;1;No;No;Si;60
+2019-05-02;Herido;122;Mayo;2;Jueves;2019;1;No;No;No;66
+2019-05-03;Herido;123;Mayo;3;Viernes;2019;1;No;No;No;69
+2019-05-04;Herido;124;Mayo;4;Sábado;2019;1;Si;No;No;62
+2019-05-05;Herido;125;Mayo;5;Domingo;2019;1;Si;No;No;53
+2019-05-06;Herido;126;Mayo;6;Lunes;2019;1;No;No;No;67
+2019-05-07;Herido;127;Mayo;7;Martes;2019;1;No;No;No;68
+2019-05-08;Herido;128;Mayo;8;Miércoles;2019;2;No;No;No;64
+2019-05-09;Herido;129;Mayo;9;Jueves;2019;2;No;No;No;61
+2019-05-10;Herido;130;Mayo;10;Viernes;2019;2;No;No;No;65
+2019-05-11;Herido;131;Mayo;11;Sábado;2019;2;Si;No;No;60
+2019-05-12;Herido;132;Mayo;12;Domingo;2019;2;Si;No;No;51
+2019-05-13;Herido;133;Mayo;13;Lunes;2019;2;No;No;No;62
+2019-05-14;Herido;134;Mayo;14;Martes;2019;2;No;No;No;63
+2019-05-15;Herido;135;Mayo;15;Miércoles;2019;3;No;No;No;66
+2019-05-16;Herido;136;Mayo;16;Jueves;2019;3;No;No;No;62
+2019-05-17;Herido;137;Mayo;17;Viernes;2019;3;No;No;No;65
+2019-05-18;Herido;138;Mayo;18;Sábado;2019;3;Si;No;No;60
+2019-05-19;Herido;139;Mayo;19;Domingo;2019;3;Si;No;No;49
+2019-05-20;Herido;140;Mayo;20;Lunes;2019;3;No;No;No;64
+2019-05-21;Herido;141;Mayo;21;Martes;2019;3;No;No;No;66
+2019-05-22;Herido;142;Mayo;22;Miércoles;2019;4;No;No;No;68
+2019-05-23;Herido;143;Mayo;23;Jueves;2019;4;No;No;No;64
+2019-05-24;Herido;144;Mayo;24;Viernes;2019;4;No;No;No;68
+2019-05-25;Herido;145;Mayo;25;Sábado;2019;4;Si;No;No;61
+2019-05-26;Herido;146;Mayo;26;Domingo;2019;4;Si;No;No;52
+2019-05-27;Herido;147;Mayo;27;Lunes;2019;4;No;No;No;66
+2019-05-28;Herido;148;Mayo;28;Martes;2019;4;No;No;No;68
+2019-05-29;Herido;149;Mayo;29;Miércoles;2019;4;No;No;No;70
+2019-05-30;Herido;150;Mayo;30;Jueves;2019;4;No;No;No;66
+2019-05-31;Herido;151;Mayo;31;Viernes;2019;4;No;No;No;69
+2019-06-01;Herido;152;Junio;1;Sábado;2019;1;Si;No;No;63
+2019-06-02;Herido;153;Junio;2;Domingo;2019;1;Si;No;No;54
+2019-06-03;Herido;154;Junio;3;Lunes;2019;1;No;No;Si;54
+2019-06-04;Herido;155;Junio;4;Martes;2019;1;No;No;No;67
+2019-06-05;Herido;156;Junio;5;Miércoles;2019;1;No;No;No;67
+2019-06-06;Herido;157;Junio;6;Jueves;2019;1;No;No;No;63
+2019-06-07;Herido;158;Junio;7;Viernes;2019;1;No;No;No;67
+2019-06-08;Herido;159;Junio;8;Sábado;2019;2;Si;No;No;61
+2019-06-09;Herido;160;Junio;9;Domingo;2019;2;Si;No;No;52
+2019-06-10;Herido;161;Junio;10;Lunes;2019;2;No;No;No;60
+2019-06-11;Herido;162;Junio;11;Martes;2019;2;No;No;No;62
+2019-06-12;Herido;163;Junio;12;Miércoles;2019;2;No;No;No;62
+2019-06-13;Herido;164;Junio;13;Jueves;2019;2;No;No;No;58
+2019-06-14;Herido;165;Junio;14;Viernes;2019;2;No;No;No;62
+2019-06-15;Herido;166;Junio;15;Sábado;2019;3;Si;No;No;59
+2019-06-16;Herido;167;Junio;16;Domingo;2019;3;Si;No;No;48
+2019-06-17;Herido;168;Junio;17;Lunes;2019;3;No;No;No;61
+2019-06-18;Herido;169;Junio;18;Martes;2019;3;No;No;No;63
+2019-06-19;Herido;170;Junio;19;Miércoles;2019;3;No;No;No;63
+2019-06-20;Herido;171;Junio;20;Jueves;2019;3;No;No;No;59
+2019-06-21;Herido;172;Junio;21;Viernes;2019;3;No;No;No;62
+2019-06-22;Herido;173;Junio;22;Sábado;2019;4;Si;No;No;56
+2019-06-23;Herido;174;Junio;23;Domingo;2019;4;Si;No;No;47
+2019-06-24;Herido;175;Junio;24;Lunes;2019;4;No;No;Si;53
+2019-06-25;Herido;176;Junio;25;Martes;2019;4;No;No;No;60
+2019-06-26;Herido;177;Junio;26;Miércoles;2019;4;No;No;No;62
+2019-06-27;Herido;178;Junio;27;Jueves;2019;4;No;No;No;59
+2019-06-28;Herido;179;Junio;28;Viernes;2019;4;No;No;No;62
+2019-06-29;Herido;180;Junio;29;Sábado;2019;4;Si;No;No;57
+2019-06-30;Herido;181;Junio;30;Domingo;2019;4;Si;No;No;49
+2019-07-01;Herido;182;Julio;1;Lunes;2019;1;No;No;Si;54
+2019-07-02;Herido;183;Julio;2;Martes;2019;1;No;No;No;68
+2019-07-03;Herido;184;Julio;3;Miércoles;2019;1;No;No;No;66
+2019-07-04;Herido;185;Julio;4;Jueves;2019;1;No;No;No;64
+2019-07-05;Herido;186;Julio;5;Viernes;2019;1;No;No;No;68
+2019-07-06;Herido;187;Julio;6;Sábado;2019;1;Si;No;No;62
+2019-07-07;Herido;188;Julio;7;Domingo;2019;1;Si;No;No;52
+2019-07-08;Herido;189;Julio;8;Lunes;2019;2;No;No;No;61
+2019-07-09;Herido;190;Julio;9;Martes;2019;2;No;No;No;63
+2019-07-10;Herido;191;Julio;10;Miércoles;2019;2;No;No;No;62
+2019-07-11;Herido;192;Julio;11;Jueves;2019;2;No;No;No;59
+2019-07-12;Herido;193;Julio;12;Viernes;2019;2;No;No;No;63
+2019-07-13;Herido;194;Julio;13;Sábado;2019;2;Si;No;No;61
+2019-07-14;Herido;195;Julio;14;Domingo;2019;2;Si;No;No;51
+2019-07-15;Herido;196;Julio;15;Lunes;2019;3;No;No;No;63
+2019-07-16;Herido;197;Julio;16;Martes;2019;3;No;No;No;66
+2019-07-17;Herido;198;Julio;17;Miércoles;2019;3;No;No;No;64
+2019-07-18;Herido;199;Julio;18;Jueves;2019;3;No;No;No;61
+2019-07-19;Herido;200;Julio;19;Viernes;2019;3;No;No;No;64
+2019-07-20;Herido;201;Julio;20;Sábado;2019;3;Si;No;Si;57
+2019-07-21;Herido;202;Julio;21;Domingo;2019;3;Si;No;No;49
+2019-07-22;Herido;203;Julio;22;Lunes;2019;4;No;No;No;62
+2019-07-23;Herido;204;Julio;23;Martes;2019;4;No;No;No;65
+2019-07-24;Herido;205;Julio;24;Miércoles;2019;4;No;No;No;66
+2019-07-25;Herido;206;Julio;25;Jueves;2019;4;No;No;No;62
+2019-07-26;Herido;207;Julio;26;Viernes;2019;4;No;No;No;65
+2019-07-27;Herido;208;Julio;27;Sábado;2019;4;Si;No;No;60
+2019-07-28;Herido;209;Julio;28;Domingo;2019;4;Si;No;No;51
+2019-07-29;Herido;210;Julio;29;Lunes;2019;4;No;No;No;64
+2019-07-30;Herido;211;Julio;30;Martes;2019;4;No;No;No;66
+2019-07-31;Herido;212;Julio;31;Miércoles;2019;4;No;No;No;68
+2019-08-01;Herido;213;Agosto;1;Jueves;2019;1;No;No;No;71
+2019-08-02;Herido;214;Agosto;2;Viernes;2019;1;No;Si;No;74
+2019-08-03;Herido;215;Agosto;3;Sábado;2019;1;Si;Si;No;64
+2019-08-04;Herido;216;Agosto;4;Domingo;2019;1;Si;Si;No;54
+2019-08-05;Herido;217;Agosto;5;Lunes;2019;1;No;Si;No;71
+2019-08-06;Herido;218;Agosto;6;Martes;2019;1;No;Si;No;71
+2019-08-07;Herido;219;Agosto;7;Miércoles;2019;1;No;Si;Si;58
+2019-08-08;Herido;220;Agosto;8;Jueves;2019;2;No;Si;No;63
+2019-08-09;Herido;221;Agosto;9;Viernes;2019;2;No;Si;No;67
+2019-08-10;Herido;222;Agosto;10;Sábado;2019;2;Si;Si;No;60
+2019-08-11;Herido;223;Agosto;11;Domingo;2019;2;Si;Si;No;49
+2019-08-12;Herido;224;Agosto;12;Lunes;2019;2;No;No;No;63
+2019-08-13;Herido;225;Agosto;13;Martes;2019;2;No;No;No;64
+2019-08-14;Herido;226;Agosto;14;Miércoles;2019;2;No;No;No;64
+2019-08-15;Herido;227;Agosto;15;Jueves;2019;3;No;No;No;64
+2019-08-16;Herido;228;Agosto;16;Viernes;2019;3;No;No;No;67
+2019-08-17;Herido;229;Agosto;17;Sábado;2019;3;Si;No;No;59
+2019-08-18;Herido;230;Agosto;18;Domingo;2019;3;Si;No;No;47
+2019-08-19;Herido;231;Agosto;19;Lunes;2019;3;No;No;Si;57
+2019-08-20;Herido;232;Agosto;20;Martes;2019;3;No;No;No;66
+2019-08-21;Herido;233;Agosto;21;Miércoles;2019;3;No;No;No;66
+2019-08-22;Herido;234;Agosto;22;Jueves;2019;4;No;No;No;63
+2019-08-23;Herido;235;Agosto;23;Viernes;2019;4;No;No;No;66
+2019-08-24;Herido;236;Agosto;24;Sábado;2019;4;Si;No;No;58
+2019-08-25;Herido;237;Agosto;25;Domingo;2019;4;Si;No;No;47
+2019-08-26;Herido;238;Agosto;26;Lunes;2019;4;No;No;No;64
+2019-08-27;Herido;239;Agosto;27;Martes;2019;4;No;No;No;64
+2019-08-28;Herido;240;Agosto;28;Miércoles;2019;4;No;No;No;67
+2019-08-29;Herido;241;Agosto;29;Jueves;2019;4;No;No;No;64
+2019-08-30;Herido;242;Agosto;30;Viernes;2019;4;No;No;No;66
+2019-08-31;Herido;243;Agosto;31;Sábado;2019;4;Si;No;No;60
+2019-09-01;Herido;244;Septiembre;1;Domingo;2019;1;Si;No;No;55
+2019-09-02;Herido;245;Septiembre;2;Lunes;2019;1;No;No;No;71
+2019-09-03;Herido;246;Septiembre;3;Martes;2019;1;No;No;No;71
+2019-09-04;Herido;247;Septiembre;4;Miércoles;2019;1;No;No;No;70
+2019-09-05;Herido;248;Septiembre;5;Jueves;2019;1;No;No;No;69
+2019-09-06;Herido;249;Septiembre;6;Viernes;2019;1;No;No;No;71
+2019-09-07;Herido;250;Septiembre;7;Sábado;2019;1;Si;No;No;62
+2019-09-08;Herido;251;Septiembre;8;Domingo;2019;2;Si;No;No;51
+2019-09-09;Herido;252;Septiembre;9;Lunes;2019;2;No;No;No;64
+2019-09-10;Herido;253;Septiembre;10;Martes;2019;2;No;No;No;65
+2019-09-11;Herido;254;Septiembre;11;Miércoles;2019;2;No;No;No;64
+2019-09-12;Herido;255;Septiembre;12;Jueves;2019;2;No;No;No;62
+2019-09-13;Herido;256;Septiembre;13;Viernes;2019;2;No;No;No;64
+2019-09-14;Herido;257;Septiembre;14;Sábado;2019;2;Si;No;No;60
+2019-09-15;Herido;258;Septiembre;15;Domingo;2019;3;Si;No;No;47
+2019-09-16;Herido;259;Septiembre;16;Lunes;2019;3;No;No;No;63
+2019-09-17;Herido;260;Septiembre;17;Martes;2019;3;No;No;No;64
+2019-09-18;Herido;261;Septiembre;18;Miércoles;2019;3;No;No;No;64
+2019-09-19;Herido;262;Septiembre;19;Jueves;2019;3;No;No;No;61
+2019-09-20;Herido;263;Septiembre;20;Viernes;2019;3;No;No;No;63
+2019-09-21;Herido;264;Septiembre;21;Sábado;2019;3;Si;No;No;59
+2019-09-22;Herido;265;Septiembre;22;Domingo;2019;4;Si;No;No;48
+2019-09-23;Herido;266;Septiembre;23;Lunes;2019;4;No;No;No;63
+2019-09-24;Herido;267;Septiembre;24;Martes;2019;4;No;No;No;63
+2019-09-25;Herido;268;Septiembre;25;Miércoles;2019;4;No;No;No;66
+2019-09-26;Herido;269;Septiembre;26;Jueves;2019;4;No;No;No;62
+2019-09-27;Herido;270;Septiembre;27;Viernes;2019;4;No;No;No;65
+2019-09-28;Herido;271;Septiembre;28;Sábado;2019;4;Si;No;No;61
+2019-09-29;Herido;272;Septiembre;29;Domingo;2019;4;Si;No;No;50
+2019-09-30;Herido;273;Septiembre;30;Lunes;2019;4;No;No;No;63
+2019-10-01;Herido;274;Octubre;1;Martes;2019;1;No;No;No;70
+2019-10-02;Herido;275;Octubre;2;Miércoles;2019;1;No;No;No;65
+2019-10-03;Herido;276;Octubre;3;Jueves;2019;1;No;No;No;64
+2019-10-04;Herido;277;Octubre;4;Viernes;2019;1;No;No;No;66
+2019-10-05;Herido;278;Octubre;5;Sábado;2019;1;Si;No;No;59
+2019-10-06;Herido;279;Octubre;6;Domingo;2019;1;Si;No;No;51
+2019-10-07;Herido;280;Octubre;7;Lunes;2019;1;No;No;No;63
+2019-10-08;Herido;281;Octubre;8;Martes;2019;2;No;No;No;63
+2019-10-09;Herido;282;Octubre;9;Miércoles;2019;2;No;No;No;59
+2019-10-10;Herido;283;Octubre;10;Jueves;2019;2;No;No;No;57
+2019-10-11;Herido;284;Octubre;11;Viernes;2019;2;No;No;No;59
+2019-10-12;Herido;285;Octubre;12;Sábado;2019;2;Si;No;No;58
+2019-10-13;Herido;286;Octubre;13;Domingo;2019;2;Si;No;No;48
+2019-10-14;Herido;287;Octubre;14;Lunes;2019;2;No;No;Si;53
+2019-10-15;Herido;288;Octubre;15;Martes;2019;3;No;No;No;63
+2019-10-16;Herido;289;Octubre;16;Miércoles;2019;3;No;No;No;59
+2019-10-17;Herido;290;Octubre;17;Jueves;2019;3;No;No;No;57
+2019-10-18;Herido;291;Octubre;18;Viernes;2019;3;No;No;No;59
+2019-10-19;Herido;292;Octubre;19;Sábado;2019;3;Si;No;No;57
+2019-10-20;Herido;293;Octubre;20;Domingo;2019;3;Si;No;No;46
+2019-10-21;Herido;294;Octubre;21;Lunes;2019;3;No;No;No;58
+2019-10-22;Herido;295;Octubre;22;Martes;2019;4;No;No;No;63
+2019-10-23;Herido;296;Octubre;23;Miércoles;2019;4;No;No;No;61
+2019-10-24;Herido;297;Octubre;24;Jueves;2019;4;No;No;No;59
+2019-10-25;Herido;298;Octubre;25;Viernes;2019;4;No;No;No;61
+2019-10-26;Herido;299;Octubre;26;Sábado;2019;4;Si;No;No;60
+2019-10-27;Herido;300;Octubre;27;Domingo;2019;4;Si;No;No;50
+2019-10-28;Herido;301;Octubre;28;Lunes;2019;4;No;No;No;61
+2019-10-29;Herido;302;Octubre;29;Martes;2019;4;No;No;No;64
+2019-10-30;Herido;303;Octubre;30;Miércoles;2019;4;No;No;No;64
+2019-10-31;Herido;304;Octubre;31;Jueves;2019;4;No;No;No;61
+2019-11-01;Herido;305;Noviembre;1;Viernes;2019;1;No;No;No;69
+2019-11-02;Herido;306;Noviembre;2;Sábado;2019;1;Si;No;No;62
+2019-11-03;Herido;307;Noviembre;3;Domingo;2019;1;Si;No;No;53
+2019-11-04;Herido;308;Noviembre;4;Lunes;2019;1;No;No;Si;53
+2019-11-05;Herido;309;Noviembre;5;Martes;2019;1;No;No;No;68
+2019-11-06;Herido;310;Noviembre;6;Miércoles;2019;1;No;No;No;68
+2019-11-07;Herido;311;Noviembre;7;Jueves;2019;1;No;No;No;64
+2019-11-08;Herido;312;Noviembre;8;Viernes;2019;2;No;No;No;63
+2019-11-09;Herido;313;Noviembre;9;Sábado;2019;2;Si;No;No;59
+2019-11-10;Herido;314;Noviembre;10;Domingo;2019;2;Si;No;No;50
+2019-11-11;Herido;315;Noviembre;11;Lunes;2019;2;No;No;Si;52
+2019-11-12;Herido;316;Noviembre;12;Martes;2019;2;No;No;No;62
+2019-11-13;Herido;317;Noviembre;13;Miércoles;2019;2;No;No;No;62
+2019-11-14;Herido;318;Noviembre;14;Jueves;2019;2;No;No;No;58
+2019-11-15;Herido;319;Noviembre;15;Viernes;2019;3;No;No;No;61
+2019-11-16;Herido;320;Noviembre;16;Sábado;2019;3;Si;No;No;56
+2019-11-17;Herido;321;Noviembre;17;Domingo;2019;3;Si;No;No;46
+2019-11-18;Herido;322;Noviembre;18;Lunes;2019;3;No;No;No;59
+2019-11-19;Herido;323;Noviembre;19;Martes;2019;3;No;No;No;62
+2019-11-20;Herido;324;Noviembre;20;Miércoles;2019;3;No;No;No;62
+2019-11-21;Herido;325;Noviembre;21;Jueves;2019;3;No;No;No;58
+2019-11-22;Herido;326;Noviembre;22;Viernes;2019;4;No;No;No;61
+2019-11-23;Herido;327;Noviembre;23;Sábado;2019;4;Si;No;No;57
+2019-11-24;Herido;328;Noviembre;24;Domingo;2019;4;Si;No;No;48
+2019-11-25;Herido;329;Noviembre;25;Lunes;2019;4;No;No;No;60
+2019-11-26;Herido;330;Noviembre;26;Martes;2019;4;No;No;No;61
+2019-11-27;Herido;331;Noviembre;27;Miércoles;2019;4;No;No;No;64
+2019-11-28;Herido;332;Noviembre;28;Jueves;2019;4;No;No;No;60
+2019-11-29;Herido;333;Noviembre;29;Viernes;2019;4;No;No;No;62
+2019-11-30;Herido;334;Noviembre;30;Sábado;2019;4;Si;No;No;59
+2019-12-01;Herido;335;Diciembre;1;Domingo;2019;1;Si;No;No;52
+2019-12-02;Herido;336;Diciembre;2;Lunes;2019;1;No;No;No;62
+2019-12-03;Herido;337;Diciembre;3;Martes;2019;1;No;No;No;64
+2019-12-04;Herido;338;Diciembre;4;Miércoles;2019;1;No;No;No;62
+2019-12-05;Herido;339;Diciembre;5;Jueves;2019;1;No;No;No;60
+2019-12-06;Herido;340;Diciembre;6;Viernes;2019;1;No;No;No;62
+2019-12-07;Herido;341;Diciembre;7;Sábado;2019;1;Si;No;No;58
+2019-12-08;Herido;342;Diciembre;8;Domingo;2019;2;Si;No;Si;56
+2019-12-09;Herido;343;Diciembre;9;Lunes;2019;2;No;No;No;56
+2019-12-10;Herido;344;Diciembre;10;Martes;2019;2;No;No;No;57
+2019-12-11;Herido;345;Diciembre;11;Miércoles;2019;2;No;No;No;55
+2019-12-12;Herido;346;Diciembre;12;Jueves;2019;2;No;No;No;53
+2019-12-13;Herido;347;Diciembre;13;Viernes;2019;2;No;No;No;56
+2019-12-14;Herido;348;Diciembre;14;Sábado;2019;2;Si;No;No;56
+2019-12-15;Herido;349;Diciembre;15;Domingo;2019;3;Si;No;No;48
+2019-12-16;Herido;350;Diciembre;16;Lunes;2019;3;No;No;No;57
+2019-12-17;Herido;351;Diciembre;17;Martes;2019;3;No;No;No;60
+2019-12-18;Herido;352;Diciembre;18;Miércoles;2019;3;No;No;No;58
+2019-12-19;Herido;353;Diciembre;19;Jueves;2019;3;No;No;No;55
+2019-12-20;Herido;354;Diciembre;20;Viernes;2019;3;No;No;No;58
+2019-12-21;Herido;355;Diciembre;21;Sábado;2019;3;Si;No;No;57
+2019-12-22;Herido;356;Diciembre;22;Domingo;2019;4;Si;No;No;48
+2019-12-23;Herido;357;Diciembre;23;Lunes;2019;4;No;No;No;56
+2019-12-24;Herido;358;Diciembre;24;Martes;2019;4;No;No;No;57
+2019-12-25;Herido;359;Diciembre;25;Miércoles;2019;4;No;No;Si;56
+2019-12-26;Herido;360;Diciembre;26;Jueves;2019;4;No;No;No;56
+2019-12-27;Herido;361;Diciembre;27;Viernes;2019;4;No;No;No;59
+2019-12-28;Herido;362;Diciembre;28;Sábado;2019;4;Si;No;No;59
+2019-12-29;Herido;363;Diciembre;29;Domingo;2019;4;Si;No;No;51
+2019-12-30;Herido;364;Diciembre;30;Lunes;2019;4;No;No;No;58
+2019-12-31;Herido;365;Diciembre;31;Martes;2019;4;No;No;No;59
+2020-01-01;Herido;1;Enero;1;Miércoles;2020;1;No;No;Si;59
+2020-01-02;Herido;2;Enero;2;Jueves;2020;1;No;No;No;61
+2020-01-03;Herido;3;Enero;3;Viernes;2020;1;No;No;No;63
+2020-01-04;Herido;4;Enero;4;Sábado;2020;1;Si;No;No;60
+2020-01-05;Herido;5;Enero;5;Domingo;2020;1;Si;No;No;56
+2020-01-06;Herido;6;Enero;6;Lunes;2020;1;No;No;Si;57
+2020-01-07;Herido;7;Enero;7;Martes;2020;1;No;No;No;61
+2020-01-08;Herido;8;Enero;8;Miércoles;2020;2;No;No;No;60
+2020-01-09;Herido;9;Enero;9;Jueves;2020;2;No;No;No;58
+2020-01-10;Herido;10;Enero;10;Viernes;2020;2;No;No;No;61
+2020-01-11;Herido;11;Enero;11;Sábado;2020;2;Si;No;No;59
+2020-01-12;Herido;12;Enero;12;Domingo;2020;2;Si;No;No;55
+2020-01-13;Herido;13;Enero;13;Lunes;2020;2;No;No;No;58
+2020-01-14;Herido;14;Enero;14;Martes;2020;2;No;No;No;59
+2020-01-15;Herido;15;Enero;15;Miércoles;2020;3;No;No;No;62
+2020-01-16;Herido;16;Enero;16;Jueves;2020;3;No;No;No;61
+2020-01-17;Herido;17;Enero;17;Viernes;2020;3;No;No;No;63
+2020-01-18;Herido;18;Enero;18;Sábado;2020;3;Si;No;No;59
+2020-01-19;Herido;19;Enero;19;Domingo;2020;3;Si;No;No;54
+2020-01-20;Herido;20;Enero;20;Lunes;2020;3;No;No;No;61
+2020-01-21;Herido;21;Enero;21;Martes;2020;3;No;No;No;62
+2020-01-22;Herido;22;Enero;22;Miércoles;2020;4;No;No;No;63
+2020-01-23;Herido;23;Enero;23;Jueves;2020;4;No;No;No;61
+2020-01-24;Herido;24;Enero;24;Viernes;2020;4;No;No;No;63
+2020-01-25;Herido;25;Enero;25;Sábado;2020;4;Si;No;No;60
+2020-01-26;Herido;26;Enero;26;Domingo;2020;4;Si;No;No;56
+2020-01-27;Herido;27;Enero;27;Lunes;2020;4;No;No;No;61
+2020-01-28;Herido;28;Enero;28;Martes;2020;4;No;No;No;62
+2020-01-29;Herido;29;Enero;29;Miércoles;2020;4;No;No;No;64
+2020-01-30;Herido;30;Enero;30;Jueves;2020;4;No;No;No;62
+2020-01-31;Herido;31;Enero;31;Viernes;2020;4;No;No;No;64
+2020-02-01;Herido;32;Febrero;1;Sábado;2020;1;Si;No;No;65
+2020-02-02;Herido;33;Febrero;2;Domingo;2020;1;Si;No;No;61
+2020-02-03;Herido;34;Febrero;3;Lunes;2020;1;No;No;No;67
+2020-02-04;Herido;35;Febrero;4;Martes;2020;1;No;No;No;67
+2020-02-05;Herido;36;Febrero;5;Miércoles;2020;1;No;No;No;67
+2020-02-06;Herido;37;Febrero;6;Jueves;2020;1;No;No;No;66
+2020-02-07;Herido;38;Febrero;7;Viernes;2020;1;No;No;No;68
+2020-02-08;Herido;39;Febrero;8;Sábado;2020;2;Si;No;No;64
+2020-02-09;Herido;40;Febrero;9;Domingo;2020;2;Si;No;No;59
+2020-02-10;Herido;41;Febrero;10;Lunes;2020;2;No;No;No;63
+2020-02-11;Herido;42;Febrero;11;Martes;2020;2;No;No;No;63
+2020-02-12;Herido;43;Febrero;12;Miércoles;2020;2;No;No;No;64
+2020-02-13;Herido;44;Febrero;13;Jueves;2020;2;No;No;No;62
+2020-02-14;Herido;45;Febrero;14;Viernes;2020;2;No;No;No;65
+2020-02-15;Herido;46;Febrero;15;Sábado;2020;3;Si;No;No;63
+2020-02-16;Herido;47;Febrero;16;Domingo;2020;3;Si;No;No;57
+2020-02-17;Herido;48;Febrero;17;Lunes;2020;3;No;No;No;64
+2020-02-18;Herido;49;Febrero;18;Martes;2020;3;No;No;No;65
+2020-02-19;Herido;50;Febrero;19;Miércoles;2020;3;No;No;No;65
+2020-02-20;Herido;51;Febrero;20;Jueves;2020;3;No;No;No;63
+2020-02-21;Herido;52;Febrero;21;Viernes;2020;3;No;No;No;65
+2020-02-22;Herido;53;Febrero;22;Sábado;2020;4;Si;No;No;64
+2020-02-23;Herido;54;Febrero;23;Domingo;2020;4;Si;No;No;59
+2020-02-24;Herido;55;Febrero;24;Lunes;2020;4;No;No;No;65
+2020-02-25;Herido;56;Febrero;25;Martes;2020;4;No;No;No;65
+2020-02-26;Herido;57;Febrero;26;Miércoles;2020;4;No;No;No;67
+2020-02-27;Herido;58;Febrero;27;Jueves;2020;4;No;No;No;65
+2020-02-28;Herido;59;Febrero;28;Viernes;2020;4;No;No;No;67
+2020-02-29;Herido;60;Febrero;29;Sábado;2020;4;No;No;No;64
+2020-03-01;Herido;60;Marzo;1;Domingo;2020;1;Si;No;No;59
+2020-03-02;Herido;61;Marzo;2;Lunes;2020;1;No;No;No;62
+2020-03-03;Herido;62;Marzo;3;Martes;2020;1;No;No;No;63
+2020-03-04;Herido;63;Marzo;4;Miércoles;2020;1;No;No;No;63
+2020-03-05;Herido;64;Marzo;5;Jueves;2020;1;No;No;No;62
+2020-03-06;Herido;65;Marzo;6;Viernes;2020;1;No;No;No;63
+2020-03-07;Herido;66;Marzo;7;Sábado;2020;1;Si;No;No;62
+2020-03-08;Herido;67;Marzo;8;Domingo;2020;2;Si;No;No;57
+2020-03-09;Herido;68;Marzo;9;Lunes;2020;2;No;No;No;59
+2020-03-10;Herido;69;Marzo;10;Martes;2020;2;No;No;No;60
+2020-03-11;Herido;70;Marzo;11;Miércoles;2020;2;No;No;No;60
+2020-03-12;Herido;71;Marzo;12;Jueves;2020;2;No;No;No;58
+2020-03-13;Herido;72;Marzo;13;Viernes;2020;2;No;No;No;60
+2020-03-14;Herido;73;Marzo;14;Sábado;2020;2;Si;No;No;60
+2020-03-15;Herido;74;Marzo;15;Domingo;2020;3;Si;No;No;54
+2020-03-16;Herido;75;Marzo;16;Lunes;2020;3;No;No;No;59
+2020-03-17;Herido;76;Marzo;17;Martes;2020;3;No;No;No;61
+2020-03-18;Herido;77;Marzo;18;Miércoles;2020;3;No;No;No;61
+2020-03-19;Herido;78;Marzo;19;Jueves;2020;3;No;No;No;60
+2020-03-20;Herido;79;Marzo;20;Viernes;2020;3;No;No;No;60
+2020-03-21;Herido;80;Marzo;21;Sábado;2020;3;Si;No;No;59
+2020-03-22;Herido;81;Marzo;22;Domingo;2020;4;Si;No;No;54
+2020-03-23;Herido;82;Marzo;23;Lunes;2020;4;No;No;Si;56
+2020-03-24;Herido;83;Marzo;24;Martes;2020;4;No;No;No;60
+2020-03-25;Herido;84;Marzo;25;Miércoles;2020;4;No;No;No;62
+2020-03-26;Herido;85;Marzo;26;Jueves;2020;4;No;No;No;60
+2020-03-27;Herido;86;Marzo;27;Viernes;2020;4;No;No;No;61
+2020-03-28;Herido;87;Marzo;28;Sábado;2020;4;Si;No;No;60
+2020-03-29;Herido;88;Marzo;29;Domingo;2020;4;Si;No;No;55
+2020-03-30;Herido;89;Marzo;30;Lunes;2020;4;No;No;No;60
+2020-03-31;Herido;90;Marzo;31;Martes;2020;4;No;No;No;61
+2020-04-01;Herido;91;Abril;1;Miércoles;2020;1;No;No;No;65
+2020-04-02;Herido;92;Abril;2;Jueves;2020;1;No;No;No;63
+2020-04-03;Herido;93;Abril;3;Viernes;2020;1;No;No;No;66
+2020-04-04;Herido;94;Abril;4;Sábado;2020;1;Si;No;No;61
+2020-04-05;Herido;95;Abril;5;Domingo;2020;1;Si;No;No;56
+2020-04-06;Herido;96;Abril;6;Lunes;2020;1;No;No;No;63
+2020-04-07;Herido;97;Abril;7;Martes;2020;1;No;No;No;63
+2020-04-08;Herido;98;Abril;8;Miércoles;2020;2;No;No;No;62
+2020-04-09;Herido;99;Abril;9;Jueves;2020;2;No;No;Si;53
+2020-04-10;Herido;100;Abril;10;Viernes;2020;2;No;No;Si;53
+2020-04-11;Herido;101;Abril;11;Sábado;2020;2;Si;No;No;60
+2020-04-12;Herido;102;Abril;12;Domingo;2020;2;Si;No;No;54
+2020-04-13;Herido;103;Abril;13;Lunes;2020;2;No;No;No;59
+2020-04-14;Herido;104;Abril;14;Martes;2020;2;No;No;No;60
+2020-04-15;Herido;105;Abril;15;Miércoles;2020;3;No;No;No;62
+2020-04-16;Herido;106;Abril;16;Jueves;2020;3;No;No;No;60
+2020-04-17;Herido;107;Abril;17;Viernes;2020;3;No;No;No;62
+2020-04-18;Herido;108;Abril;18;Sábado;2020;3;Si;No;No;58
+2020-04-19;Herido;109;Abril;19;Domingo;2020;3;Si;No;No;52
+2020-04-20;Herido;110;Abril;20;Lunes;2020;3;No;No;No;60
+2020-04-21;Herido;111;Abril;21;Martes;2020;3;No;No;No;61
+2020-04-22;Herido;112;Abril;22;Miércoles;2020;4;No;No;No;64
+2020-04-23;Herido;113;Abril;23;Jueves;2020;4;No;No;No;61
+2020-04-24;Herido;114;Abril;24;Viernes;2020;4;No;No;No;64
+2020-04-25;Herido;115;Abril;25;Sábado;2020;4;Si;No;No;60
+2020-04-26;Herido;116;Abril;26;Domingo;2020;4;Si;No;No;55
+2020-04-27;Herido;117;Abril;27;Lunes;2020;4;No;No;No;61
+2020-04-28;Herido;118;Abril;28;Martes;2020;4;No;No;No;63
+2020-04-29;Herido;119;Abril;29;Miércoles;2020;4;No;No;No;65
+2020-04-30;Herido;120;Abril;30;Jueves;2020;4;No;No;No;62
+2020-05-01;Herido;121;Mayo;1;Viernes;2020;1;No;No;Si;60
+2020-05-02;Herido;122;Mayo;2;Sábado;2020;1;Si;No;No;61
+2020-05-03;Herido;123;Mayo;3;Domingo;2020;1;Si;No;No;56
+2020-05-04;Herido;124;Mayo;4;Lunes;2020;1;No;No;No;63
+2020-05-05;Herido;125;Mayo;5;Martes;2020;1;No;No;No;64
+2020-05-06;Herido;126;Mayo;6;Miércoles;2020;1;No;No;No;64
+2020-05-07;Herido;127;Mayo;7;Jueves;2020;1;No;No;No;61
+2020-05-08;Herido;128;Mayo;8;Viernes;2020;2;No;No;No;62
+2020-05-09;Herido;129;Mayo;9;Sábado;2020;2;Si;No;No;59
+2020-05-10;Herido;130;Mayo;10;Domingo;2020;2;Si;No;No;53
+2020-05-11;Herido;131;Mayo;11;Lunes;2020;2;No;No;No;59
+2020-05-12;Herido;132;Mayo;12;Martes;2020;2;No;No;No;60
+2020-05-13;Herido;133;Mayo;13;Miércoles;2020;2;No;No;No;61
+2020-05-14;Herido;134;Mayo;14;Jueves;2020;2;No;No;No;57
+2020-05-15;Herido;135;Mayo;15;Viernes;2020;3;No;No;No;61
+2020-05-16;Herido;136;Mayo;16;Sábado;2020;3;Si;No;No;58
+2020-05-17;Herido;137;Mayo;17;Domingo;2020;3;Si;No;No;51
+2020-05-18;Herido;138;Mayo;18;Lunes;2020;3;No;No;No;60
+2020-05-19;Herido;139;Mayo;19;Martes;2020;3;No;No;No;61
+2020-05-20;Herido;140;Mayo;20;Miércoles;2020;3;No;No;No;61
+2020-05-21;Herido;141;Mayo;21;Jueves;2020;3;No;No;No;58
+2020-05-22;Herido;142;Mayo;22;Viernes;2020;4;No;No;No;63
+2020-05-23;Herido;143;Mayo;23;Sábado;2020;4;Si;No;No;59
+2020-05-24;Herido;144;Mayo;24;Domingo;2020;4;Si;No;No;53
+2020-05-25;Herido;145;Mayo;25;Lunes;2020;4;No;No;Si;59
+2020-05-26;Herido;146;Mayo;26;Martes;2020;4;No;No;No;63
+2020-05-27;Herido;147;Mayo;27;Miércoles;2020;4;No;No;No;65
+2020-05-28;Herido;148;Mayo;28;Jueves;2020;4;No;No;No;62
+2020-05-29;Herido;149;Mayo;29;Viernes;2020;4;No;No;No;64
+2020-05-30;Herido;150;Mayo;30;Sábado;2020;4;Si;No;No;60
+2020-05-31;Herido;151;Mayo;31;Domingo;2020;4;Si;No;No;55
+2020-06-01;Herido;152;Junio;1;Lunes;2020;1;No;No;No;64
+2020-06-02;Herido;153;Junio;2;Martes;2020;1;No;No;No;64
+2020-06-03;Herido;154;Junio;3;Miércoles;2020;1;No;No;No;64
+2020-06-04;Herido;155;Junio;4;Jueves;2020;1;No;No;No;62
+2020-06-05;Herido;156;Junio;5;Viernes;2020;1;No;No;No;64
+2020-06-06;Herido;157;Junio;6;Sábado;2020;1;Si;No;No;60
+2020-06-07;Herido;158;Junio;7;Domingo;2020;1;Si;No;No;54
+2020-06-08;Herido;159;Junio;8;Lunes;2020;2;No;No;No;59
+2020-06-09;Herido;160;Junio;9;Martes;2020;2;No;No;No;60
+2020-06-10;Herido;161;Junio;10;Miércoles;2020;2;No;No;No;60
+2020-06-11;Herido;162;Junio;11;Jueves;2020;2;No;No;No;57
+2020-06-12;Herido;163;Junio;12;Viernes;2020;2;No;No;No;60
+2020-06-13;Herido;164;Junio;13;Sábado;2020;2;Si;No;No;58
+2020-06-14;Herido;165;Junio;14;Domingo;2020;2;Si;No;No;52
+2020-06-15;Herido;166;Junio;15;Lunes;2020;3;No;No;Si;56
+2020-06-16;Herido;167;Junio;16;Martes;2020;3;No;No;No;60
+2020-06-17;Herido;168;Junio;17;Miércoles;2020;3;No;No;No;60
+2020-06-18;Herido;169;Junio;18;Jueves;2020;3;No;No;No;57
+2020-06-19;Herido;170;Junio;19;Viernes;2020;3;No;No;No;59
+2020-06-20;Herido;171;Junio;20;Sábado;2020;3;Si;No;No;56
+2020-06-21;Herido;172;Junio;21;Domingo;2020;3;Si;No;No;50
+2020-06-22;Herido;173;Junio;22;Lunes;2020;4;No;No;Si;56
+2020-06-23;Herido;174;Junio;23;Martes;2020;4;No;No;No;59
+2020-06-24;Herido;175;Junio;24;Miércoles;2020;4;No;No;No;60
+2020-06-25;Herido;176;Junio;25;Jueves;2020;4;No;No;No;57
+2020-06-26;Herido;177;Junio;26;Viernes;2020;4;No;No;No;60
+2020-06-27;Herido;178;Junio;27;Sábado;2020;4;Si;No;No;56
+2020-06-28;Herido;179;Junio;28;Domingo;2020;4;Si;No;No;51
+2020-06-29;Herido;180;Junio;29;Lunes;2020;4;No;No;Si;58
+2020-06-30;Herido;181;Junio;30;Martes;2020;4;No;No;No;60
+2020-07-01;Herido;182;Julio;1;Miércoles;2020;1;No;No;No;64
+2020-07-02;Herido;183;Julio;2;Jueves;2020;1;No;No;No;62
+2020-07-03;Herido;184;Julio;3;Viernes;2020;1;No;No;No;64
+2020-07-04;Herido;185;Julio;4;Sábado;2020;1;Si;No;No;61
+2020-07-05;Herido;186;Julio;5;Domingo;2020;1;Si;No;No;55
+2020-07-06;Herido;187;Julio;6;Lunes;2020;1;No;No;No;61
+2020-07-07;Herido;188;Julio;7;Martes;2020;1;No;No;No;63
+2020-07-08;Herido;189;Julio;8;Miércoles;2020;2;No;No;No;60
+2020-07-09;Herido;190;Julio;9;Jueves;2020;2;No;No;No;57
+2020-07-10;Herido;191;Julio;10;Viernes;2020;2;No;No;No;61
+2020-07-11;Herido;192;Julio;11;Sábado;2020;2;Si;No;No;59
+2020-07-12;Herido;193;Julio;12;Domingo;2020;2;Si;No;No;53
+2020-07-13;Herido;194;Julio;13;Lunes;2020;2;No;No;No;57
+2020-07-14;Herido;195;Julio;14;Martes;2020;2;No;No;No;59
+2020-07-15;Herido;196;Julio;15;Miércoles;2020;3;No;No;No;61
+2020-07-16;Herido;197;Julio;16;Jueves;2020;3;No;No;No;58
+2020-07-17;Herido;198;Julio;17;Viernes;2020;3;No;No;No;60
+2020-07-18;Herido;199;Julio;18;Sábado;2020;3;Si;No;No;58
+2020-07-19;Herido;200;Julio;19;Domingo;2020;3;Si;No;No;51
+2020-07-20;Herido;201;Julio;20;Lunes;2020;3;No;No;Si;56
+2020-07-21;Herido;202;Julio;21;Martes;2020;3;No;No;No;61
+2020-07-22;Herido;203;Julio;22;Miércoles;2020;4;No;No;No;62
+2020-07-23;Herido;204;Julio;23;Jueves;2020;4;No;No;No;59
+2020-07-24;Herido;205;Julio;24;Viernes;2020;4;No;No;No;61
+2020-07-25;Herido;206;Julio;25;Sábado;2020;4;Si;No;No;58
+2020-07-26;Herido;207;Julio;26;Domingo;2020;4;Si;No;No;52
+2020-07-27;Herido;208;Julio;27;Lunes;2020;4;No;No;No;60
+2020-07-28;Herido;209;Julio;28;Martes;2020;4;No;No;No;62
+2020-07-29;Herido;210;Julio;29;Miércoles;2020;4;No;No;No;63
+2020-07-30;Herido;211;Julio;30;Jueves;2020;4;No;No;No;60
+2020-07-31;Herido;212;Julio;31;Viernes;2020;4;No;Si;No;62
+2020-08-01;Herido;213;Agosto;1;Sábado;2020;1;Si;Si;No;62
+2020-08-02;Herido;214;Agosto;2;Domingo;2020;1;Si;Si;No;56
+2020-08-03;Herido;215;Agosto;3;Lunes;2020;1;No;Si;No;66
+2020-08-04;Herido;216;Agosto;4;Martes;2020;1;No;Si;No;67
+2020-08-05;Herido;217;Agosto;5;Miércoles;2020;1;No;Si;No;67
+2020-08-06;Herido;218;Agosto;6;Jueves;2020;1;No;Si;No;63
+2020-08-07;Herido;219;Agosto;7;Viernes;2020;1;No;Si;Si;59
+2020-08-08;Herido;220;Agosto;8;Sábado;2020;2;Si;Si;No;59
+2020-08-09;Herido;221;Agosto;9;Domingo;2020;2;Si;Si;No;52
+2020-08-10;Herido;222;Agosto;10;Lunes;2020;2;No;No;No;60
+2020-08-11;Herido;223;Agosto;11;Martes;2020;2;No;No;No;61
+2020-08-12;Herido;224;Agosto;12;Miércoles;2020;2;No;No;No;61
+2020-08-13;Herido;225;Agosto;13;Jueves;2020;2;No;No;No;58
+2020-08-14;Herido;226;Agosto;14;Viernes;2020;2;No;No;No;60
+2020-08-15;Herido;227;Agosto;15;Sábado;2020;3;Si;No;No;57
+2020-08-16;Herido;228;Agosto;16;Domingo;2020;3;Si;No;No;49
+2020-08-17;Herido;229;Agosto;17;Lunes;2020;3;No;No;Si;58
+2020-08-18;Herido;230;Agosto;18;Martes;2020;3;No;No;No;61
+2020-08-19;Herido;231;Agosto;19;Miércoles;2020;3;No;No;No;61
+2020-08-20;Herido;232;Agosto;20;Jueves;2020;3;No;No;No;58
+2020-08-21;Herido;233;Agosto;21;Viernes;2020;3;No;No;No;60
+2020-08-22;Herido;234;Agosto;22;Sábado;2020;4;Si;No;No;56
+2020-08-23;Herido;235;Agosto;23;Domingo;2020;4;Si;No;No;49
+2020-08-24;Herido;236;Agosto;24;Lunes;2020;4;No;No;No;60
+2020-08-25;Herido;237;Agosto;25;Martes;2020;4;No;No;No;61
+2020-08-26;Herido;238;Agosto;26;Miércoles;2020;4;No;No;No;62
+2020-08-27;Herido;239;Agosto;27;Jueves;2020;4;No;No;No;59
+2020-08-28;Herido;240;Agosto;28;Viernes;2020;4;No;No;No;61
+2020-08-29;Herido;241;Agosto;29;Sábado;2020;4;Si;No;No;57
+2020-08-30;Herido;242;Agosto;30;Domingo;2020;4;Si;No;No;51
+2020-08-31;Herido;243;Agosto;31;Lunes;2020;4;No;No;No;61
+2020-09-01;Herido;244;Septiembre;1;Martes;2020;1;No;No;No;67
+2020-09-02;Herido;245;Septiembre;2;Miércoles;2020;1;No;No;No;67
+2020-09-03;Herido;246;Septiembre;3;Jueves;2020;1;No;No;No;65
+2020-09-04;Herido;247;Septiembre;4;Viernes;2020;1;No;No;No;67
+2020-09-05;Herido;248;Septiembre;5;Sábado;2020;1;Si;No;No;61
+2020-09-06;Herido;249;Septiembre;6;Domingo;2020;1;Si;No;No;54
+2020-09-07;Herido;250;Septiembre;7;Lunes;2020;1;No;No;No;64
+2020-09-08;Herido;251;Septiembre;8;Martes;2020;2;No;No;No;62
+2020-09-09;Herido;252;Septiembre;9;Miércoles;2020;2;No;No;No;62
+2020-09-10;Herido;253;Septiembre;10;Jueves;2020;2;No;No;No;59
+2020-09-11;Herido;254;Septiembre;11;Viernes;2020;2;No;No;No;61
+2020-09-12;Herido;255;Septiembre;12;Sábado;2020;2;Si;No;No;59
+2020-09-13;Herido;256;Septiembre;13;Domingo;2020;2;Si;No;No;51
+2020-09-14;Herido;257;Septiembre;14;Lunes;2020;2;No;No;No;58
+2020-09-15;Herido;258;Septiembre;15;Martes;2020;3;No;No;No;61
+2020-09-16;Herido;259;Septiembre;16;Miércoles;2020;3;No;No;No;61
+2020-09-17;Herido;260;Septiembre;17;Jueves;2020;3;No;No;No;58
+2020-09-18;Herido;261;Septiembre;18;Viernes;2020;3;No;No;No;59
+2020-09-19;Herido;262;Septiembre;19;Sábado;2020;3;Si;No;No;57
+2020-09-20;Herido;263;Septiembre;20;Domingo;2020;3;Si;No;No;49
+2020-09-21;Herido;264;Septiembre;21;Lunes;2020;3;No;No;No;58
+2020-09-22;Herido;265;Septiembre;22;Martes;2020;4;No;No;No;60
+2020-09-23;Herido;266;Septiembre;23;Miércoles;2020;4;No;No;No;62
+2020-09-24;Herido;267;Septiembre;24;Jueves;2020;4;No;No;No;59
+2020-09-25;Herido;268;Septiembre;25;Viernes;2020;4;No;No;No;61
+2020-09-26;Herido;269;Septiembre;26;Sábado;2020;4;Si;No;No;59
+2020-09-27;Herido;270;Septiembre;27;Domingo;2020;4;Si;No;No;52
+2020-09-28;Herido;271;Septiembre;28;Lunes;2020;4;No;No;No;60
+2020-09-29;Herido;272;Septiembre;29;Martes;2020;4;No;No;No;61
+2020-09-30;Herido;273;Septiembre;30;Miércoles;2020;4;No;No;No;63
+2020-10-01;Herido;274;Octubre;1;Jueves;2020;1;No;No;No;62
+2020-10-02;Herido;275;Octubre;2;Viernes;2020;1;No;No;No;63
+2020-10-03;Herido;276;Octubre;3;Sábado;2020;1;Si;No;No;59
+2020-10-04;Herido;277;Octubre;4;Domingo;2020;1;Si;No;No;53
+2020-10-05;Herido;278;Octubre;5;Lunes;2020;1;No;No;No;61
+2020-10-06;Herido;279;Octubre;6;Martes;2020;1;No;No;No;63
+2020-10-07;Herido;280;Octubre;7;Miércoles;2020;1;No;No;No;61
+2020-10-08;Herido;281;Octubre;8;Jueves;2020;2;No;No;No;56
+2020-10-09;Herido;282;Octubre;9;Viernes;2020;2;No;No;No;58
+2020-10-10;Herido;283;Octubre;10;Sábado;2020;2;Si;No;No;57
+2020-10-11;Herido;284;Octubre;11;Domingo;2020;2;Si;No;No;51
+2020-10-12;Herido;285;Octubre;12;Lunes;2020;2;No;No;Si;56
+2020-10-13;Herido;286;Octubre;13;Martes;2020;2;No;No;No;58
+2020-10-14;Herido;287;Octubre;14;Miércoles;2020;2;No;No;No;56
+2020-10-15;Herido;288;Octubre;15;Jueves;2020;3;No;No;No;55
+2020-10-16;Herido;289;Octubre;16;Viernes;2020;3;No;No;No;56
+2020-10-17;Herido;290;Octubre;17;Sábado;2020;3;Si;No;No;55
+2020-10-18;Herido;291;Octubre;18;Domingo;2020;3;Si;No;No;48
+2020-10-19;Herido;292;Octubre;19;Lunes;2020;3;No;No;No;55
+2020-10-20;Herido;293;Octubre;20;Martes;2020;3;No;No;No;58
+2020-10-21;Herido;294;Octubre;21;Miércoles;2020;3;No;No;No;57
+2020-10-22;Herido;295;Octubre;22;Jueves;2020;4;No;No;No;56
+2020-10-23;Herido;296;Octubre;23;Viernes;2020;4;No;No;No;58
+2020-10-24;Herido;297;Octubre;24;Sábado;2020;4;Si;No;No;57
+2020-10-25;Herido;298;Octubre;25;Domingo;2020;4;Si;No;No;51
+2020-10-26;Herido;299;Octubre;26;Lunes;2020;4;No;No;No;57
+2020-10-27;Herido;300;Octubre;27;Martes;2020;4;No;No;No;60
+2020-10-28;Herido;301;Octubre;28;Miércoles;2020;4;No;No;No;60
+2020-10-29;Herido;302;Octubre;29;Jueves;2020;4;No;No;No;58
+2020-10-30;Herido;303;Octubre;30;Viernes;2020;4;No;No;No;60
+2020-10-31;Herido;304;Octubre;31;Sábado;2020;4;Si;No;No;59
+2020-11-01;Herido;305;Noviembre;1;Domingo;2020;1;Si;No;No;56
+2020-11-02;Herido;306;Noviembre;2;Lunes;2020;1;No;No;Si;57
+2020-11-03;Herido;307;Noviembre;3;Martes;2020;1;No;No;No;65
+2020-11-04;Herido;308;Noviembre;4;Miércoles;2020;1;No;No;No;65
+2020-11-05;Herido;309;Noviembre;5;Jueves;2020;1;No;No;No;62
+2020-11-06;Herido;310;Noviembre;6;Viernes;2020;1;No;No;No;63
+2020-11-07;Herido;311;Noviembre;7;Sábado;2020;1;Si;No;No;58
+2020-11-08;Herido;312;Noviembre;8;Domingo;2020;2;Si;No;No;53
+2020-11-09;Herido;313;Noviembre;9;Lunes;2020;2;No;No;No;58
+2020-11-10;Herido;314;Noviembre;10;Martes;2020;2;No;No;No;60
+2020-11-11;Herido;315;Noviembre;11;Miércoles;2020;2;No;No;No;60
+2020-11-12;Herido;316;Noviembre;12;Jueves;2020;2;No;No;No;57
+2020-11-13;Herido;317;Noviembre;13;Viernes;2020;2;No;No;No;58
+2020-11-14;Herido;318;Noviembre;14;Sábado;2020;2;Si;No;No;56
+2020-11-15;Herido;319;Noviembre;15;Domingo;2020;3;Si;No;No;49
+2020-11-16;Herido;320;Noviembre;16;Lunes;2020;3;No;No;Si;56
+2020-11-17;Herido;321;Noviembre;17;Martes;2020;3;No;No;No;59
+2020-11-18;Herido;322;Noviembre;18;Miércoles;2020;3;No;No;No;59
+2020-11-19;Herido;323;Noviembre;19;Jueves;2020;3;No;No;No;56
+2020-11-20;Herido;324;Noviembre;20;Viernes;2020;3;No;No;No;57
+2020-11-21;Herido;325;Noviembre;21;Sábado;2020;3;Si;No;No;55
+2020-11-22;Herido;326;Noviembre;22;Domingo;2020;4;Si;No;No;50
+2020-11-23;Herido;327;Noviembre;23;Lunes;2020;4;No;No;No;57
+2020-11-24;Herido;328;Noviembre;24;Martes;2020;4;No;No;No;59
+2020-11-25;Herido;329;Noviembre;25;Miércoles;2020;4;No;No;No;61
+2020-11-26;Herido;330;Noviembre;26;Jueves;2020;4;No;No;No;57
+2020-11-27;Herido;331;Noviembre;27;Viernes;2020;4;No;No;No;59
+2020-11-28;Herido;332;Noviembre;28;Sábado;2020;4;Si;No;No;57
+2020-11-29;Herido;333;Noviembre;29;Domingo;2020;4;Si;No;No;52
+2020-11-30;Herido;334;Noviembre;30;Lunes;2020;4;No;No;No;59
+2020-12-01;Herido;335;Diciembre;1;Martes;2020;1;No;No;No;63
+2020-12-02;Herido;336;Diciembre;2;Miércoles;2020;1;No;No;No;62
+2020-12-03;Herido;337;Diciembre;3;Jueves;2020;1;No;No;No;60
+2020-12-04;Herido;338;Diciembre;4;Viernes;2020;1;No;No;No;62
+2020-12-05;Herido;339;Diciembre;5;Sábado;2020;1;Si;No;No;58
+2020-12-06;Herido;340;Diciembre;6;Domingo;2020;1;Si;No;No;52
+2020-12-07;Herido;341;Diciembre;7;Lunes;2020;1;No;No;No;59
+2020-12-08;Herido;342;Diciembre;8;Martes;2020;2;No;No;Si;58
+2020-12-09;Herido;343;Diciembre;9;Miércoles;2020;2;No;No;No;57
+2020-12-10;Herido;344;Diciembre;10;Jueves;2020;2;No;No;No;55
+2020-12-11;Herido;345;Diciembre;11;Viernes;2020;2;No;No;No;56
+2020-12-12;Herido;346;Diciembre;12;Sábado;2020;2;Si;No;No;56
+2020-12-13;Herido;347;Diciembre;13;Domingo;2020;2;Si;No;No;50
+2020-12-14;Herido;348;Diciembre;14;Lunes;2020;2;No;No;No;54
+2020-12-15;Herido;349;Diciembre;15;Martes;2020;3;No;No;No;58
+2020-12-16;Herido;350;Diciembre;16;Miércoles;2020;3;No;No;No;57
+2020-12-17;Herido;351;Diciembre;17;Jueves;2020;3;No;No;No;55
+2020-12-18;Herido;352;Diciembre;18;Viernes;2020;3;No;No;No;56
+2020-12-19;Herido;353;Diciembre;19;Sábado;2020;3;Si;No;No;56
+2020-12-20;Herido;354;Diciembre;20;Domingo;2020;3;Si;No;No;50
+2020-12-21;Herido;355;Diciembre;21;Lunes;2020;3;No;No;No;55
+2020-12-22;Herido;356;Diciembre;22;Martes;2020;4;No;No;No;57
+2020-12-23;Herido;357;Diciembre;23;Miércoles;2020;4;No;No;No;58
+2020-12-24;Herido;358;Diciembre;24;Jueves;2020;4;No;No;No;55
+2020-12-25;Herido;359;Diciembre;25;Viernes;2020;4;No;No;Si;58
+2020-12-26;Herido;360;Diciembre;26;Sábado;2020;4;Si;No;No;58
+2020-12-27;Herido;361;Diciembre;27;Domingo;2020;4;Si;No;No;53
+2020-12-28;Herido;362;Diciembre;28;Lunes;2020;4;No;No;No;57
+2020-12-29;Herido;363;Diciembre;29;Martes;2020;4;No;No;No;58
+2020-12-30;Herido;364;Diciembre;30;Miércoles;2020;4;No;No;No;59
+2020-12-31;Herido;365;Diciembre;31;Jueves;2020;4;No;No;No;57
+2019-01-01;Muerto;1;Enero;1;Martes;2019;1;No;No;Si;1
+2019-01-02;Muerto;2;Enero;2;Miércoles;2019;1;No;No;No;1
+2019-01-03;Muerto;3;Enero;3;Jueves;2019;1;No;No;No;1
+2019-01-04;Muerto;4;Enero;4;Viernes;2019;1;No;No;No;1
+2019-01-05;Muerto;5;Enero;5;Sábado;2019;1;Si;No;No;1
+2019-01-06;Muerto;6;Enero;6;Domingo;2019;1;Si;No;No;1
+2019-01-07;Muerto;7;Enero;7;Lunes;2019;1;No;No;Si;1
+2019-01-08;Muerto;8;Enero;8;Martes;2019;2;No;No;No;1
+2019-01-09;Muerto;9;Enero;9;Miércoles;2019;2;No;No;No;1
+2019-01-10;Muerto;10;Enero;10;Jueves;2019;2;No;No;No;1
+2019-01-11;Muerto;11;Enero;11;Viernes;2019;2;No;No;No;1
+2019-01-12;Muerto;12;Enero;12;Sábado;2019;2;Si;No;No;1
+2019-01-13;Muerto;13;Enero;13;Domingo;2019;2;Si;No;No;1
+2019-01-14;Muerto;14;Enero;14;Lunes;2019;2;No;No;No;1
+2019-01-15;Muerto;15;Enero;15;Martes;2019;3;No;No;No;1
+2019-01-16;Muerto;16;Enero;16;Miércoles;2019;3;No;No;No;1
+2019-01-17;Muerto;17;Enero;17;Jueves;2019;3;No;No;No;1
+2019-01-18;Muerto;18;Enero;18;Viernes;2019;3;No;No;No;1
+2019-01-19;Muerto;19;Enero;19;Sábado;2019;3;Si;No;No;1
+2019-01-20;Muerto;20;Enero;20;Domingo;2019;3;Si;No;No;1
+2019-01-21;Muerto;21;Enero;21;Lunes;2019;3;No;No;No;1
+2019-01-22;Muerto;22;Enero;22;Martes;2019;4;No;No;No;1
+2019-01-23;Muerto;23;Enero;23;Miércoles;2019;4;No;No;No;1
+2019-01-24;Muerto;24;Enero;24;Jueves;2019;4;No;No;No;1
+2019-01-25;Muerto;25;Enero;25;Viernes;2019;4;No;No;No;1
+2019-01-26;Muerto;26;Enero;26;Sábado;2019;4;Si;No;No;1
+2019-01-27;Muerto;27;Enero;27;Domingo;2019;4;Si;No;No;1
+2019-01-28;Muerto;28;Enero;28;Lunes;2019;4;No;No;No;1
+2019-01-29;Muerto;29;Enero;29;Martes;2019;4;No;No;No;1
+2019-01-30;Muerto;30;Enero;30;Miércoles;2019;4;No;No;No;1
+2019-01-31;Muerto;31;Enero;31;Jueves;2019;4;No;No;No;1
+2019-02-01;Muerto;32;Febrero;1;Viernes;2019;1;No;No;No;1
+2019-02-02;Muerto;33;Febrero;2;Sábado;2019;1;Si;No;No;1
+2019-02-03;Muerto;34;Febrero;3;Domingo;2019;1;Si;No;No;1
+2019-02-04;Muerto;35;Febrero;4;Lunes;2019;1;No;No;No;1
+2019-02-05;Muerto;36;Febrero;5;Martes;2019;1;No;No;No;1
+2019-02-06;Muerto;37;Febrero;6;Miércoles;2019;1;No;No;No;1
+2019-02-07;Muerto;38;Febrero;7;Jueves;2019;1;No;No;No;1
+2019-02-08;Muerto;39;Febrero;8;Viernes;2019;2;No;No;No;1
+2019-02-09;Muerto;40;Febrero;9;Sábado;2019;2;Si;No;No;1
+2019-02-10;Muerto;41;Febrero;10;Domingo;2019;2;Si;No;No;1
+2019-02-11;Muerto;42;Febrero;11;Lunes;2019;2;No;No;No;1
+2019-02-12;Muerto;43;Febrero;12;Martes;2019;2;No;No;No;1
+2019-02-13;Muerto;44;Febrero;13;Miércoles;2019;2;No;No;No;1
+2019-02-14;Muerto;45;Febrero;14;Jueves;2019;2;No;No;No;1
+2019-02-15;Muerto;46;Febrero;15;Viernes;2019;3;No;No;No;1
+2019-02-16;Muerto;47;Febrero;16;Sábado;2019;3;Si;No;No;1
+2019-02-17;Muerto;48;Febrero;17;Domingo;2019;3;Si;No;No;1
+2019-02-18;Muerto;49;Febrero;18;Lunes;2019;3;No;No;No;1
+2019-02-19;Muerto;50;Febrero;19;Martes;2019;3;No;No;No;1
+2019-02-20;Muerto;51;Febrero;20;Miércoles;2019;3;No;No;No;1
+2019-02-21;Muerto;52;Febrero;21;Jueves;2019;3;No;No;No;1
+2019-02-22;Muerto;53;Febrero;22;Viernes;2019;4;No;No;No;1
+2019-02-23;Muerto;54;Febrero;23;Sábado;2019;4;Si;No;No;1
+2019-02-24;Muerto;55;Febrero;24;Domingo;2019;4;Si;No;No;1
+2019-02-25;Muerto;56;Febrero;25;Lunes;2019;4;No;No;No;1
+2019-02-26;Muerto;57;Febrero;26;Martes;2019;4;No;No;No;1
+2019-02-27;Muerto;58;Febrero;27;Miércoles;2019;4;No;No;No;1
+2019-02-28;Muerto;59;Febrero;28;Jueves;2019;4;No;No;No;1
+2019-03-01;Muerto;60;Marzo;1;Viernes;2019;1;No;No;No;1
+2019-03-02;Muerto;61;Marzo;2;Sábado;2019;1;Si;No;No;1
+2019-03-03;Muerto;62;Marzo;3;Domingo;2019;1;Si;No;No;1
+2019-03-04;Muerto;63;Marzo;4;Lunes;2019;1;No;No;No;1
+2019-03-05;Muerto;64;Marzo;5;Martes;2019;1;No;No;No;1
+2019-03-06;Muerto;65;Marzo;6;Miércoles;2019;1;No;No;No;1
+2019-03-07;Muerto;66;Marzo;7;Jueves;2019;1;No;No;No;1
+2019-03-08;Muerto;67;Marzo;8;Viernes;2019;2;No;No;No;1
+2019-03-09;Muerto;68;Marzo;9;Sábado;2019;2;Si;No;No;1
+2019-03-10;Muerto;69;Marzo;10;Domingo;2019;2;Si;No;No;1
+2019-03-11;Muerto;70;Marzo;11;Lunes;2019;2;No;No;No;1
+2019-03-12;Muerto;71;Marzo;12;Martes;2019;2;No;No;No;1
+2019-03-13;Muerto;72;Marzo;13;Miércoles;2019;2;No;No;No;1
+2019-03-14;Muerto;73;Marzo;14;Jueves;2019;2;No;No;No;1
+2019-03-15;Muerto;74;Marzo;15;Viernes;2019;3;No;No;No;1
+2019-03-16;Muerto;75;Marzo;16;Sábado;2019;3;Si;No;No;1
+2019-03-17;Muerto;76;Marzo;17;Domingo;2019;3;Si;No;No;1
+2019-03-18;Muerto;77;Marzo;18;Lunes;2019;3;No;No;No;1
+2019-03-19;Muerto;78;Marzo;19;Martes;2019;3;No;No;No;1
+2019-03-20;Muerto;79;Marzo;20;Miércoles;2019;3;No;No;No;1
+2019-03-21;Muerto;80;Marzo;21;Jueves;2019;3;No;No;No;1
+2019-03-22;Muerto;81;Marzo;22;Viernes;2019;4;No;No;No;1
+2019-03-23;Muerto;82;Marzo;23;Sábado;2019;4;Si;No;No;1
+2019-03-24;Muerto;83;Marzo;24;Domingo;2019;4;Si;No;No;1
+2019-03-25;Muerto;84;Marzo;25;Lunes;2019;4;No;No;Si;1
+2019-03-26;Muerto;85;Marzo;26;Martes;2019;4;No;No;No;1
+2019-03-27;Muerto;86;Marzo;27;Miércoles;2019;4;No;No;No;1
+2019-03-28;Muerto;87;Marzo;28;Jueves;2019;4;No;No;No;1
+2019-03-29;Muerto;88;Marzo;29;Viernes;2019;4;No;No;No;1
+2019-03-30;Muerto;89;Marzo;30;Sábado;2019;4;Si;No;No;1
+2019-03-31;Muerto;90;Marzo;31;Domingo;2019;4;Si;No;No;1
+2019-04-01;Muerto;91;Abril;1;Lunes;2019;1;No;No;No;1
+2019-04-02;Muerto;92;Abril;2;Martes;2019;1;No;No;No;1
+2019-04-03;Muerto;93;Abril;3;Miércoles;2019;1;No;No;No;1
+2019-04-04;Muerto;94;Abril;4;Jueves;2019;1;No;No;No;1
+2019-04-05;Muerto;95;Abril;5;Viernes;2019;1;No;No;No;1
+2019-04-06;Muerto;96;Abril;6;Sábado;2019;1;Si;No;No;1
+2019-04-07;Muerto;97;Abril;7;Domingo;2019;1;Si;No;No;1
+2019-04-08;Muerto;98;Abril;8;Lunes;2019;2;No;No;No;1
+2019-04-09;Muerto;99;Abril;9;Martes;2019;2;No;No;No;1
+2019-04-10;Muerto;100;Abril;10;Miércoles;2019;2;No;No;No;1
+2019-04-11;Muerto;101;Abril;11;Jueves;2019;2;No;No;No;1
+2019-04-12;Muerto;102;Abril;12;Viernes;2019;2;No;No;No;1
+2019-04-13;Muerto;103;Abril;13;Sábado;2019;2;Si;No;No;1
+2019-04-14;Muerto;104;Abril;14;Domingo;2019;2;Si;No;No;1
+2019-04-15;Muerto;105;Abril;15;Lunes;2019;3;No;No;No;1
+2019-04-16;Muerto;106;Abril;16;Martes;2019;3;No;No;No;1
+2019-04-17;Muerto;107;Abril;17;Miércoles;2019;3;No;No;No;1
+2019-04-18;Muerto;108;Abril;18;Jueves;2019;3;No;No;Si;1
+2019-04-19;Muerto;109;Abril;19;Viernes;2019;3;No;No;Si;1
+2019-04-20;Muerto;110;Abril;20;Sábado;2019;3;Si;No;No;1
+2019-04-21;Muerto;111;Abril;21;Domingo;2019;3;Si;No;No;1
+2019-04-22;Muerto;112;Abril;22;Lunes;2019;4;No;No;No;1
+2019-04-23;Muerto;113;Abril;23;Martes;2019;4;No;No;No;1
+2019-04-24;Muerto;114;Abril;24;Miércoles;2019;4;No;No;No;1
+2019-04-25;Muerto;115;Abril;25;Jueves;2019;4;No;No;No;1
+2019-04-26;Muerto;116;Abril;26;Viernes;2019;4;No;No;No;1
+2019-04-27;Muerto;117;Abril;27;Sábado;2019;4;Si;No;No;1
+2019-04-28;Muerto;118;Abril;28;Domingo;2019;4;Si;No;No;1
+2019-04-29;Muerto;119;Abril;29;Lunes;2019;4;No;No;No;1
+2019-04-30;Muerto;120;Abril;30;Martes;2019;4;No;No;No;1
+2019-05-01;Muerto;121;Mayo;1;Miércoles;2019;1;No;No;Si;1
+2019-05-02;Muerto;122;Mayo;2;Jueves;2019;1;No;No;No;1
+2019-05-03;Muerto;123;Mayo;3;Viernes;2019;1;No;No;No;1
+2019-05-04;Muerto;124;Mayo;4;Sábado;2019;1;Si;No;No;1
+2019-05-05;Muerto;125;Mayo;5;Domingo;2019;1;Si;No;No;1
+2019-05-06;Muerto;126;Mayo;6;Lunes;2019;1;No;No;No;1
+2019-05-07;Muerto;127;Mayo;7;Martes;2019;1;No;No;No;1
+2019-05-08;Muerto;128;Mayo;8;Miércoles;2019;2;No;No;No;1
+2019-05-09;Muerto;129;Mayo;9;Jueves;2019;2;No;No;No;1
+2019-05-10;Muerto;130;Mayo;10;Viernes;2019;2;No;No;No;1
+2019-05-11;Muerto;131;Mayo;11;Sábado;2019;2;Si;No;No;1
+2019-05-12;Muerto;132;Mayo;12;Domingo;2019;2;Si;No;No;1
+2019-05-13;Muerto;133;Mayo;13;Lunes;2019;2;No;No;No;1
+2019-05-14;Muerto;134;Mayo;14;Martes;2019;2;No;No;No;1
+2019-05-15;Muerto;135;Mayo;15;Miércoles;2019;3;No;No;No;1
+2019-05-16;Muerto;136;Mayo;16;Jueves;2019;3;No;No;No;1
+2019-05-17;Muerto;137;Mayo;17;Viernes;2019;3;No;No;No;1
+2019-05-18;Muerto;138;Mayo;18;Sábado;2019;3;Si;No;No;1
+2019-05-19;Muerto;139;Mayo;19;Domingo;2019;3;Si;No;No;1
+2019-05-20;Muerto;140;Mayo;20;Lunes;2019;3;No;No;No;1
+2019-05-21;Muerto;141;Mayo;21;Martes;2019;3;No;No;No;1
+2019-05-22;Muerto;142;Mayo;22;Miércoles;2019;4;No;No;No;1
+2019-05-23;Muerto;143;Mayo;23;Jueves;2019;4;No;No;No;1
+2019-05-24;Muerto;144;Mayo;24;Viernes;2019;4;No;No;No;1
+2019-05-25;Muerto;145;Mayo;25;Sábado;2019;4;Si;No;No;1
+2019-05-26;Muerto;146;Mayo;26;Domingo;2019;4;Si;No;No;1
+2019-05-27;Muerto;147;Mayo;27;Lunes;2019;4;No;No;No;1
+2019-05-28;Muerto;148;Mayo;28;Martes;2019;4;No;No;No;1
+2019-05-29;Muerto;149;Mayo;29;Miércoles;2019;4;No;No;No;1
+2019-05-30;Muerto;150;Mayo;30;Jueves;2019;4;No;No;No;1
+2019-05-31;Muerto;151;Mayo;31;Viernes;2019;4;No;No;No;1
+2019-06-01;Muerto;152;Junio;1;Sábado;2019;1;Si;No;No;1
+2019-06-02;Muerto;153;Junio;2;Domingo;2019;1;Si;No;No;1
+2019-06-03;Muerto;154;Junio;3;Lunes;2019;1;No;No;Si;1
+2019-06-04;Muerto;155;Junio;4;Martes;2019;1;No;No;No;1
+2019-06-05;Muerto;156;Junio;5;Miércoles;2019;1;No;No;No;1
+2019-06-06;Muerto;157;Junio;6;Jueves;2019;1;No;No;No;1
+2019-06-07;Muerto;158;Junio;7;Viernes;2019;1;No;No;No;1
+2019-06-08;Muerto;159;Junio;8;Sábado;2019;2;Si;No;No;1
+2019-06-09;Muerto;160;Junio;9;Domingo;2019;2;Si;No;No;1
+2019-06-10;Muerto;161;Junio;10;Lunes;2019;2;No;No;No;1
+2019-06-11;Muerto;162;Junio;11;Martes;2019;2;No;No;No;1
+2019-06-12;Muerto;163;Junio;12;Miércoles;2019;2;No;No;No;1
+2019-06-13;Muerto;164;Junio;13;Jueves;2019;2;No;No;No;1
+2019-06-14;Muerto;165;Junio;14;Viernes;2019;2;No;No;No;1
+2019-06-15;Muerto;166;Junio;15;Sábado;2019;3;Si;No;No;1
+2019-06-16;Muerto;167;Junio;16;Domingo;2019;3;Si;No;No;1
+2019-06-17;Muerto;168;Junio;17;Lunes;2019;3;No;No;No;1
+2019-06-18;Muerto;169;Junio;18;Martes;2019;3;No;No;No;1
+2019-06-19;Muerto;170;Junio;19;Miércoles;2019;3;No;No;No;1
+2019-06-20;Muerto;171;Junio;20;Jueves;2019;3;No;No;No;1
+2019-06-21;Muerto;172;Junio;21;Viernes;2019;3;No;No;No;1
+2019-06-22;Muerto;173;Junio;22;Sábado;2019;4;Si;No;No;1
+2019-06-23;Muerto;174;Junio;23;Domingo;2019;4;Si;No;No;1
+2019-06-24;Muerto;175;Junio;24;Lunes;2019;4;No;No;Si;1
+2019-06-25;Muerto;176;Junio;25;Martes;2019;4;No;No;No;1
+2019-06-26;Muerto;177;Junio;26;Miércoles;2019;4;No;No;No;1
+2019-06-27;Muerto;178;Junio;27;Jueves;2019;4;No;No;No;1
+2019-06-28;Muerto;179;Junio;28;Viernes;2019;4;No;No;No;1
+2019-06-29;Muerto;180;Junio;29;Sábado;2019;4;Si;No;No;1
+2019-06-30;Muerto;181;Junio;30;Domingo;2019;4;Si;No;No;1
+2019-07-01;Muerto;182;Julio;1;Lunes;2019;1;No;No;Si;1
+2019-07-02;Muerto;183;Julio;2;Martes;2019;1;No;No;No;1
+2019-07-03;Muerto;184;Julio;3;Miércoles;2019;1;No;No;No;1
+2019-07-04;Muerto;185;Julio;4;Jueves;2019;1;No;No;No;1
+2019-07-05;Muerto;186;Julio;5;Viernes;2019;1;No;No;No;1
+2019-07-06;Muerto;187;Julio;6;Sábado;2019;1;Si;No;No;1
+2019-07-07;Muerto;188;Julio;7;Domingo;2019;1;Si;No;No;1
+2019-07-08;Muerto;189;Julio;8;Lunes;2019;2;No;No;No;1
+2019-07-09;Muerto;190;Julio;9;Martes;2019;2;No;No;No;1
+2019-07-10;Muerto;191;Julio;10;Miércoles;2019;2;No;No;No;1
+2019-07-11;Muerto;192;Julio;11;Jueves;2019;2;No;No;No;1
+2019-07-12;Muerto;193;Julio;12;Viernes;2019;2;No;No;No;1
+2019-07-13;Muerto;194;Julio;13;Sábado;2019;2;Si;No;No;1
+2019-07-14;Muerto;195;Julio;14;Domingo;2019;2;Si;No;No;1
+2019-07-15;Muerto;196;Julio;15;Lunes;2019;3;No;No;No;1
+2019-07-16;Muerto;197;Julio;16;Martes;2019;3;No;No;No;1
+2019-07-17;Muerto;198;Julio;17;Miércoles;2019;3;No;No;No;1
+2019-07-18;Muerto;199;Julio;18;Jueves;2019;3;No;No;No;1
+2019-07-19;Muerto;200;Julio;19;Viernes;2019;3;No;No;No;1
+2019-07-20;Muerto;201;Julio;20;Sábado;2019;3;Si;No;Si;1
+2019-07-21;Muerto;202;Julio;21;Domingo;2019;3;Si;No;No;1
+2019-07-22;Muerto;203;Julio;22;Lunes;2019;4;No;No;No;1
+2019-07-23;Muerto;204;Julio;23;Martes;2019;4;No;No;No;1
+2019-07-24;Muerto;205;Julio;24;Miércoles;2019;4;No;No;No;1
+2019-07-25;Muerto;206;Julio;25;Jueves;2019;4;No;No;No;1
+2019-07-26;Muerto;207;Julio;26;Viernes;2019;4;No;No;No;1
+2019-07-27;Muerto;208;Julio;27;Sábado;2019;4;Si;No;No;1
+2019-07-28;Muerto;209;Julio;28;Domingo;2019;4;Si;No;No;1
+2019-07-29;Muerto;210;Julio;29;Lunes;2019;4;No;No;No;1
+2019-07-30;Muerto;211;Julio;30;Martes;2019;4;No;No;No;1
+2019-07-31;Muerto;212;Julio;31;Miércoles;2019;4;No;No;No;1
+2019-08-01;Muerto;213;Agosto;1;Jueves;2019;1;No;No;No;1
+2019-08-02;Muerto;214;Agosto;2;Viernes;2019;1;No;Si;No;1
+2019-08-03;Muerto;215;Agosto;3;Sábado;2019;1;Si;Si;No;1
+2019-08-04;Muerto;216;Agosto;4;Domingo;2019;1;Si;Si;No;1
+2019-08-05;Muerto;217;Agosto;5;Lunes;2019;1;No;Si;No;1
+2019-08-06;Muerto;218;Agosto;6;Martes;2019;1;No;Si;No;1
+2019-08-07;Muerto;219;Agosto;7;Miércoles;2019;1;No;Si;Si;2
+2019-08-08;Muerto;220;Agosto;8;Jueves;2019;2;No;Si;No;1
+2019-08-09;Muerto;221;Agosto;9;Viernes;2019;2;No;Si;No;1
+2019-08-10;Muerto;222;Agosto;10;Sábado;2019;2;Si;Si;No;1
+2019-08-11;Muerto;223;Agosto;11;Domingo;2019;2;Si;Si;No;1
+2019-08-12;Muerto;224;Agosto;12;Lunes;2019;2;No;No;No;1
+2019-08-13;Muerto;225;Agosto;13;Martes;2019;2;No;No;No;1
+2019-08-14;Muerto;226;Agosto;14;Miércoles;2019;2;No;No;No;1
+2019-08-15;Muerto;227;Agosto;15;Jueves;2019;3;No;No;No;1
+2019-08-16;Muerto;228;Agosto;16;Viernes;2019;3;No;No;No;1
+2019-08-17;Muerto;229;Agosto;17;Sábado;2019;3;Si;No;No;1
+2019-08-18;Muerto;230;Agosto;18;Domingo;2019;3;Si;No;No;1
+2019-08-19;Muerto;231;Agosto;19;Lunes;2019;3;No;No;Si;1
+2019-08-20;Muerto;232;Agosto;20;Martes;2019;3;No;No;No;1
+2019-08-21;Muerto;233;Agosto;21;Miércoles;2019;3;No;No;No;1
+2019-08-22;Muerto;234;Agosto;22;Jueves;2019;4;No;No;No;1
+2019-08-23;Muerto;235;Agosto;23;Viernes;2019;4;No;No;No;1
+2019-08-24;Muerto;236;Agosto;24;Sábado;2019;4;Si;No;No;1
+2019-08-25;Muerto;237;Agosto;25;Domingo;2019;4;Si;No;No;1
+2019-08-26;Muerto;238;Agosto;26;Lunes;2019;4;No;No;No;1
+2019-08-27;Muerto;239;Agosto;27;Martes;2019;4;No;No;No;1
+2019-08-28;Muerto;240;Agosto;28;Miércoles;2019;4;No;No;No;1
+2019-08-29;Muerto;241;Agosto;29;Jueves;2019;4;No;No;No;1
+2019-08-30;Muerto;242;Agosto;30;Viernes;2019;4;No;No;No;1
+2019-08-31;Muerto;243;Agosto;31;Sábado;2019;4;Si;No;No;1
+2019-09-01;Muerto;244;Septiembre;1;Domingo;2019;1;Si;No;No;1
+2019-09-02;Muerto;245;Septiembre;2;Lunes;2019;1;No;No;No;1
+2019-09-03;Muerto;246;Septiembre;3;Martes;2019;1;No;No;No;1
+2019-09-04;Muerto;247;Septiembre;4;Miércoles;2019;1;No;No;No;1
+2019-09-05;Muerto;248;Septiembre;5;Jueves;2019;1;No;No;No;1
+2019-09-06;Muerto;249;Septiembre;6;Viernes;2019;1;No;No;No;1
+2019-09-07;Muerto;250;Septiembre;7;Sábado;2019;1;Si;No;No;1
+2019-09-08;Muerto;251;Septiembre;8;Domingo;2019;2;Si;No;No;1
+2019-09-09;Muerto;252;Septiembre;9;Lunes;2019;2;No;No;No;1
+2019-09-10;Muerto;253;Septiembre;10;Martes;2019;2;No;No;No;1
+2019-09-11;Muerto;254;Septiembre;11;Miércoles;2019;2;No;No;No;1
+2019-09-12;Muerto;255;Septiembre;12;Jueves;2019;2;No;No;No;1
+2019-09-13;Muerto;256;Septiembre;13;Viernes;2019;2;No;No;No;1
+2019-09-14;Muerto;257;Septiembre;14;Sábado;2019;2;Si;No;No;1
+2019-09-15;Muerto;258;Septiembre;15;Domingo;2019;3;Si;No;No;1
+2019-09-16;Muerto;259;Septiembre;16;Lunes;2019;3;No;No;No;1
+2019-09-17;Muerto;260;Septiembre;17;Martes;2019;3;No;No;No;1
+2019-09-18;Muerto;261;Septiembre;18;Miércoles;2019;3;No;No;No;1
+2019-09-19;Muerto;262;Septiembre;19;Jueves;2019;3;No;No;No;1
+2019-09-20;Muerto;263;Septiembre;20;Viernes;2019;3;No;No;No;1
+2019-09-21;Muerto;264;Septiembre;21;Sábado;2019;3;Si;No;No;1
+2019-09-22;Muerto;265;Septiembre;22;Domingo;2019;4;Si;No;No;1
+2019-09-23;Muerto;266;Septiembre;23;Lunes;2019;4;No;No;No;1
+2019-09-24;Muerto;267;Septiembre;24;Martes;2019;4;No;No;No;1
+2019-09-25;Muerto;268;Septiembre;25;Miércoles;2019;4;No;No;No;1
+2019-09-26;Muerto;269;Septiembre;26;Jueves;2019;4;No;No;No;1
+2019-09-27;Muerto;270;Septiembre;27;Viernes;2019;4;No;No;No;1
+2019-09-28;Muerto;271;Septiembre;28;Sábado;2019;4;Si;No;No;1
+2019-09-29;Muerto;272;Septiembre;29;Domingo;2019;4;Si;No;No;1
+2019-09-30;Muerto;273;Septiembre;30;Lunes;2019;4;No;No;No;1
+2019-10-01;Muerto;274;Octubre;1;Martes;2019;1;No;No;No;1
+2019-10-02;Muerto;275;Octubre;2;Miércoles;2019;1;No;No;No;1
+2019-10-03;Muerto;276;Octubre;3;Jueves;2019;1;No;No;No;1
+2019-10-04;Muerto;277;Octubre;4;Viernes;2019;1;No;No;No;1
+2019-10-05;Muerto;278;Octubre;5;Sábado;2019;1;Si;No;No;1
+2019-10-06;Muerto;279;Octubre;6;Domingo;2019;1;Si;No;No;1
+2019-10-07;Muerto;280;Octubre;7;Lunes;2019;1;No;No;No;1
+2019-10-08;Muerto;281;Octubre;8;Martes;2019;2;No;No;No;1
+2019-10-09;Muerto;282;Octubre;9;Miércoles;2019;2;No;No;No;1
+2019-10-10;Muerto;283;Octubre;10;Jueves;2019;2;No;No;No;1
+2019-10-11;Muerto;284;Octubre;11;Viernes;2019;2;No;No;No;1
+2019-10-12;Muerto;285;Octubre;12;Sábado;2019;2;Si;No;No;1
+2019-10-13;Muerto;286;Octubre;13;Domingo;2019;2;Si;No;No;1
+2019-10-14;Muerto;287;Octubre;14;Lunes;2019;2;No;No;Si;1
+2019-10-15;Muerto;288;Octubre;15;Martes;2019;3;No;No;No;1
+2019-10-16;Muerto;289;Octubre;16;Miércoles;2019;3;No;No;No;1
+2019-10-17;Muerto;290;Octubre;17;Jueves;2019;3;No;No;No;1
+2019-10-18;Muerto;291;Octubre;18;Viernes;2019;3;No;No;No;1
+2019-10-19;Muerto;292;Octubre;19;Sábado;2019;3;Si;No;No;1
+2019-10-20;Muerto;293;Octubre;20;Domingo;2019;3;Si;No;No;1
+2019-10-21;Muerto;294;Octubre;21;Lunes;2019;3;No;No;No;1
+2019-10-22;Muerto;295;Octubre;22;Martes;2019;4;No;No;No;1
+2019-10-23;Muerto;296;Octubre;23;Miércoles;2019;4;No;No;No;1
+2019-10-24;Muerto;297;Octubre;24;Jueves;2019;4;No;No;No;1
+2019-10-25;Muerto;298;Octubre;25;Viernes;2019;4;No;No;No;1
+2019-10-26;Muerto;299;Octubre;26;Sábado;2019;4;Si;No;No;1
+2019-10-27;Muerto;300;Octubre;27;Domingo;2019;4;Si;No;No;1
+2019-10-28;Muerto;301;Octubre;28;Lunes;2019;4;No;No;No;1
+2019-10-29;Muerto;302;Octubre;29;Martes;2019;4;No;No;No;1
+2019-10-30;Muerto;303;Octubre;30;Miércoles;2019;4;No;No;No;1
+2019-10-31;Muerto;304;Octubre;31;Jueves;2019;4;No;No;No;1
+2019-11-01;Muerto;305;Noviembre;1;Viernes;2019;1;No;No;No;0
+2019-11-02;Muerto;306;Noviembre;2;Sábado;2019;1;Si;No;No;0
+2019-11-03;Muerto;307;Noviembre;3;Domingo;2019;1;Si;No;No;0
+2019-11-04;Muerto;308;Noviembre;4;Lunes;2019;1;No;No;Si;1
+2019-11-05;Muerto;309;Noviembre;5;Martes;2019;1;No;No;No;0
+2019-11-06;Muerto;310;Noviembre;6;Miércoles;2019;1;No;No;No;1
+2019-11-07;Muerto;311;Noviembre;7;Jueves;2019;1;No;No;No;1
+2019-11-08;Muerto;312;Noviembre;8;Viernes;2019;2;No;No;No;1
+2019-11-09;Muerto;313;Noviembre;9;Sábado;2019;2;Si;No;No;1
+2019-11-10;Muerto;314;Noviembre;10;Domingo;2019;2;Si;No;No;1
+2019-11-11;Muerto;315;Noviembre;11;Lunes;2019;2;No;No;Si;1
+2019-11-12;Muerto;316;Noviembre;12;Martes;2019;2;No;No;No;1
+2019-11-13;Muerto;317;Noviembre;13;Miércoles;2019;2;No;No;No;1
+2019-11-14;Muerto;318;Noviembre;14;Jueves;2019;2;No;No;No;1
+2019-11-15;Muerto;319;Noviembre;15;Viernes;2019;3;No;No;No;1
+2019-11-16;Muerto;320;Noviembre;16;Sábado;2019;3;Si;No;No;1
+2019-11-17;Muerto;321;Noviembre;17;Domingo;2019;3;Si;No;No;1
+2019-11-18;Muerto;322;Noviembre;18;Lunes;2019;3;No;No;No;1
+2019-11-19;Muerto;323;Noviembre;19;Martes;2019;3;No;No;No;1
+2019-11-20;Muerto;324;Noviembre;20;Miércoles;2019;3;No;No;No;1
+2019-11-21;Muerto;325;Noviembre;21;Jueves;2019;3;No;No;No;1
+2019-11-22;Muerto;326;Noviembre;22;Viernes;2019;4;No;No;No;1
+2019-11-23;Muerto;327;Noviembre;23;Sábado;2019;4;Si;No;No;1
+2019-11-24;Muerto;328;Noviembre;24;Domingo;2019;4;Si;No;No;1
+2019-11-25;Muerto;329;Noviembre;25;Lunes;2019;4;No;No;No;1
+2019-11-26;Muerto;330;Noviembre;26;Martes;2019;4;No;No;No;1
+2019-11-27;Muerto;331;Noviembre;27;Miércoles;2019;4;No;No;No;1
+2019-11-28;Muerto;332;Noviembre;28;Jueves;2019;4;No;No;No;1
+2019-11-29;Muerto;333;Noviembre;29;Viernes;2019;4;No;No;No;1
+2019-11-30;Muerto;334;Noviembre;30;Sábado;2019;4;Si;No;No;1
+2019-12-01;Muerto;335;Diciembre;1;Domingo;2019;1;Si;No;No;1
+2019-12-02;Muerto;336;Diciembre;2;Lunes;2019;1;No;No;No;1
+2019-12-03;Muerto;337;Diciembre;3;Martes;2019;1;No;No;No;1
+2019-12-04;Muerto;338;Diciembre;4;Miércoles;2019;1;No;No;No;1
+2019-12-05;Muerto;339;Diciembre;5;Jueves;2019;1;No;No;No;1
+2019-12-06;Muerto;340;Diciembre;6;Viernes;2019;1;No;No;No;1
+2019-12-07;Muerto;341;Diciembre;7;Sábado;2019;1;Si;No;No;1
+2019-12-08;Muerto;342;Diciembre;8;Domingo;2019;2;Si;No;Si;1
+2019-12-09;Muerto;343;Diciembre;9;Lunes;2019;2;No;No;No;1
+2019-12-10;Muerto;344;Diciembre;10;Martes;2019;2;No;No;No;1
+2019-12-11;Muerto;345;Diciembre;11;Miércoles;2019;2;No;No;No;1
+2019-12-12;Muerto;346;Diciembre;12;Jueves;2019;2;No;No;No;1
+2019-12-13;Muerto;347;Diciembre;13;Viernes;2019;2;No;No;No;1
+2019-12-14;Muerto;348;Diciembre;14;Sábado;2019;2;Si;No;No;1
+2019-12-15;Muerto;349;Diciembre;15;Domingo;2019;3;Si;No;No;1
+2019-12-16;Muerto;350;Diciembre;16;Lunes;2019;3;No;No;No;1
+2019-12-17;Muerto;351;Diciembre;17;Martes;2019;3;No;No;No;1
+2019-12-18;Muerto;352;Diciembre;18;Miércoles;2019;3;No;No;No;1
+2019-12-19;Muerto;353;Diciembre;19;Jueves;2019;3;No;No;No;1
+2019-12-20;Muerto;354;Diciembre;20;Viernes;2019;3;No;No;No;1
+2019-12-21;Muerto;355;Diciembre;21;Sábado;2019;3;Si;No;No;1
+2019-12-22;Muerto;356;Diciembre;22;Domingo;2019;4;Si;No;No;1
+2019-12-23;Muerto;357;Diciembre;23;Lunes;2019;4;No;No;No;1
+2019-12-24;Muerto;358;Diciembre;24;Martes;2019;4;No;No;No;1
+2019-12-25;Muerto;359;Diciembre;25;Miércoles;2019;4;No;No;Si;1
+2019-12-26;Muerto;360;Diciembre;26;Jueves;2019;4;No;No;No;1
+2019-12-27;Muerto;361;Diciembre;27;Viernes;2019;4;No;No;No;1
+2019-12-28;Muerto;362;Diciembre;28;Sábado;2019;4;Si;No;No;1
+2019-12-29;Muerto;363;Diciembre;29;Domingo;2019;4;Si;No;No;1
+2019-12-30;Muerto;364;Diciembre;30;Lunes;2019;4;No;No;No;1
+2019-12-31;Muerto;365;Diciembre;31;Martes;2019;4;No;No;No;1
+2020-01-01;Muerto;1;Enero;1;Miércoles;2020;1;No;No;Si;1
+2020-01-02;Muerto;2;Enero;2;Jueves;2020;1;No;No;No;1
+2020-01-03;Muerto;3;Enero;3;Viernes;2020;1;No;No;No;1
+2020-01-04;Muerto;4;Enero;4;Sábado;2020;1;Si;No;No;1
+2020-01-05;Muerto;5;Enero;5;Domingo;2020;1;Si;No;No;1
+2020-01-06;Muerto;6;Enero;6;Lunes;2020;1;No;No;Si;1
+2020-01-07;Muerto;7;Enero;7;Martes;2020;1;No;No;No;1
+2020-01-08;Muerto;8;Enero;8;Miércoles;2020;2;No;No;No;1
+2020-01-09;Muerto;9;Enero;9;Jueves;2020;2;No;No;No;1
+2020-01-10;Muerto;10;Enero;10;Viernes;2020;2;No;No;No;1
+2020-01-11;Muerto;11;Enero;11;Sábado;2020;2;Si;No;No;1
+2020-01-12;Muerto;12;Enero;12;Domingo;2020;2;Si;No;No;1
+2020-01-13;Muerto;13;Enero;13;Lunes;2020;2;No;No;No;1
+2020-01-14;Muerto;14;Enero;14;Martes;2020;2;No;No;No;1
+2020-01-15;Muerto;15;Enero;15;Miércoles;2020;3;No;No;No;1
+2020-01-16;Muerto;16;Enero;16;Jueves;2020;3;No;No;No;1
+2020-01-17;Muerto;17;Enero;17;Viernes;2020;3;No;No;No;1
+2020-01-18;Muerto;18;Enero;18;Sábado;2020;3;Si;No;No;1
+2020-01-19;Muerto;19;Enero;19;Domingo;2020;3;Si;No;No;1
+2020-01-20;Muerto;20;Enero;20;Lunes;2020;3;No;No;No;1
+2020-01-21;Muerto;21;Enero;21;Martes;2020;3;No;No;No;1
+2020-01-22;Muerto;22;Enero;22;Miércoles;2020;4;No;No;No;1
+2020-01-23;Muerto;23;Enero;23;Jueves;2020;4;No;No;No;1
+2020-01-24;Muerto;24;Enero;24;Viernes;2020;4;No;No;No;1
+2020-01-25;Muerto;25;Enero;25;Sábado;2020;4;Si;No;No;1
+2020-01-26;Muerto;26;Enero;26;Domingo;2020;4;Si;No;No;1
+2020-01-27;Muerto;27;Enero;27;Lunes;2020;4;No;No;No;1
+2020-01-28;Muerto;28;Enero;28;Martes;2020;4;No;No;No;1
+2020-01-29;Muerto;29;Enero;29;Miércoles;2020;4;No;No;No;1
+2020-01-30;Muerto;30;Enero;30;Jueves;2020;4;No;No;No;1
+2020-01-31;Muerto;31;Enero;31;Viernes;2020;4;No;No;No;1
+2020-02-01;Muerto;32;Febrero;1;Sábado;2020;1;Si;No;No;1
+2020-02-02;Muerto;33;Febrero;2;Domingo;2020;1;Si;No;No;1
+2020-02-03;Muerto;34;Febrero;3;Lunes;2020;1;No;No;No;1
+2020-02-04;Muerto;35;Febrero;4;Martes;2020;1;No;No;No;1
+2020-02-05;Muerto;36;Febrero;5;Miércoles;2020;1;No;No;No;1
+2020-02-06;Muerto;37;Febrero;6;Jueves;2020;1;No;No;No;1
+2020-02-07;Muerto;38;Febrero;7;Viernes;2020;1;No;No;No;1
+2020-02-08;Muerto;39;Febrero;8;Sábado;2020;2;Si;No;No;1
+2020-02-09;Muerto;40;Febrero;9;Domingo;2020;2;Si;No;No;1
+2020-02-10;Muerto;41;Febrero;10;Lunes;2020;2;No;No;No;1
+2020-02-11;Muerto;42;Febrero;11;Martes;2020;2;No;No;No;1
+2020-02-12;Muerto;43;Febrero;12;Miércoles;2020;2;No;No;No;1
+2020-02-13;Muerto;44;Febrero;13;Jueves;2020;2;No;No;No;1
+2020-02-14;Muerto;45;Febrero;14;Viernes;2020;2;No;No;No;1
+2020-02-15;Muerto;46;Febrero;15;Sábado;2020;3;Si;No;No;1
+2020-02-16;Muerto;47;Febrero;16;Domingo;2020;3;Si;No;No;1
+2020-02-17;Muerto;48;Febrero;17;Lunes;2020;3;No;No;No;1
+2020-02-18;Muerto;49;Febrero;18;Martes;2020;3;No;No;No;1
+2020-02-19;Muerto;50;Febrero;19;Miércoles;2020;3;No;No;No;1
+2020-02-20;Muerto;51;Febrero;20;Jueves;2020;3;No;No;No;1
+2020-02-21;Muerto;52;Febrero;21;Viernes;2020;3;No;No;No;1
+2020-02-22;Muerto;53;Febrero;22;Sábado;2020;4;Si;No;No;1
+2020-02-23;Muerto;54;Febrero;23;Domingo;2020;4;Si;No;No;1
+2020-02-24;Muerto;55;Febrero;24;Lunes;2020;4;No;No;No;1
+2020-02-25;Muerto;56;Febrero;25;Martes;2020;4;No;No;No;1
+2020-02-26;Muerto;57;Febrero;26;Miércoles;2020;4;No;No;No;1
+2020-02-27;Muerto;58;Febrero;27;Jueves;2020;4;No;No;No;1
+2020-02-28;Muerto;59;Febrero;28;Viernes;2020;4;No;No;No;1
+2020-02-29;Muerto;60;Febrero;29;Sábado;2020;4;No;No;No;1
+2020-03-01;Muerto;60;Marzo;1;Domingo;2020;1;Si;No;No;1
+2020-03-02;Muerto;61;Marzo;2;Lunes;2020;1;No;No;No;1
+2020-03-03;Muerto;62;Marzo;3;Martes;2020;1;No;No;No;1
+2020-03-04;Muerto;63;Marzo;4;Miércoles;2020;1;No;No;No;1
+2020-03-05;Muerto;64;Marzo;5;Jueves;2020;1;No;No;No;1
+2020-03-06;Muerto;65;Marzo;6;Viernes;2020;1;No;No;No;1
+2020-03-07;Muerto;66;Marzo;7;Sábado;2020;1;Si;No;No;1
+2020-03-08;Muerto;67;Marzo;8;Domingo;2020;2;Si;No;No;1
+2020-03-09;Muerto;68;Marzo;9;Lunes;2020;2;No;No;No;1
+2020-03-10;Muerto;69;Marzo;10;Martes;2020;2;No;No;No;1
+2020-03-11;Muerto;70;Marzo;11;Miércoles;2020;2;No;No;No;1
+2020-03-12;Muerto;71;Marzo;12;Jueves;2020;2;No;No;No;1
+2020-03-13;Muerto;72;Marzo;13;Viernes;2020;2;No;No;No;1
+2020-03-14;Muerto;73;Marzo;14;Sábado;2020;2;Si;No;No;1
+2020-03-15;Muerto;74;Marzo;15;Domingo;2020;3;Si;No;No;1
+2020-03-16;Muerto;75;Marzo;16;Lunes;2020;3;No;No;No;1
+2020-03-17;Muerto;76;Marzo;17;Martes;2020;3;No;No;No;1
+2020-03-18;Muerto;77;Marzo;18;Miércoles;2020;3;No;No;No;1
+2020-03-19;Muerto;78;Marzo;19;Jueves;2020;3;No;No;No;1
+2020-03-20;Muerto;79;Marzo;20;Viernes;2020;3;No;No;No;1
+2020-03-21;Muerto;80;Marzo;21;Sábado;2020;3;Si;No;No;1
+2020-03-22;Muerto;81;Marzo;22;Domingo;2020;4;Si;No;No;1
+2020-03-23;Muerto;82;Marzo;23;Lunes;2020;4;No;No;Si;1
+2020-03-24;Muerto;83;Marzo;24;Martes;2020;4;No;No;No;1
+2020-03-25;Muerto;84;Marzo;25;Miércoles;2020;4;No;No;No;1
+2020-03-26;Muerto;85;Marzo;26;Jueves;2020;4;No;No;No;1
+2020-03-27;Muerto;86;Marzo;27;Viernes;2020;4;No;No;No;1
+2020-03-28;Muerto;87;Marzo;28;Sábado;2020;4;Si;No;No;1
+2020-03-29;Muerto;88;Marzo;29;Domingo;2020;4;Si;No;No;1
+2020-03-30;Muerto;89;Marzo;30;Lunes;2020;4;No;No;No;1
+2020-03-31;Muerto;90;Marzo;31;Martes;2020;4;No;No;No;1
+2020-04-01;Muerto;91;Abril;1;Miércoles;2020;1;No;No;No;1
+2020-04-02;Muerto;92;Abril;2;Jueves;2020;1;No;No;No;1
+2020-04-03;Muerto;93;Abril;3;Viernes;2020;1;No;No;No;1
+2020-04-04;Muerto;94;Abril;4;Sábado;2020;1;Si;No;No;1
+2020-04-05;Muerto;95;Abril;5;Domingo;2020;1;Si;No;No;1
+2020-04-06;Muerto;96;Abril;6;Lunes;2020;1;No;No;No;1
+2020-04-07;Muerto;97;Abril;7;Martes;2020;1;No;No;No;1
+2020-04-08;Muerto;98;Abril;8;Miércoles;2020;2;No;No;No;1
+2020-04-09;Muerto;99;Abril;9;Jueves;2020;2;No;No;Si;1
+2020-04-10;Muerto;100;Abril;10;Viernes;2020;2;No;No;Si;1
+2020-04-11;Muerto;101;Abril;11;Sábado;2020;2;Si;No;No;1
+2020-04-12;Muerto;102;Abril;12;Domingo;2020;2;Si;No;No;1
+2020-04-13;Muerto;103;Abril;13;Lunes;2020;2;No;No;No;1
+2020-04-14;Muerto;104;Abril;14;Martes;2020;2;No;No;No;1
+2020-04-15;Muerto;105;Abril;15;Miércoles;2020;3;No;No;No;1
+2020-04-16;Muerto;106;Abril;16;Jueves;2020;3;No;No;No;1
+2020-04-17;Muerto;107;Abril;17;Viernes;2020;3;No;No;No;1
+2020-04-18;Muerto;108;Abril;18;Sábado;2020;3;Si;No;No;1
+2020-04-19;Muerto;109;Abril;19;Domingo;2020;3;Si;No;No;1
+2020-04-20;Muerto;110;Abril;20;Lunes;2020;3;No;No;No;1
+2020-04-21;Muerto;111;Abril;21;Martes;2020;3;No;No;No;1
+2020-04-22;Muerto;112;Abril;22;Miércoles;2020;4;No;No;No;1
+2020-04-23;Muerto;113;Abril;23;Jueves;2020;4;No;No;No;1
+2020-04-24;Muerto;114;Abril;24;Viernes;2020;4;No;No;No;1
+2020-04-25;Muerto;115;Abril;25;Sábado;2020;4;Si;No;No;1
+2020-04-26;Muerto;116;Abril;26;Domingo;2020;4;Si;No;No;1
+2020-04-27;Muerto;117;Abril;27;Lunes;2020;4;No;No;No;1
+2020-04-28;Muerto;118;Abril;28;Martes;2020;4;No;No;No;1
+2020-04-29;Muerto;119;Abril;29;Miércoles;2020;4;No;No;No;1
+2020-04-30;Muerto;120;Abril;30;Jueves;2020;4;No;No;No;1
+2020-05-01;Muerto;121;Mayo;1;Viernes;2020;1;No;No;Si;1
+2020-05-02;Muerto;122;Mayo;2;Sábado;2020;1;Si;No;No;1
+2020-05-03;Muerto;123;Mayo;3;Domingo;2020;1;Si;No;No;1
+2020-05-04;Muerto;124;Mayo;4;Lunes;2020;1;No;No;No;1
+2020-05-05;Muerto;125;Mayo;5;Martes;2020;1;No;No;No;1
+2020-05-06;Muerto;126;Mayo;6;Miércoles;2020;1;No;No;No;1
+2020-05-07;Muerto;127;Mayo;7;Jueves;2020;1;No;No;No;1
+2020-05-08;Muerto;128;Mayo;8;Viernes;2020;2;No;No;No;1
+2020-05-09;Muerto;129;Mayo;9;Sábado;2020;2;Si;No;No;1
+2020-05-10;Muerto;130;Mayo;10;Domingo;2020;2;Si;No;No;1
+2020-05-11;Muerto;131;Mayo;11;Lunes;2020;2;No;No;No;1
+2020-05-12;Muerto;132;Mayo;12;Martes;2020;2;No;No;No;1
+2020-05-13;Muerto;133;Mayo;13;Miércoles;2020;2;No;No;No;1
+2020-05-14;Muerto;134;Mayo;14;Jueves;2020;2;No;No;No;1
+2020-05-15;Muerto;135;Mayo;15;Viernes;2020;3;No;No;No;1
+2020-05-16;Muerto;136;Mayo;16;Sábado;2020;3;Si;No;No;1
+2020-05-17;Muerto;137;Mayo;17;Domingo;2020;3;Si;No;No;1
+2020-05-18;Muerto;138;Mayo;18;Lunes;2020;3;No;No;No;1
+2020-05-19;Muerto;139;Mayo;19;Martes;2020;3;No;No;No;1
+2020-05-20;Muerto;140;Mayo;20;Miércoles;2020;3;No;No;No;1
+2020-05-21;Muerto;141;Mayo;21;Jueves;2020;3;No;No;No;1
+2020-05-22;Muerto;142;Mayo;22;Viernes;2020;4;No;No;No;1
+2020-05-23;Muerto;143;Mayo;23;Sábado;2020;4;Si;No;No;1
+2020-05-24;Muerto;144;Mayo;24;Domingo;2020;4;Si;No;No;1
+2020-05-25;Muerto;145;Mayo;25;Lunes;2020;4;No;No;Si;1
+2020-05-26;Muerto;146;Mayo;26;Martes;2020;4;No;No;No;1
+2020-05-27;Muerto;147;Mayo;27;Miércoles;2020;4;No;No;No;1
+2020-05-28;Muerto;148;Mayo;28;Jueves;2020;4;No;No;No;1
+2020-05-29;Muerto;149;Mayo;29;Viernes;2020;4;No;No;No;1
+2020-05-30;Muerto;150;Mayo;30;Sábado;2020;4;Si;No;No;1
+2020-05-31;Muerto;151;Mayo;31;Domingo;2020;4;Si;No;No;1
+2020-06-01;Muerto;152;Junio;1;Lunes;2020;1;No;No;No;1
+2020-06-02;Muerto;153;Junio;2;Martes;2020;1;No;No;No;1
+2020-06-03;Muerto;154;Junio;3;Miércoles;2020;1;No;No;No;1
+2020-06-04;Muerto;155;Junio;4;Jueves;2020;1;No;No;No;1
+2020-06-05;Muerto;156;Junio;5;Viernes;2020;1;No;No;No;1
+2020-06-06;Muerto;157;Junio;6;Sábado;2020;1;Si;No;No;1
+2020-06-07;Muerto;158;Junio;7;Domingo;2020;1;Si;No;No;1
+2020-06-08;Muerto;159;Junio;8;Lunes;2020;2;No;No;No;1
+2020-06-09;Muerto;160;Junio;9;Martes;2020;2;No;No;No;1
+2020-06-10;Muerto;161;Junio;10;Miércoles;2020;2;No;No;No;1
+2020-06-11;Muerto;162;Junio;11;Jueves;2020;2;No;No;No;1
+2020-06-12;Muerto;163;Junio;12;Viernes;2020;2;No;No;No;1
+2020-06-13;Muerto;164;Junio;13;Sábado;2020;2;Si;No;No;1
+2020-06-14;Muerto;165;Junio;14;Domingo;2020;2;Si;No;No;1
+2020-06-15;Muerto;166;Junio;15;Lunes;2020;3;No;No;Si;1
+2020-06-16;Muerto;167;Junio;16;Martes;2020;3;No;No;No;1
+2020-06-17;Muerto;168;Junio;17;Miércoles;2020;3;No;No;No;1
+2020-06-18;Muerto;169;Junio;18;Jueves;2020;3;No;No;No;1
+2020-06-19;Muerto;170;Junio;19;Viernes;2020;3;No;No;No;1
+2020-06-20;Muerto;171;Junio;20;Sábado;2020;3;Si;No;No;1
+2020-06-21;Muerto;172;Junio;21;Domingo;2020;3;Si;No;No;1
+2020-06-22;Muerto;173;Junio;22;Lunes;2020;4;No;No;Si;1
+2020-06-23;Muerto;174;Junio;23;Martes;2020;4;No;No;No;1
+2020-06-24;Muerto;175;Junio;24;Miércoles;2020;4;No;No;No;1
+2020-06-25;Muerto;176;Junio;25;Jueves;2020;4;No;No;No;1
+2020-06-26;Muerto;177;Junio;26;Viernes;2020;4;No;No;No;1
+2020-06-27;Muerto;178;Junio;27;Sábado;2020;4;Si;No;No;1
+2020-06-28;Muerto;179;Junio;28;Domingo;2020;4;Si;No;No;1
+2020-06-29;Muerto;180;Junio;29;Lunes;2020;4;No;No;Si;1
+2020-06-30;Muerto;181;Junio;30;Martes;2020;4;No;No;No;1
+2020-07-01;Muerto;182;Julio;1;Miércoles;2020;1;No;No;No;1
+2020-07-02;Muerto;183;Julio;2;Jueves;2020;1;No;No;No;1
+2020-07-03;Muerto;184;Julio;3;Viernes;2020;1;No;No;No;1
+2020-07-04;Muerto;185;Julio;4;Sábado;2020;1;Si;No;No;1
+2020-07-05;Muerto;186;Julio;5;Domingo;2020;1;Si;No;No;1
+2020-07-06;Muerto;187;Julio;6;Lunes;2020;1;No;No;No;1
+2020-07-07;Muerto;188;Julio;7;Martes;2020;1;No;No;No;1
+2020-07-08;Muerto;189;Julio;8;Miércoles;2020;2;No;No;No;1
+2020-07-09;Muerto;190;Julio;9;Jueves;2020;2;No;No;No;1
+2020-07-10;Muerto;191;Julio;10;Viernes;2020;2;No;No;No;1
+2020-07-11;Muerto;192;Julio;11;Sábado;2020;2;Si;No;No;1
+2020-07-12;Muerto;193;Julio;12;Domingo;2020;2;Si;No;No;1
+2020-07-13;Muerto;194;Julio;13;Lunes;2020;2;No;No;No;1
+2020-07-14;Muerto;195;Julio;14;Martes;2020;2;No;No;No;1
+2020-07-15;Muerto;196;Julio;15;Miércoles;2020;3;No;No;No;1
+2020-07-16;Muerto;197;Julio;16;Jueves;2020;3;No;No;No;1
+2020-07-17;Muerto;198;Julio;17;Viernes;2020;3;No;No;No;1
+2020-07-18;Muerto;199;Julio;18;Sábado;2020;3;Si;No;No;1
+2020-07-19;Muerto;200;Julio;19;Domingo;2020;3;Si;No;No;1
+2020-07-20;Muerto;201;Julio;20;Lunes;2020;3;No;No;Si;1
+2020-07-21;Muerto;202;Julio;21;Martes;2020;3;No;No;No;1
+2020-07-22;Muerto;203;Julio;22;Miércoles;2020;4;No;No;No;1
+2020-07-23;Muerto;204;Julio;23;Jueves;2020;4;No;No;No;1
+2020-07-24;Muerto;205;Julio;24;Viernes;2020;4;No;No;No;1
+2020-07-25;Muerto;206;Julio;25;Sábado;2020;4;Si;No;No;1
+2020-07-26;Muerto;207;Julio;26;Domingo;2020;4;Si;No;No;1
+2020-07-27;Muerto;208;Julio;27;Lunes;2020;4;No;No;No;1
+2020-07-28;Muerto;209;Julio;28;Martes;2020;4;No;No;No;1
+2020-07-29;Muerto;210;Julio;29;Miércoles;2020;4;No;No;No;1
+2020-07-30;Muerto;211;Julio;30;Jueves;2020;4;No;No;No;1
+2020-07-31;Muerto;212;Julio;31;Viernes;2020;4;No;Si;No;1
+2020-08-01;Muerto;213;Agosto;1;Sábado;2020;1;Si;Si;No;1
+2020-08-02;Muerto;214;Agosto;2;Domingo;2020;1;Si;Si;No;1
+2020-08-03;Muerto;215;Agosto;3;Lunes;2020;1;No;Si;No;1
+2020-08-04;Muerto;216;Agosto;4;Martes;2020;1;No;Si;No;1
+2020-08-05;Muerto;217;Agosto;5;Miércoles;2020;1;No;Si;No;1
+2020-08-06;Muerto;218;Agosto;6;Jueves;2020;1;No;Si;No;1
+2020-08-07;Muerto;219;Agosto;7;Viernes;2020;1;No;Si;Si;2
+2020-08-08;Muerto;220;Agosto;8;Sábado;2020;2;Si;Si;No;1
+2020-08-09;Muerto;221;Agosto;9;Domingo;2020;2;Si;Si;No;1
+2020-08-10;Muerto;222;Agosto;10;Lunes;2020;2;No;No;No;1
+2020-08-11;Muerto;223;Agosto;11;Martes;2020;2;No;No;No;1
+2020-08-12;Muerto;224;Agosto;12;Miércoles;2020;2;No;No;No;1
+2020-08-13;Muerto;225;Agosto;13;Jueves;2020;2;No;No;No;1
+2020-08-14;Muerto;226;Agosto;14;Viernes;2020;2;No;No;No;1
+2020-08-15;Muerto;227;Agosto;15;Sábado;2020;3;Si;No;No;1
+2020-08-16;Muerto;228;Agosto;16;Domingo;2020;3;Si;No;No;1
+2020-08-17;Muerto;229;Agosto;17;Lunes;2020;3;No;No;Si;1
+2020-08-18;Muerto;230;Agosto;18;Martes;2020;3;No;No;No;1
+2020-08-19;Muerto;231;Agosto;19;Miércoles;2020;3;No;No;No;1
+2020-08-20;Muerto;232;Agosto;20;Jueves;2020;3;No;No;No;1
+2020-08-21;Muerto;233;Agosto;21;Viernes;2020;3;No;No;No;1
+2020-08-22;Muerto;234;Agosto;22;Sábado;2020;4;Si;No;No;1
+2020-08-23;Muerto;235;Agosto;23;Domingo;2020;4;Si;No;No;1
+2020-08-24;Muerto;236;Agosto;24;Lunes;2020;4;No;No;No;1
+2020-08-25;Muerto;237;Agosto;25;Martes;2020;4;No;No;No;1
+2020-08-26;Muerto;238;Agosto;26;Miércoles;2020;4;No;No;No;1
+2020-08-27;Muerto;239;Agosto;27;Jueves;2020;4;No;No;No;1
+2020-08-28;Muerto;240;Agosto;28;Viernes;2020;4;No;No;No;1
+2020-08-29;Muerto;241;Agosto;29;Sábado;2020;4;Si;No;No;1
+2020-08-30;Muerto;242;Agosto;30;Domingo;2020;4;Si;No;No;1
+2020-08-31;Muerto;243;Agosto;31;Lunes;2020;4;No;No;No;1
+2020-09-01;Muerto;244;Septiembre;1;Martes;2020;1;No;No;No;1
+2020-09-02;Muerto;245;Septiembre;2;Miércoles;2020;1;No;No;No;1
+2020-09-03;Muerto;246;Septiembre;3;Jueves;2020;1;No;No;No;1
+2020-09-04;Muerto;247;Septiembre;4;Viernes;2020;1;No;No;No;1
+2020-09-05;Muerto;248;Septiembre;5;Sábado;2020;1;Si;No;No;1
+2020-09-06;Muerto;249;Septiembre;6;Domingo;2020;1;Si;No;No;1
+2020-09-07;Muerto;250;Septiembre;7;Lunes;2020;1;No;No;No;1
+2020-09-08;Muerto;251;Septiembre;8;Martes;2020;2;No;No;No;1
+2020-09-09;Muerto;252;Septiembre;9;Miércoles;2020;2;No;No;No;1
+2020-09-10;Muerto;253;Septiembre;10;Jueves;2020;2;No;No;No;1
+2020-09-11;Muerto;254;Septiembre;11;Viernes;2020;2;No;No;No;1
+2020-09-12;Muerto;255;Septiembre;12;Sábado;2020;2;Si;No;No;1
+2020-09-13;Muerto;256;Septiembre;13;Domingo;2020;2;Si;No;No;1
+2020-09-14;Muerto;257;Septiembre;14;Lunes;2020;2;No;No;No;1
+2020-09-15;Muerto;258;Septiembre;15;Martes;2020;3;No;No;No;1
+2020-09-16;Muerto;259;Septiembre;16;Miércoles;2020;3;No;No;No;1
+2020-09-17;Muerto;260;Septiembre;17;Jueves;2020;3;No;No;No;1
+2020-09-18;Muerto;261;Septiembre;18;Viernes;2020;3;No;No;No;1
+2020-09-19;Muerto;262;Septiembre;19;Sábado;2020;3;Si;No;No;1
+2020-09-20;Muerto;263;Septiembre;20;Domingo;2020;3;Si;No;No;1
+2020-09-21;Muerto;264;Septiembre;21;Lunes;2020;3;No;No;No;1
+2020-09-22;Muerto;265;Septiembre;22;Martes;2020;4;No;No;No;1
+2020-09-23;Muerto;266;Septiembre;23;Miércoles;2020;4;No;No;No;1
+2020-09-24;Muerto;267;Septiembre;24;Jueves;2020;4;No;No;No;1
+2020-09-25;Muerto;268;Septiembre;25;Viernes;2020;4;No;No;No;1
+2020-09-26;Muerto;269;Septiembre;26;Sábado;2020;4;Si;No;No;1
+2020-09-27;Muerto;270;Septiembre;27;Domingo;2020;4;Si;No;No;1
+2020-09-28;Muerto;271;Septiembre;28;Lunes;2020;4;No;No;No;1
+2020-09-29;Muerto;272;Septiembre;29;Martes;2020;4;No;No;No;1
+2020-09-30;Muerto;273;Septiembre;30;Miércoles;2020;4;No;No;No;1
+2020-10-01;Muerto;274;Octubre;1;Jueves;2020;1;No;No;No;1
+2020-10-02;Muerto;275;Octubre;2;Viernes;2020;1;No;No;No;1
+2020-10-03;Muerto;276;Octubre;3;Sábado;2020;1;Si;No;No;1
+2020-10-04;Muerto;277;Octubre;4;Domingo;2020;1;Si;No;No;1
+2020-10-05;Muerto;278;Octubre;5;Lunes;2020;1;No;No;No;1
+2020-10-06;Muerto;279;Octubre;6;Martes;2020;1;No;No;No;1
+2020-10-07;Muerto;280;Octubre;7;Miércoles;2020;1;No;No;No;1
+2020-10-08;Muerto;281;Octubre;8;Jueves;2020;2;No;No;No;1
+2020-10-09;Muerto;282;Octubre;9;Viernes;2020;2;No;No;No;1
+2020-10-10;Muerto;283;Octubre;10;Sábado;2020;2;Si;No;No;1
+2020-10-11;Muerto;284;Octubre;11;Domingo;2020;2;Si;No;No;1
+2020-10-12;Muerto;285;Octubre;12;Lunes;2020;2;No;No;Si;1
+2020-10-13;Muerto;286;Octubre;13;Martes;2020;2;No;No;No;1
+2020-10-14;Muerto;287;Octubre;14;Miércoles;2020;2;No;No;No;1
+2020-10-15;Muerto;288;Octubre;15;Jueves;2020;3;No;No;No;1
+2020-10-16;Muerto;289;Octubre;16;Viernes;2020;3;No;No;No;1
+2020-10-17;Muerto;290;Octubre;17;Sábado;2020;3;Si;No;No;1
+2020-10-18;Muerto;291;Octubre;18;Domingo;2020;3;Si;No;No;1
+2020-10-19;Muerto;292;Octubre;19;Lunes;2020;3;No;No;No;1
+2020-10-20;Muerto;293;Octubre;20;Martes;2020;3;No;No;No;1
+2020-10-21;Muerto;294;Octubre;21;Miércoles;2020;3;No;No;No;1
+2020-10-22;Muerto;295;Octubre;22;Jueves;2020;4;No;No;No;1
+2020-10-23;Muerto;296;Octubre;23;Viernes;2020;4;No;No;No;1
+2020-10-24;Muerto;297;Octubre;24;Sábado;2020;4;Si;No;No;1
+2020-10-25;Muerto;298;Octubre;25;Domingo;2020;4;Si;No;No;1
+2020-10-26;Muerto;299;Octubre;26;Lunes;2020;4;No;No;No;1
+2020-10-27;Muerto;300;Octubre;27;Martes;2020;4;No;No;No;1
+2020-10-28;Muerto;301;Octubre;28;Miércoles;2020;4;No;No;No;1
+2020-10-29;Muerto;302;Octubre;29;Jueves;2020;4;No;No;No;1
+2020-10-30;Muerto;303;Octubre;30;Viernes;2020;4;No;No;No;1
+2020-10-31;Muerto;304;Octubre;31;Sábado;2020;4;Si;No;No;1
+2020-11-01;Muerto;305;Noviembre;1;Domingo;2020;1;Si;No;No;0
+2020-11-02;Muerto;306;Noviembre;2;Lunes;2020;1;No;No;Si;1
+2020-11-03;Muerto;307;Noviembre;3;Martes;2020;1;No;No;No;0
+2020-11-04;Muerto;308;Noviembre;4;Miércoles;2020;1;No;No;No;0
+2020-11-05;Muerto;309;Noviembre;5;Jueves;2020;1;No;No;No;0
+2020-11-06;Muerto;310;Noviembre;6;Viernes;2020;1;No;No;No;1
+2020-11-07;Muerto;311;Noviembre;7;Sábado;2020;1;Si;No;No;1
+2020-11-08;Muerto;312;Noviembre;8;Domingo;2020;2;Si;No;No;1
+2020-11-09;Muerto;313;Noviembre;9;Lunes;2020;2;No;No;No;1
+2020-11-10;Muerto;314;Noviembre;10;Martes;2020;2;No;No;No;1
+2020-11-11;Muerto;315;Noviembre;11;Miércoles;2020;2;No;No;No;1
+2020-11-12;Muerto;316;Noviembre;12;Jueves;2020;2;No;No;No;1
+2020-11-13;Muerto;317;Noviembre;13;Viernes;2020;2;No;No;No;1
+2020-11-14;Muerto;318;Noviembre;14;Sábado;2020;2;Si;No;No;1
+2020-11-15;Muerto;319;Noviembre;15;Domingo;2020;3;Si;No;No;1
+2020-11-16;Muerto;320;Noviembre;16;Lunes;2020;3;No;No;Si;1
+2020-11-17;Muerto;321;Noviembre;17;Martes;2020;3;No;No;No;1
+2020-11-18;Muerto;322;Noviembre;18;Miércoles;2020;3;No;No;No;1
+2020-11-19;Muerto;323;Noviembre;19;Jueves;2020;3;No;No;No;1
+2020-11-20;Muerto;324;Noviembre;20;Viernes;2020;3;No;No;No;1
+2020-11-21;Muerto;325;Noviembre;21;Sábado;2020;3;Si;No;No;1
+2020-11-22;Muerto;326;Noviembre;22;Domingo;2020;4;Si;No;No;1
+2020-11-23;Muerto;327;Noviembre;23;Lunes;2020;4;No;No;No;1
+2020-11-24;Muerto;328;Noviembre;24;Martes;2020;4;No;No;No;1
+2020-11-25;Muerto;329;Noviembre;25;Miércoles;2020;4;No;No;No;1
+2020-11-26;Muerto;330;Noviembre;26;Jueves;2020;4;No;No;No;1
+2020-11-27;Muerto;331;Noviembre;27;Viernes;2020;4;No;No;No;1
+2020-11-28;Muerto;332;Noviembre;28;Sábado;2020;4;Si;No;No;1
+2020-11-29;Muerto;333;Noviembre;29;Domingo;2020;4;Si;No;No;1
+2020-11-30;Muerto;334;Noviembre;30;Lunes;2020;4;No;No;No;1
+2020-12-01;Muerto;335;Diciembre;1;Martes;2020;1;No;No;No;1
+2020-12-02;Muerto;336;Diciembre;2;Miércoles;2020;1;No;No;No;1
+2020-12-03;Muerto;337;Diciembre;3;Jueves;2020;1;No;No;No;1
+2020-12-04;Muerto;338;Diciembre;4;Viernes;2020;1;No;No;No;1
+2020-12-05;Muerto;339;Diciembre;5;Sábado;2020;1;Si;No;No;1
+2020-12-06;Muerto;340;Diciembre;6;Domingo;2020;1;Si;No;No;1
+2020-12-07;Muerto;341;Diciembre;7;Lunes;2020;1;No;No;No;1
+2020-12-08;Muerto;342;Diciembre;8;Martes;2020;2;No;No;Si;1
+2020-12-09;Muerto;343;Diciembre;9;Miércoles;2020;2;No;No;No;1
+2020-12-10;Muerto;344;Diciembre;10;Jueves;2020;2;No;No;No;1
+2020-12-11;Muerto;345;Diciembre;11;Viernes;2020;2;No;No;No;1
+2020-12-12;Muerto;346;Diciembre;12;Sábado;2020;2;Si;No;No;1
+2020-12-13;Muerto;347;Diciembre;13;Domingo;2020;2;Si;No;No;1
+2020-12-14;Muerto;348;Diciembre;14;Lunes;2020;2;No;No;No;1
+2020-12-15;Muerto;349;Diciembre;15;Martes;2020;3;No;No;No;1
+2020-12-16;Muerto;350;Diciembre;16;Miércoles;2020;3;No;No;No;1
+2020-12-17;Muerto;351;Diciembre;17;Jueves;2020;3;No;No;No;1
+2020-12-18;Muerto;352;Diciembre;18;Viernes;2020;3;No;No;No;1
+2020-12-19;Muerto;353;Diciembre;19;Sábado;2020;3;Si;No;No;1
+2020-12-20;Muerto;354;Diciembre;20;Domingo;2020;3;Si;No;No;1
+2020-12-21;Muerto;355;Diciembre;21;Lunes;2020;3;No;No;No;1
+2020-12-22;Muerto;356;Diciembre;22;Martes;2020;4;No;No;No;1
+2020-12-23;Muerto;357;Diciembre;23;Miércoles;2020;4;No;No;No;1
+2020-12-24;Muerto;358;Diciembre;24;Jueves;2020;4;No;No;No;1
+2020-12-25;Muerto;359;Diciembre;25;Viernes;2020;4;No;No;Si;1
+2020-12-26;Muerto;360;Diciembre;26;Sábado;2020;4;Si;No;No;1
+2020-12-27;Muerto;361;Diciembre;27;Domingo;2020;4;Si;No;No;1
+2020-12-28;Muerto;362;Diciembre;28;Lunes;2020;4;No;No;No;1
+2020-12-29;Muerto;363;Diciembre;29;Martes;2020;4;No;No;No;1
+2020-12-30;Muerto;364;Diciembre;30;Miércoles;2020;4;No;No;No;1
+2020-12-31;Muerto;365;Diciembre;31;Jueves;2020;4;No;No;No;1
+2019-01-01;Solo Daño;1;Enero;1;Martes;2019;1;No;No;Si;21
+2019-01-02;Solo Daño;2;Enero;2;Miércoles;2019;1;No;No;No;37
+2019-01-03;Solo Daño;3;Enero;3;Jueves;2019;1;No;No;No;40
+2019-01-04;Solo Daño;4;Enero;4;Viernes;2019;1;No;No;No;43
+2019-01-05;Solo Daño;5;Enero;5;Sábado;2019;1;Si;No;No;34
+2019-01-06;Solo Daño;6;Enero;6;Domingo;2019;1;Si;No;No;27
+2019-01-07;Solo Daño;7;Enero;7;Lunes;2019;1;No;No;Si;21
+2019-01-08;Solo Daño;8;Enero;8;Martes;2019;2;No;No;No;45
+2019-01-09;Solo Daño;9;Enero;9;Miércoles;2019;2;No;No;No;43
+2019-01-10;Solo Daño;10;Enero;10;Jueves;2019;2;No;No;No;47
+2019-01-11;Solo Daño;11;Enero;11;Viernes;2019;2;No;No;No;53
+2019-01-12;Solo Daño;12;Enero;12;Sábado;2019;2;Si;No;No;41
+2019-01-13;Solo Daño;13;Enero;13;Domingo;2019;2;Si;No;No;29
+2019-01-14;Solo Daño;14;Enero;14;Lunes;2019;2;No;No;No;55
+2019-01-15;Solo Daño;15;Enero;15;Martes;2019;3;No;No;No;56
+2019-01-16;Solo Daño;16;Enero;16;Miércoles;2019;3;No;No;No;56
+2019-01-17;Solo Daño;17;Enero;17;Jueves;2019;3;No;No;No;57
+2019-01-18;Solo Daño;18;Enero;18;Viernes;2019;3;No;No;No;60
+2019-01-19;Solo Daño;19;Enero;19;Sábado;2019;3;Si;No;No;49
+2019-01-20;Solo Daño;20;Enero;20;Domingo;2019;3;Si;No;No;28
+2019-01-21;Solo Daño;21;Enero;21;Lunes;2019;3;No;No;No;60
+2019-01-22;Solo Daño;22;Enero;22;Martes;2019;4;No;No;No;61
+2019-01-23;Solo Daño;23;Enero;23;Miércoles;2019;4;No;No;No;60
+2019-01-24;Solo Daño;24;Enero;24;Jueves;2019;4;No;No;No;59
+2019-01-25;Solo Daño;25;Enero;25;Viernes;2019;4;No;No;No;60
+2019-01-26;Solo Daño;26;Enero;26;Sábado;2019;4;Si;No;No;51
+2019-01-27;Solo Daño;27;Enero;27;Domingo;2019;4;Si;No;No;27
+2019-01-28;Solo Daño;28;Enero;28;Lunes;2019;4;No;No;No;60
+2019-01-29;Solo Daño;29;Enero;29;Martes;2019;4;No;No;No;61
+2019-01-30;Solo Daño;30;Enero;30;Miércoles;2019;4;No;No;No;56
+2019-01-31;Solo Daño;31;Enero;31;Jueves;2019;4;No;No;No;55
+2019-02-01;Solo Daño;32;Febrero;1;Viernes;2019;1;No;No;No;64
+2019-02-02;Solo Daño;33;Febrero;2;Sábado;2019;1;Si;No;No;52
+2019-02-03;Solo Daño;34;Febrero;3;Domingo;2019;1;Si;No;No;28
+2019-02-04;Solo Daño;35;Febrero;4;Lunes;2019;1;No;No;No;61
+2019-02-05;Solo Daño;36;Febrero;5;Martes;2019;1;No;No;No;64
+2019-02-06;Solo Daño;37;Febrero;6;Miércoles;2019;1;No;No;No;61
+2019-02-07;Solo Daño;38;Febrero;7;Jueves;2019;1;No;No;No;62
+2019-02-08;Solo Daño;39;Febrero;8;Viernes;2019;2;No;No;No;67
+2019-02-09;Solo Daño;40;Febrero;9;Sábado;2019;2;Si;No;No;53
+2019-02-10;Solo Daño;41;Febrero;10;Domingo;2019;2;Si;No;No;29
+2019-02-11;Solo Daño;42;Febrero;11;Lunes;2019;2;No;No;No;64
+2019-02-12;Solo Daño;43;Febrero;12;Martes;2019;2;No;No;No;66
+2019-02-13;Solo Daño;44;Febrero;13;Miércoles;2019;2;No;No;No;64
+2019-02-14;Solo Daño;45;Febrero;14;Jueves;2019;2;No;No;No;66
+2019-02-15;Solo Daño;46;Febrero;15;Viernes;2019;3;No;No;No;68
+2019-02-16;Solo Daño;47;Febrero;16;Sábado;2019;3;Si;No;No;54
+2019-02-17;Solo Daño;48;Febrero;17;Domingo;2019;3;Si;No;No;30
+2019-02-18;Solo Daño;49;Febrero;18;Lunes;2019;3;No;No;No;65
+2019-02-19;Solo Daño;50;Febrero;19;Martes;2019;3;No;No;No;65
+2019-02-20;Solo Daño;51;Febrero;20;Miércoles;2019;3;No;No;No;63
+2019-02-21;Solo Daño;52;Febrero;21;Jueves;2019;3;No;No;No;65
+2019-02-22;Solo Daño;53;Febrero;22;Viernes;2019;4;No;No;No;66
+2019-02-23;Solo Daño;54;Febrero;23;Sábado;2019;4;Si;No;No;51
+2019-02-24;Solo Daño;55;Febrero;24;Domingo;2019;4;Si;No;No;28
+2019-02-25;Solo Daño;56;Febrero;25;Lunes;2019;4;No;No;No;62
+2019-02-26;Solo Daño;57;Febrero;26;Martes;2019;4;No;No;No;62
+2019-02-27;Solo Daño;58;Febrero;27;Miércoles;2019;4;No;No;No;59
+2019-02-28;Solo Daño;59;Febrero;28;Jueves;2019;4;No;No;No;63
+2019-03-01;Solo Daño;60;Marzo;1;Viernes;2019;1;No;No;No;65
+2019-03-02;Solo Daño;61;Marzo;2;Sábado;2019;1;Si;No;No;57
+2019-03-03;Solo Daño;62;Marzo;3;Domingo;2019;1;Si;No;No;31
+2019-03-04;Solo Daño;63;Marzo;4;Lunes;2019;1;No;No;No;64
+2019-03-05;Solo Daño;64;Marzo;5;Martes;2019;1;No;No;No;65
+2019-03-06;Solo Daño;65;Marzo;6;Miércoles;2019;1;No;No;No;63
+2019-03-07;Solo Daño;66;Marzo;7;Jueves;2019;1;No;No;No;66
+2019-03-08;Solo Daño;67;Marzo;8;Viernes;2019;2;No;No;No;69
+2019-03-09;Solo Daño;68;Marzo;9;Sábado;2019;2;Si;No;No;57
+2019-03-10;Solo Daño;69;Marzo;10;Domingo;2019;2;Si;No;No;31
+2019-03-11;Solo Daño;70;Marzo;11;Lunes;2019;2;No;No;No;62
+2019-03-12;Solo Daño;71;Marzo;12;Martes;2019;2;No;No;No;66
+2019-03-13;Solo Daño;72;Marzo;13;Miércoles;2019;2;No;No;No;62
+2019-03-14;Solo Daño;73;Marzo;14;Jueves;2019;2;No;No;No;63
+2019-03-15;Solo Daño;74;Marzo;15;Viernes;2019;3;No;No;No;68
+2019-03-16;Solo Daño;75;Marzo;16;Sábado;2019;3;Si;No;No;56
+2019-03-17;Solo Daño;76;Marzo;17;Domingo;2019;3;Si;No;No;31
+2019-03-18;Solo Daño;77;Marzo;18;Lunes;2019;3;No;No;No;65
+2019-03-19;Solo Daño;78;Marzo;19;Martes;2019;3;No;No;No;65
+2019-03-20;Solo Daño;79;Marzo;20;Miércoles;2019;3;No;No;No;62
+2019-03-21;Solo Daño;80;Marzo;21;Jueves;2019;3;No;No;No;63
+2019-03-22;Solo Daño;81;Marzo;22;Viernes;2019;4;No;No;No;67
+2019-03-23;Solo Daño;82;Marzo;23;Sábado;2019;4;Si;No;No;53
+2019-03-24;Solo Daño;83;Marzo;24;Domingo;2019;4;Si;No;No;31
+2019-03-25;Solo Daño;84;Marzo;25;Lunes;2019;4;No;No;Si;21
+2019-03-26;Solo Daño;85;Marzo;26;Martes;2019;4;No;No;No;64
+2019-03-27;Solo Daño;86;Marzo;27;Miércoles;2019;4;No;No;No;60
+2019-03-28;Solo Daño;87;Marzo;28;Jueves;2019;4;No;No;No;60
+2019-03-29;Solo Daño;88;Marzo;29;Viernes;2019;4;No;No;No;70
+2019-03-30;Solo Daño;89;Marzo;30;Sábado;2019;4;Si;No;No;53
+2019-03-31;Solo Daño;90;Marzo;31;Domingo;2019;4;Si;No;No;31
+2019-04-01;Solo Daño;91;Abril;1;Lunes;2019;1;No;No;No;61
+2019-04-02;Solo Daño;92;Abril;2;Martes;2019;1;No;No;No;62
+2019-04-03;Solo Daño;93;Abril;3;Miércoles;2019;1;No;No;No;61
+2019-04-04;Solo Daño;94;Abril;4;Jueves;2019;1;No;No;No;62
+2019-04-05;Solo Daño;95;Abril;5;Viernes;2019;1;No;No;No;68
+2019-04-06;Solo Daño;96;Abril;6;Sábado;2019;1;Si;No;No;54
+2019-04-07;Solo Daño;97;Abril;7;Domingo;2019;1;Si;No;No;27
+2019-04-08;Solo Daño;98;Abril;8;Lunes;2019;2;No;No;No;65
+2019-04-09;Solo Daño;99;Abril;9;Martes;2019;2;No;No;No;65
+2019-04-10;Solo Daño;100;Abril;10;Miércoles;2019;2;No;No;No;63
+2019-04-11;Solo Daño;101;Abril;11;Jueves;2019;2;No;No;No;62
+2019-04-12;Solo Daño;102;Abril;12;Viernes;2019;2;No;No;No;70
+2019-04-13;Solo Daño;103;Abril;13;Sábado;2019;2;Si;No;No;55
+2019-04-14;Solo Daño;104;Abril;14;Domingo;2019;2;Si;No;No;29
+2019-04-15;Solo Daño;105;Abril;15;Lunes;2019;3;No;No;No;62
+2019-04-16;Solo Daño;106;Abril;16;Martes;2019;3;No;No;No;63
+2019-04-17;Solo Daño;107;Abril;17;Miércoles;2019;3;No;No;No;59
+2019-04-18;Solo Daño;108;Abril;18;Jueves;2019;3;No;No;Si;20
+2019-04-19;Solo Daño;109;Abril;19;Viernes;2019;3;No;No;Si;19
+2019-04-20;Solo Daño;110;Abril;20;Sábado;2019;3;Si;No;No;51
+2019-04-21;Solo Daño;111;Abril;21;Domingo;2019;3;Si;No;No;30
+2019-04-22;Solo Daño;112;Abril;22;Lunes;2019;4;No;No;No;61
+2019-04-23;Solo Daño;113;Abril;23;Martes;2019;4;No;No;No;62
+2019-04-24;Solo Daño;114;Abril;24;Miércoles;2019;4;No;No;No;64
+2019-04-25;Solo Daño;115;Abril;25;Jueves;2019;4;No;No;No;64
+2019-04-26;Solo Daño;116;Abril;26;Viernes;2019;4;No;No;No;68
+2019-04-27;Solo Daño;117;Abril;27;Sábado;2019;4;Si;No;No;53
+2019-04-28;Solo Daño;118;Abril;28;Domingo;2019;4;Si;No;No;30
+2019-04-29;Solo Daño;119;Abril;29;Lunes;2019;4;No;No;No;65
+2019-04-30;Solo Daño;120;Abril;30;Martes;2019;4;No;No;No;63
+2019-05-01;Solo Daño;121;Mayo;1;Miércoles;2019;1;No;No;Si;33
+2019-05-02;Solo Daño;122;Mayo;2;Jueves;2019;1;No;No;No;61
+2019-05-03;Solo Daño;123;Mayo;3;Viernes;2019;1;No;No;No;70
+2019-05-04;Solo Daño;124;Mayo;4;Sábado;2019;1;Si;No;No;59
+2019-05-05;Solo Daño;125;Mayo;5;Domingo;2019;1;Si;No;No;29
+2019-05-06;Solo Daño;126;Mayo;6;Lunes;2019;1;No;No;No;64
+2019-05-07;Solo Daño;127;Mayo;7;Martes;2019;1;No;No;No;63
+2019-05-08;Solo Daño;128;Mayo;8;Miércoles;2019;2;No;No;No;61
+2019-05-09;Solo Daño;129;Mayo;9;Jueves;2019;2;No;No;No;61
+2019-05-10;Solo Daño;130;Mayo;10;Viernes;2019;2;No;No;No;68
+2019-05-11;Solo Daño;131;Mayo;11;Sábado;2019;2;Si;No;No;60
+2019-05-12;Solo Daño;132;Mayo;12;Domingo;2019;2;Si;No;No;33
+2019-05-13;Solo Daño;133;Mayo;13;Lunes;2019;2;No;No;No;64
+2019-05-14;Solo Daño;134;Mayo;14;Martes;2019;2;No;No;No;67
+2019-05-15;Solo Daño;135;Mayo;15;Miércoles;2019;3;No;No;No;62
+2019-05-16;Solo Daño;136;Mayo;16;Jueves;2019;3;No;No;No;61
+2019-05-17;Solo Daño;137;Mayo;17;Viernes;2019;3;No;No;No;71
+2019-05-18;Solo Daño;138;Mayo;18;Sábado;2019;3;Si;No;No;58
+2019-05-19;Solo Daño;139;Mayo;19;Domingo;2019;3;Si;No;No;29
+2019-05-20;Solo Daño;140;Mayo;20;Lunes;2019;3;No;No;No;65
+2019-05-21;Solo Daño;141;Mayo;21;Martes;2019;3;No;No;No;64
+2019-05-22;Solo Daño;142;Mayo;22;Miércoles;2019;4;No;No;No;61
+2019-05-23;Solo Daño;143;Mayo;23;Jueves;2019;4;No;No;No;62
+2019-05-24;Solo Daño;144;Mayo;24;Viernes;2019;4;No;No;No;68
+2019-05-25;Solo Daño;145;Mayo;25;Sábado;2019;4;Si;No;No;54
+2019-05-26;Solo Daño;146;Mayo;26;Domingo;2019;4;Si;No;No;31
+2019-05-27;Solo Daño;147;Mayo;27;Lunes;2019;4;No;No;No;62
+2019-05-28;Solo Daño;148;Mayo;28;Martes;2019;4;No;No;No;60
+2019-05-29;Solo Daño;149;Mayo;29;Miércoles;2019;4;No;No;No;60
+2019-05-30;Solo Daño;150;Mayo;30;Jueves;2019;4;No;No;No;59
+2019-05-31;Solo Daño;151;Mayo;31;Viernes;2019;4;No;No;No;65
+2019-06-01;Solo Daño;152;Junio;1;Sábado;2019;1;Si;No;No;58
+2019-06-02;Solo Daño;153;Junio;2;Domingo;2019;1;Si;No;No;29
+2019-06-03;Solo Daño;154;Junio;3;Lunes;2019;1;No;No;Si;25
+2019-06-04;Solo Daño;155;Junio;4;Martes;2019;1;No;No;No;65
+2019-06-05;Solo Daño;156;Junio;5;Miércoles;2019;1;No;No;No;66
+2019-06-06;Solo Daño;157;Junio;6;Jueves;2019;1;No;No;No;61
+2019-06-07;Solo Daño;158;Junio;7;Viernes;2019;1;No;No;No;64
+2019-06-08;Solo Daño;159;Junio;8;Sábado;2019;2;Si;No;No;59
+2019-06-09;Solo Daño;160;Junio;9;Domingo;2019;2;Si;No;No;30
+2019-06-10;Solo Daño;161;Junio;10;Lunes;2019;2;No;No;No;58
+2019-06-11;Solo Daño;162;Junio;11;Martes;2019;2;No;No;No;61
+2019-06-12;Solo Daño;163;Junio;12;Miércoles;2019;2;No;No;No;62
+2019-06-13;Solo Daño;164;Junio;13;Jueves;2019;2;No;No;No;57
+2019-06-14;Solo Daño;165;Junio;14;Viernes;2019;2;No;No;No;64
+2019-06-15;Solo Daño;166;Junio;15;Sábado;2019;3;Si;No;No;58
+2019-06-16;Solo Daño;167;Junio;16;Domingo;2019;3;Si;No;No;30
+2019-06-17;Solo Daño;168;Junio;17;Lunes;2019;3;No;No;No;57
+2019-06-18;Solo Daño;169;Junio;18;Martes;2019;3;No;No;No;61
+2019-06-19;Solo Daño;170;Junio;19;Miércoles;2019;3;No;No;No;60
+2019-06-20;Solo Daño;171;Junio;20;Jueves;2019;3;No;No;No;57
+2019-06-21;Solo Daño;172;Junio;21;Viernes;2019;3;No;No;No;62
+2019-06-22;Solo Daño;173;Junio;22;Sábado;2019;4;Si;No;No;55
+2019-06-23;Solo Daño;174;Junio;23;Domingo;2019;4;Si;No;No;30
+2019-06-24;Solo Daño;175;Junio;24;Lunes;2019;4;No;No;Si;25
+2019-06-25;Solo Daño;176;Junio;25;Martes;2019;4;No;No;No;62
+2019-06-26;Solo Daño;177;Junio;26;Miércoles;2019;4;No;No;No;64
+2019-06-27;Solo Daño;178;Junio;27;Jueves;2019;4;No;No;No;57
+2019-06-28;Solo Daño;179;Junio;28;Viernes;2019;4;No;No;No;65
+2019-06-29;Solo Daño;180;Junio;29;Sábado;2019;4;Si;No;No;54
+2019-06-30;Solo Daño;181;Junio;30;Domingo;2019;4;Si;No;No;28
+2019-07-01;Solo Daño;182;Julio;1;Lunes;2019;1;No;No;Si;27
+2019-07-02;Solo Daño;183;Julio;2;Martes;2019;1;No;No;No;63
+2019-07-03;Solo Daño;184;Julio;3;Miércoles;2019;1;No;No;No;63
+2019-07-04;Solo Daño;185;Julio;4;Jueves;2019;1;No;No;No;62
+2019-07-05;Solo Daño;186;Julio;5;Viernes;2019;1;No;No;No;63
+2019-07-06;Solo Daño;187;Julio;6;Sábado;2019;1;Si;No;No;54
+2019-07-07;Solo Daño;188;Julio;7;Domingo;2019;1;Si;No;No;28
+2019-07-08;Solo Daño;189;Julio;8;Lunes;2019;2;No;No;No;65
+2019-07-09;Solo Daño;190;Julio;9;Martes;2019;2;No;No;No;63
+2019-07-10;Solo Daño;191;Julio;10;Miércoles;2019;2;No;No;No;61
+2019-07-11;Solo Daño;192;Julio;11;Jueves;2019;2;No;No;No;61
+2019-07-12;Solo Daño;193;Julio;12;Viernes;2019;2;No;No;No;64
+2019-07-13;Solo Daño;194;Julio;13;Sábado;2019;2;Si;No;No;54
+2019-07-14;Solo Daño;195;Julio;14;Domingo;2019;2;Si;No;No;29
+2019-07-15;Solo Daño;196;Julio;15;Lunes;2019;3;No;No;No;65
+2019-07-16;Solo Daño;197;Julio;16;Martes;2019;3;No;No;No;66
+2019-07-17;Solo Daño;198;Julio;17;Miércoles;2019;3;No;No;No;62
+2019-07-18;Solo Daño;199;Julio;18;Jueves;2019;3;No;No;No;61
+2019-07-19;Solo Daño;200;Julio;19;Viernes;2019;3;No;No;No;66
+2019-07-20;Solo Daño;201;Julio;20;Sábado;2019;3;Si;No;Si;40
+2019-07-21;Solo Daño;202;Julio;21;Domingo;2019;3;Si;No;No;28
+2019-07-22;Solo Daño;203;Julio;22;Lunes;2019;4;No;No;No;64
+2019-07-23;Solo Daño;204;Julio;23;Martes;2019;4;No;No;No;64
+2019-07-24;Solo Daño;205;Julio;24;Miércoles;2019;4;No;No;No;61
+2019-07-25;Solo Daño;206;Julio;25;Jueves;2019;4;No;No;No;60
+2019-07-26;Solo Daño;207;Julio;26;Viernes;2019;4;No;No;No;66
+2019-07-27;Solo Daño;208;Julio;27;Sábado;2019;4;Si;No;No;55
+2019-07-28;Solo Daño;209;Julio;28;Domingo;2019;4;Si;No;No;27
+2019-07-29;Solo Daño;210;Julio;29;Lunes;2019;4;No;No;No;68
+2019-07-30;Solo Daño;211;Julio;30;Martes;2019;4;No;No;No;64
+2019-07-31;Solo Daño;212;Julio;31;Miércoles;2019;4;No;No;No;58
+2019-08-01;Solo Daño;213;Agosto;1;Jueves;2019;1;No;No;No;64
+2019-08-02;Solo Daño;214;Agosto;2;Viernes;2019;1;No;Si;No;72
+2019-08-03;Solo Daño;215;Agosto;3;Sábado;2019;1;Si;Si;No;54
+2019-08-04;Solo Daño;216;Agosto;4;Domingo;2019;1;Si;Si;No;34
+2019-08-05;Solo Daño;217;Agosto;5;Lunes;2019;1;No;Si;No;66
+2019-08-06;Solo Daño;218;Agosto;6;Martes;2019;1;No;Si;No;68
+2019-08-07;Solo Daño;219;Agosto;7;Miércoles;2019;1;No;Si;Si;34
+2019-08-08;Solo Daño;220;Agosto;8;Jueves;2019;2;No;Si;No;65
+2019-08-09;Solo Daño;221;Agosto;9;Viernes;2019;2;No;Si;No;69
+2019-08-10;Solo Daño;222;Agosto;10;Sábado;2019;2;Si;Si;No;56
+2019-08-11;Solo Daño;223;Agosto;11;Domingo;2019;2;Si;Si;No;33
+2019-08-12;Solo Daño;224;Agosto;12;Lunes;2019;2;No;No;No;63
+2019-08-13;Solo Daño;225;Agosto;13;Martes;2019;2;No;No;No;63
+2019-08-14;Solo Daño;226;Agosto;14;Miércoles;2019;2;No;No;No;63
+2019-08-15;Solo Daño;227;Agosto;15;Jueves;2019;3;No;No;No;64
+2019-08-16;Solo Daño;228;Agosto;16;Viernes;2019;3;No;No;No;71
+2019-08-17;Solo Daño;229;Agosto;17;Sábado;2019;3;Si;No;No;55
+2019-08-18;Solo Daño;230;Agosto;18;Domingo;2019;3;Si;No;No;30
+2019-08-19;Solo Daño;231;Agosto;19;Lunes;2019;3;No;No;Si;26
+2019-08-20;Solo Daño;232;Agosto;20;Martes;2019;3;No;No;No;63
+2019-08-21;Solo Daño;233;Agosto;21;Miércoles;2019;3;No;No;No;58
+2019-08-22;Solo Daño;234;Agosto;22;Jueves;2019;4;No;No;No;60
+2019-08-23;Solo Daño;235;Agosto;23;Viernes;2019;4;No;No;No;67
+2019-08-24;Solo Daño;236;Agosto;24;Sábado;2019;4;Si;No;No;54
+2019-08-25;Solo Daño;237;Agosto;25;Domingo;2019;4;Si;No;No;31
+2019-08-26;Solo Daño;238;Agosto;26;Lunes;2019;4;No;No;No;63
+2019-08-27;Solo Daño;239;Agosto;27;Martes;2019;4;No;No;No;63
+2019-08-28;Solo Daño;240;Agosto;28;Miércoles;2019;4;No;No;No;60
+2019-08-29;Solo Daño;241;Agosto;29;Jueves;2019;4;No;No;No;61
+2019-08-30;Solo Daño;242;Agosto;30;Viernes;2019;4;No;No;No;65
+2019-08-31;Solo Daño;243;Agosto;31;Sábado;2019;4;Si;No;No;52
+2019-09-01;Solo Daño;244;Septiembre;1;Domingo;2019;1;Si;No;No;33
+2019-09-02;Solo Daño;245;Septiembre;2;Lunes;2019;1;No;No;No;62
+2019-09-03;Solo Daño;246;Septiembre;3;Martes;2019;1;No;No;No;62
+2019-09-04;Solo Daño;247;Septiembre;4;Miércoles;2019;1;No;No;No;63
+2019-09-05;Solo Daño;248;Septiembre;5;Jueves;2019;1;No;No;No;65
+2019-09-06;Solo Daño;249;Septiembre;6;Viernes;2019;1;No;No;No;68
+2019-09-07;Solo Daño;250;Septiembre;7;Sábado;2019;1;Si;No;No;56
+2019-09-08;Solo Daño;251;Septiembre;8;Domingo;2019;2;Si;No;No;31
+2019-09-09;Solo Daño;252;Septiembre;9;Lunes;2019;2;No;No;No;62
+2019-09-10;Solo Daño;253;Septiembre;10;Martes;2019;2;No;No;No;60
+2019-09-11;Solo Daño;254;Septiembre;11;Miércoles;2019;2;No;No;No;62
+2019-09-12;Solo Daño;255;Septiembre;12;Jueves;2019;2;No;No;No;65
+2019-09-13;Solo Daño;256;Septiembre;13;Viernes;2019;2;No;No;No;70
+2019-09-14;Solo Daño;257;Septiembre;14;Sábado;2019;2;Si;No;No;58
+2019-09-15;Solo Daño;258;Septiembre;15;Domingo;2019;3;Si;No;No;33
+2019-09-16;Solo Daño;259;Septiembre;16;Lunes;2019;3;No;No;No;65
+2019-09-17;Solo Daño;260;Septiembre;17;Martes;2019;3;No;No;No;65
+2019-09-18;Solo Daño;261;Septiembre;18;Miércoles;2019;3;No;No;No;64
+2019-09-19;Solo Daño;262;Septiembre;19;Jueves;2019;3;No;No;No;64
+2019-09-20;Solo Daño;263;Septiembre;20;Viernes;2019;3;No;No;No;68
+2019-09-21;Solo Daño;264;Septiembre;21;Sábado;2019;3;Si;No;No;57
+2019-09-22;Solo Daño;265;Septiembre;22;Domingo;2019;4;Si;No;No;31
+2019-09-23;Solo Daño;266;Septiembre;23;Lunes;2019;4;No;No;No;62
+2019-09-24;Solo Daño;267;Septiembre;24;Martes;2019;4;No;No;No;62
+2019-09-25;Solo Daño;268;Septiembre;25;Miércoles;2019;4;No;No;No;58
+2019-09-26;Solo Daño;269;Septiembre;26;Jueves;2019;4;No;No;No;58
+2019-09-27;Solo Daño;270;Septiembre;27;Viernes;2019;4;No;No;No;65
+2019-09-28;Solo Daño;271;Septiembre;28;Sábado;2019;4;Si;No;No;54
+2019-09-29;Solo Daño;272;Septiembre;29;Domingo;2019;4;Si;No;No;31
+2019-09-30;Solo Daño;273;Septiembre;30;Lunes;2019;4;No;No;No;60
+2019-10-01;Solo Daño;274;Octubre;1;Martes;2019;1;No;No;No;65
+2019-10-02;Solo Daño;275;Octubre;2;Miércoles;2019;1;No;No;No;63
+2019-10-03;Solo Daño;276;Octubre;3;Jueves;2019;1;No;No;No;62
+2019-10-04;Solo Daño;277;Octubre;4;Viernes;2019;1;No;No;No;68
+2019-10-05;Solo Daño;278;Octubre;5;Sábado;2019;1;Si;No;No;58
+2019-10-06;Solo Daño;279;Octubre;6;Domingo;2019;1;Si;No;No;33
+2019-10-07;Solo Daño;280;Octubre;7;Lunes;2019;1;No;No;No;65
+2019-10-08;Solo Daño;281;Octubre;8;Martes;2019;2;No;No;No;64
+2019-10-09;Solo Daño;282;Octubre;9;Miércoles;2019;2;No;No;No;61
+2019-10-10;Solo Daño;283;Octubre;10;Jueves;2019;2;No;No;No;61
+2019-10-11;Solo Daño;284;Octubre;11;Viernes;2019;2;No;No;No;67
+2019-10-12;Solo Daño;285;Octubre;12;Sábado;2019;2;Si;No;No;56
+2019-10-13;Solo Daño;286;Octubre;13;Domingo;2019;2;Si;No;No;29
+2019-10-14;Solo Daño;287;Octubre;14;Lunes;2019;2;No;No;Si;27
+2019-10-15;Solo Daño;288;Octubre;15;Martes;2019;3;No;No;No;67
+2019-10-16;Solo Daño;289;Octubre;16;Miércoles;2019;3;No;No;No;59
+2019-10-17;Solo Daño;290;Octubre;17;Jueves;2019;3;No;No;No;58
+2019-10-18;Solo Daño;291;Octubre;18;Viernes;2019;3;No;No;No;68
+2019-10-19;Solo Daño;292;Octubre;19;Sábado;2019;3;Si;No;No;56
+2019-10-20;Solo Daño;293;Octubre;20;Domingo;2019;3;Si;No;No;29
+2019-10-21;Solo Daño;294;Octubre;21;Lunes;2019;3;No;No;No;60
+2019-10-22;Solo Daño;295;Octubre;22;Martes;2019;4;No;No;No;61
+2019-10-23;Solo Daño;296;Octubre;23;Miércoles;2019;4;No;No;No;63
+2019-10-24;Solo Daño;297;Octubre;24;Jueves;2019;4;No;No;No;59
+2019-10-25;Solo Daño;298;Octubre;25;Viernes;2019;4;No;No;No;66
+2019-10-26;Solo Daño;299;Octubre;26;Sábado;2019;4;Si;No;No;57
+2019-10-27;Solo Daño;300;Octubre;27;Domingo;2019;4;Si;No;No;30
+2019-10-28;Solo Daño;301;Octubre;28;Lunes;2019;4;No;No;No;62
+2019-10-29;Solo Daño;302;Octubre;29;Martes;2019;4;No;No;No;63
+2019-10-30;Solo Daño;303;Octubre;30;Miércoles;2019;4;No;No;No;65
+2019-10-31;Solo Daño;304;Octubre;31;Jueves;2019;4;No;No;No;59
+2019-11-01;Solo Daño;305;Noviembre;1;Viernes;2019;1;No;No;No;69
+2019-11-02;Solo Daño;306;Noviembre;2;Sábado;2019;1;Si;No;No;53
+2019-11-03;Solo Daño;307;Noviembre;3;Domingo;2019;1;Si;No;No;26
+2019-11-04;Solo Daño;308;Noviembre;4;Lunes;2019;1;No;No;Si;26
+2019-11-05;Solo Daño;309;Noviembre;5;Martes;2019;1;No;No;No;64
+2019-11-06;Solo Daño;310;Noviembre;6;Miércoles;2019;1;No;No;No;63
+2019-11-07;Solo Daño;311;Noviembre;7;Jueves;2019;1;No;No;No;62
+2019-11-08;Solo Daño;312;Noviembre;8;Viernes;2019;2;No;No;No;69
+2019-11-09;Solo Daño;313;Noviembre;9;Sábado;2019;2;Si;No;No;54
+2019-11-10;Solo Daño;314;Noviembre;10;Domingo;2019;2;Si;No;No;29
+2019-11-11;Solo Daño;315;Noviembre;11;Lunes;2019;2;No;No;Si;41
+2019-11-12;Solo Daño;316;Noviembre;12;Martes;2019;2;No;No;No;65
+2019-11-13;Solo Daño;317;Noviembre;13;Miércoles;2019;2;No;No;No;62
+2019-11-14;Solo Daño;318;Noviembre;14;Jueves;2019;2;No;No;No;59
+2019-11-15;Solo Daño;319;Noviembre;15;Viernes;2019;3;No;No;No;70
+2019-11-16;Solo Daño;320;Noviembre;16;Sábado;2019;3;Si;No;No;58
+2019-11-17;Solo Daño;321;Noviembre;17;Domingo;2019;3;Si;No;No;30
+2019-11-18;Solo Daño;322;Noviembre;18;Lunes;2019;3;No;No;No;63
+2019-11-19;Solo Daño;323;Noviembre;19;Martes;2019;3;No;No;No;63
+2019-11-20;Solo Daño;324;Noviembre;20;Miércoles;2019;3;No;No;No;62
+2019-11-21;Solo Daño;325;Noviembre;21;Jueves;2019;3;No;No;No;62
+2019-11-22;Solo Daño;326;Noviembre;22;Viernes;2019;4;No;No;No;69
+2019-11-23;Solo Daño;327;Noviembre;23;Sábado;2019;4;Si;No;No;56
+2019-11-24;Solo Daño;328;Noviembre;24;Domingo;2019;4;Si;No;No;29
+2019-11-25;Solo Daño;329;Noviembre;25;Lunes;2019;4;No;No;No;63
+2019-11-26;Solo Daño;330;Noviembre;26;Martes;2019;4;No;No;No;64
+2019-11-27;Solo Daño;331;Noviembre;27;Miércoles;2019;4;No;No;No;63
+2019-11-28;Solo Daño;332;Noviembre;28;Jueves;2019;4;No;No;No;63
+2019-11-29;Solo Daño;333;Noviembre;29;Viernes;2019;4;No;No;No;70
+2019-11-30;Solo Daño;334;Noviembre;30;Sábado;2019;4;Si;No;No;54
+2019-12-01;Solo Daño;335;Diciembre;1;Domingo;2019;1;Si;No;No;33
+2019-12-02;Solo Daño;336;Diciembre;2;Lunes;2019;1;No;No;No;68
+2019-12-03;Solo Daño;337;Diciembre;3;Martes;2019;1;No;No;No;68
+2019-12-04;Solo Daño;338;Diciembre;4;Miércoles;2019;1;No;No;No;68
+2019-12-05;Solo Daño;339;Diciembre;5;Jueves;2019;1;No;No;No;66
+2019-12-06;Solo Daño;340;Diciembre;6;Viernes;2019;1;No;No;No;71
+2019-12-07;Solo Daño;341;Diciembre;7;Sábado;2019;1;Si;No;No;62
+2019-12-08;Solo Daño;342;Diciembre;8;Domingo;2019;2;Si;No;Si;33
+2019-12-09;Solo Daño;343;Diciembre;9;Lunes;2019;2;No;No;No;70
+2019-12-10;Solo Daño;344;Diciembre;10;Martes;2019;2;No;No;No;69
+2019-12-11;Solo Daño;345;Diciembre;11;Miércoles;2019;2;No;No;No;65
+2019-12-12;Solo Daño;346;Diciembre;12;Jueves;2019;2;No;No;No;64
+2019-12-13;Solo Daño;347;Diciembre;13;Viernes;2019;2;No;No;No;69
+2019-12-14;Solo Daño;348;Diciembre;14;Sábado;2019;2;Si;No;No;58
+2019-12-15;Solo Daño;349;Diciembre;15;Domingo;2019;3;Si;No;No;33
+2019-12-16;Solo Daño;350;Diciembre;16;Lunes;2019;3;No;No;No;67
+2019-12-17;Solo Daño;351;Diciembre;17;Martes;2019;3;No;No;No;70
+2019-12-18;Solo Daño;352;Diciembre;18;Miércoles;2019;3;No;No;No;68
+2019-12-19;Solo Daño;353;Diciembre;19;Jueves;2019;3;No;No;No;67
+2019-12-20;Solo Daño;354;Diciembre;20;Viernes;2019;3;No;No;No;73
+2019-12-21;Solo Daño;355;Diciembre;21;Sábado;2019;3;Si;No;No;58
+2019-12-22;Solo Daño;356;Diciembre;22;Domingo;2019;4;Si;No;No;31
+2019-12-23;Solo Daño;357;Diciembre;23;Lunes;2019;4;No;No;No;67
+2019-12-24;Solo Daño;358;Diciembre;24;Martes;2019;4;No;No;No;63
+2019-12-25;Solo Daño;359;Diciembre;25;Miércoles;2019;4;No;No;Si;27
+2019-12-26;Solo Daño;360;Diciembre;26;Jueves;2019;4;No;No;No;53
+2019-12-27;Solo Daño;361;Diciembre;27;Viernes;2019;4;No;No;No;58
+2019-12-28;Solo Daño;362;Diciembre;28;Sábado;2019;4;Si;No;No;40
+2019-12-29;Solo Daño;363;Diciembre;29;Domingo;2019;4;Si;No;No;26
+2019-12-30;Solo Daño;364;Diciembre;30;Lunes;2019;4;No;No;No;56
+2019-12-31;Solo Daño;365;Diciembre;31;Martes;2019;4;No;No;No;49
+2020-01-01;Solo Daño;1;Enero;1;Miércoles;2020;1;No;No;Si;20
+2020-01-02;Solo Daño;2;Enero;2;Jueves;2020;1;No;No;No;37
+2020-01-03;Solo Daño;3;Enero;3;Viernes;2020;1;No;No;No;43
+2020-01-04;Solo Daño;4;Enero;4;Sábado;2020;1;Si;No;No;32
+2020-01-05;Solo Daño;5;Enero;5;Domingo;2020;1;Si;No;No;27
+2020-01-06;Solo Daño;6;Enero;6;Lunes;2020;1;No;No;Si;21
+2020-01-07;Solo Daño;7;Enero;7;Martes;2020;1;No;No;No;46
+2020-01-08;Solo Daño;8;Enero;8;Miércoles;2020;2;No;No;No;41
+2020-01-09;Solo Daño;9;Enero;9;Jueves;2020;2;No;No;No;44
+2020-01-10;Solo Daño;10;Enero;10;Viernes;2020;2;No;No;No;51
+2020-01-11;Solo Daño;11;Enero;11;Sábado;2020;2;Si;No;No;39
+2020-01-12;Solo Daño;12;Enero;12;Domingo;2020;2;Si;No;No;28
+2020-01-13;Solo Daño;13;Enero;13;Lunes;2020;2;No;No;No;56
+2020-01-14;Solo Daño;14;Enero;14;Martes;2020;2;No;No;No;56
+2020-01-15;Solo Daño;15;Enero;15;Miércoles;2020;3;No;No;No;53
+2020-01-16;Solo Daño;16;Enero;16;Jueves;2020;3;No;No;No;57
+2020-01-17;Solo Daño;17;Enero;17;Viernes;2020;3;No;No;No;60
+2020-01-18;Solo Daño;18;Enero;18;Sábado;2020;3;Si;No;No;50
+2020-01-19;Solo Daño;19;Enero;19;Domingo;2020;3;Si;No;No;28
+2020-01-20;Solo Daño;20;Enero;20;Lunes;2020;3;No;No;No;60
+2020-01-21;Solo Daño;21;Enero;21;Martes;2020;3;No;No;No;61
+2020-01-22;Solo Daño;22;Enero;22;Miércoles;2020;4;No;No;No;60
+2020-01-23;Solo Daño;23;Enero;23;Jueves;2020;4;No;No;No;59
+2020-01-24;Solo Daño;24;Enero;24;Viernes;2020;4;No;No;No;60
+2020-01-25;Solo Daño;25;Enero;25;Sábado;2020;4;Si;No;No;51
+2020-01-26;Solo Daño;26;Enero;26;Domingo;2020;4;Si;No;No;27
+2020-01-27;Solo Daño;27;Enero;27;Lunes;2020;4;No;No;No;61
+2020-01-28;Solo Daño;28;Enero;28;Martes;2020;4;No;No;No;61
+2020-01-29;Solo Daño;29;Enero;29;Miércoles;2020;4;No;No;No;57
+2020-01-30;Solo Daño;30;Enero;30;Jueves;2020;4;No;No;No;55
+2020-01-31;Solo Daño;31;Enero;31;Viernes;2020;4;No;No;No;64
+2020-02-01;Solo Daño;32;Febrero;1;Sábado;2020;1;Si;No;No;53
+2020-02-02;Solo Daño;33;Febrero;2;Domingo;2020;1;Si;No;No;28
+2020-02-03;Solo Daño;34;Febrero;3;Lunes;2020;1;No;No;No;61
+2020-02-04;Solo Daño;35;Febrero;4;Martes;2020;1;No;No;No;64
+2020-02-05;Solo Daño;36;Febrero;5;Miércoles;2020;1;No;No;No;60
+2020-02-06;Solo Daño;37;Febrero;6;Jueves;2020;1;No;No;No;62
+2020-02-07;Solo Daño;38;Febrero;7;Viernes;2020;1;No;No;No;67
+2020-02-08;Solo Daño;39;Febrero;8;Sábado;2020;2;Si;No;No;53
+2020-02-09;Solo Daño;40;Febrero;9;Domingo;2020;2;Si;No;No;29
+2020-02-10;Solo Daño;41;Febrero;10;Lunes;2020;2;No;No;No;66
+2020-02-11;Solo Daño;42;Febrero;11;Martes;2020;2;No;No;No;66
+2020-02-12;Solo Daño;43;Febrero;12;Miércoles;2020;2;No;No;No;64
+2020-02-13;Solo Daño;44;Febrero;13;Jueves;2020;2;No;No;No;65
+2020-02-14;Solo Daño;45;Febrero;14;Viernes;2020;2;No;No;No;67
+2020-02-15;Solo Daño;46;Febrero;15;Sábado;2020;3;Si;No;No;53
+2020-02-16;Solo Daño;47;Febrero;16;Domingo;2020;3;Si;No;No;30
+2020-02-17;Solo Daño;48;Febrero;17;Lunes;2020;3;No;No;No;66
+2020-02-18;Solo Daño;49;Febrero;18;Martes;2020;3;No;No;No;65
+2020-02-19;Solo Daño;50;Febrero;19;Miércoles;2020;3;No;No;No;63
+2020-02-20;Solo Daño;51;Febrero;20;Jueves;2020;3;No;No;No;65
+2020-02-21;Solo Daño;52;Febrero;21;Viernes;2020;3;No;No;No;66
+2020-02-22;Solo Daño;53;Febrero;22;Sábado;2020;4;Si;No;No;51
+2020-02-23;Solo Daño;54;Febrero;23;Domingo;2020;4;Si;No;No;28
+2020-02-24;Solo Daño;55;Febrero;24;Lunes;2020;4;No;No;No;64
+2020-02-25;Solo Daño;56;Febrero;25;Martes;2020;4;No;No;No;61
+2020-02-26;Solo Daño;57;Febrero;26;Miércoles;2020;4;No;No;No;58
+2020-02-27;Solo Daño;58;Febrero;27;Jueves;2020;4;No;No;No;62
+2020-02-28;Solo Daño;59;Febrero;28;Viernes;2020;4;No;No;No;71
+2020-02-29;Solo Daño;60;Febrero;29;Sábado;2020;4;No;No;No;51
+2020-03-01;Solo Daño;60;Marzo;1;Domingo;2020;1;Si;No;No;33
+2020-03-02;Solo Daño;61;Marzo;2;Lunes;2020;1;No;No;No;62
+2020-03-03;Solo Daño;62;Marzo;3;Martes;2020;1;No;No;No;64
+2020-03-04;Solo Daño;63;Marzo;4;Miércoles;2020;1;No;No;No;61
+2020-03-05;Solo Daño;64;Marzo;5;Jueves;2020;1;No;No;No;58
+2020-03-06;Solo Daño;65;Marzo;6;Viernes;2020;1;No;No;No;63
+2020-03-07;Solo Daño;66;Marzo;7;Sábado;2020;1;Si;No;No;57
+2020-03-08;Solo Daño;67;Marzo;8;Domingo;2020;2;Si;No;No;31
+2020-03-09;Solo Daño;68;Marzo;9;Lunes;2020;2;No;No;No;63
+2020-03-10;Solo Daño;69;Marzo;10;Martes;2020;2;No;No;No;68
+2020-03-11;Solo Daño;70;Marzo;11;Miércoles;2020;2;No;No;No;62
+2020-03-12;Solo Daño;71;Marzo;12;Jueves;2020;2;No;No;No;63
+2020-03-13;Solo Daño;72;Marzo;13;Viernes;2020;2;No;No;No;68
+2020-03-14;Solo Daño;73;Marzo;14;Sábado;2020;2;Si;No;No;56
+2020-03-15;Solo Daño;74;Marzo;15;Domingo;2020;3;Si;No;No;30
+2020-03-16;Solo Daño;75;Marzo;16;Lunes;2020;3;No;No;No;64
+2020-03-17;Solo Daño;76;Marzo;17;Martes;2020;3;No;No;No;65
+2020-03-18;Solo Daño;77;Marzo;18;Miércoles;2020;3;No;No;No;61
+2020-03-19;Solo Daño;78;Marzo;19;Jueves;2020;3;No;No;No;65
+2020-03-20;Solo Daño;79;Marzo;20;Viernes;2020;3;No;No;No;68
+2020-03-21;Solo Daño;80;Marzo;21;Sábado;2020;3;Si;No;No;55
+2020-03-22;Solo Daño;81;Marzo;22;Domingo;2020;4;Si;No;No;30
+2020-03-23;Solo Daño;82;Marzo;23;Lunes;2020;4;No;No;Si;22
+2020-03-24;Solo Daño;83;Marzo;24;Martes;2020;4;No;No;No;65
+2020-03-25;Solo Daño;84;Marzo;25;Miércoles;2020;4;No;No;No;62
+2020-03-26;Solo Daño;85;Marzo;26;Jueves;2020;4;No;No;No;58
+2020-03-27;Solo Daño;86;Marzo;27;Viernes;2020;4;No;No;No;67
+2020-03-28;Solo Daño;87;Marzo;28;Sábado;2020;4;Si;No;No;49
+2020-03-29;Solo Daño;88;Marzo;29;Domingo;2020;4;Si;No;No;30
+2020-03-30;Solo Daño;89;Marzo;30;Lunes;2020;4;No;No;No;64
+2020-03-31;Solo Daño;90;Marzo;31;Martes;2020;4;No;No;No;60
+2020-04-01;Solo Daño;91;Abril;1;Miércoles;2020;1;No;No;No;58
+2020-04-02;Solo Daño;92;Abril;2;Jueves;2020;1;No;No;No;60
+2020-04-03;Solo Daño;93;Abril;3;Viernes;2020;1;No;No;No;66
+2020-04-04;Solo Daño;94;Abril;4;Sábado;2020;1;Si;No;No;51
+2020-04-05;Solo Daño;95;Abril;5;Domingo;2020;1;Si;No;No;26
+2020-04-06;Solo Daño;96;Abril;6;Lunes;2020;1;No;No;No;64
+2020-04-07;Solo Daño;97;Abril;7;Martes;2020;1;No;No;No;62
+2020-04-08;Solo Daño;98;Abril;8;Miércoles;2020;2;No;No;No;64
+2020-04-09;Solo Daño;99;Abril;9;Jueves;2020;2;No;No;Si;23
+2020-04-10;Solo Daño;100;Abril;10;Viernes;2020;2;No;No;Si;22
+2020-04-11;Solo Daño;101;Abril;11;Sábado;2020;2;Si;No;No;56
+2020-04-12;Solo Daño;102;Abril;12;Domingo;2020;2;Si;No;No;29
+2020-04-13;Solo Daño;103;Abril;13;Lunes;2020;2;No;No;No;62
+2020-04-14;Solo Daño;104;Abril;14;Martes;2020;2;No;No;No;62
+2020-04-15;Solo Daño;105;Abril;15;Miércoles;2020;3;No;No;No;59
+2020-04-16;Solo Daño;106;Abril;16;Jueves;2020;3;No;No;No;61
+2020-04-17;Solo Daño;107;Abril;17;Viernes;2020;3;No;No;No;69
+2020-04-18;Solo Daño;108;Abril;18;Sábado;2020;3;Si;No;No;54
+2020-04-19;Solo Daño;109;Abril;19;Domingo;2020;3;Si;No;No;27
+2020-04-20;Solo Daño;110;Abril;20;Lunes;2020;3;No;No;No;66
+2020-04-21;Solo Daño;111;Abril;21;Martes;2020;3;No;No;No;62
+2020-04-22;Solo Daño;112;Abril;22;Miércoles;2020;4;No;No;No;56
+2020-04-23;Solo Daño;113;Abril;23;Jueves;2020;4;No;No;No;67
+2020-04-24;Solo Daño;114;Abril;24;Viernes;2020;4;No;No;No;66
+2020-04-25;Solo Daño;115;Abril;25;Sábado;2020;4;Si;No;No;54
+2020-04-26;Solo Daño;116;Abril;26;Domingo;2020;4;Si;No;No;31
+2020-04-27;Solo Daño;117;Abril;27;Lunes;2020;4;No;No;No;66
+2020-04-28;Solo Daño;118;Abril;28;Martes;2020;4;No;No;No;65
+2020-04-29;Solo Daño;119;Abril;29;Miércoles;2020;4;No;No;No;64
+2020-04-30;Solo Daño;120;Abril;30;Jueves;2020;4;No;No;No;64
+2020-05-01;Solo Daño;121;Mayo;1;Viernes;2020;1;No;No;Si;34
+2020-05-02;Solo Daño;122;Mayo;2;Sábado;2020;1;Si;No;No;57
+2020-05-03;Solo Daño;123;Mayo;3;Domingo;2020;1;Si;No;No;28
+2020-05-04;Solo Daño;124;Mayo;4;Lunes;2020;1;No;No;No;64
+2020-05-05;Solo Daño;125;Mayo;5;Martes;2020;1;No;No;No;64
+2020-05-06;Solo Daño;126;Mayo;6;Miércoles;2020;1;No;No;No;59
+2020-05-07;Solo Daño;127;Mayo;7;Jueves;2020;1;No;No;No;65
+2020-05-08;Solo Daño;128;Mayo;8;Viernes;2020;2;No;No;No;67
+2020-05-09;Solo Daño;129;Mayo;9;Sábado;2020;2;Si;No;No;62
+2020-05-10;Solo Daño;130;Mayo;10;Domingo;2020;2;Si;No;No;34
+2020-05-11;Solo Daño;131;Mayo;11;Lunes;2020;2;No;No;No;64
+2020-05-12;Solo Daño;132;Mayo;12;Martes;2020;2;No;No;No;67
+2020-05-13;Solo Daño;133;Mayo;13;Miércoles;2020;2;No;No;No;63
+2020-05-14;Solo Daño;134;Mayo;14;Jueves;2020;2;No;No;No;61
+2020-05-15;Solo Daño;135;Mayo;15;Viernes;2020;3;No;No;No;71
+2020-05-16;Solo Daño;136;Mayo;16;Sábado;2020;3;Si;No;No;59
+2020-05-17;Solo Daño;137;Mayo;17;Domingo;2020;3;Si;No;No;29
+2020-05-18;Solo Daño;138;Mayo;18;Lunes;2020;3;No;No;No;66
+2020-05-19;Solo Daño;139;Mayo;19;Martes;2020;3;No;No;No;67
+2020-05-20;Solo Daño;140;Mayo;20;Miércoles;2020;3;No;No;No;61
+2020-05-21;Solo Daño;141;Mayo;21;Jueves;2020;3;No;No;No;62
+2020-05-22;Solo Daño;142;Mayo;22;Viernes;2020;4;No;No;No;68
+2020-05-23;Solo Daño;143;Mayo;23;Sábado;2020;4;Si;No;No;56
+2020-05-24;Solo Daño;144;Mayo;24;Domingo;2020;4;Si;No;No;29
+2020-05-25;Solo Daño;145;Mayo;25;Lunes;2020;4;No;No;Si;28
+2020-05-26;Solo Daño;146;Mayo;26;Martes;2020;4;No;No;No;60
+2020-05-27;Solo Daño;147;Mayo;27;Miércoles;2020;4;No;No;No;60
+2020-05-28;Solo Daño;148;Mayo;28;Jueves;2020;4;No;No;No;60
+2020-05-29;Solo Daño;149;Mayo;29;Viernes;2020;4;No;No;No;68
+2020-05-30;Solo Daño;150;Mayo;30;Sábado;2020;4;Si;No;No;57
+2020-05-31;Solo Daño;151;Mayo;31;Domingo;2020;4;Si;No;No;30
+2020-06-01;Solo Daño;152;Junio;1;Lunes;2020;1;No;No;No;60
+2020-06-02;Solo Daño;153;Junio;2;Martes;2020;1;No;No;No;64
+2020-06-03;Solo Daño;154;Junio;3;Miércoles;2020;1;No;No;No;68
+2020-06-04;Solo Daño;155;Junio;4;Jueves;2020;1;No;No;No;61
+2020-06-05;Solo Daño;156;Junio;5;Viernes;2020;1;No;No;No;64
+2020-06-06;Solo Daño;157;Junio;6;Sábado;2020;1;Si;No;No;59
+2020-06-07;Solo Daño;158;Junio;7;Domingo;2020;1;Si;No;No;30
+2020-06-08;Solo Daño;159;Junio;8;Lunes;2020;2;No;No;No;58
+2020-06-09;Solo Daño;160;Junio;9;Martes;2020;2;No;No;No;61
+2020-06-10;Solo Daño;161;Junio;10;Miércoles;2020;2;No;No;No;62
+2020-06-11;Solo Daño;162;Junio;11;Jueves;2020;2;No;No;No;58
+2020-06-12;Solo Daño;163;Junio;12;Viernes;2020;2;No;No;No;64
+2020-06-13;Solo Daño;164;Junio;13;Sábado;2020;2;Si;No;No;58
+2020-06-14;Solo Daño;165;Junio;14;Domingo;2020;2;Si;No;No;29
+2020-06-15;Solo Daño;166;Junio;15;Lunes;2020;3;No;No;Si;27
+2020-06-16;Solo Daño;167;Junio;16;Martes;2020;3;No;No;No;64
+2020-06-17;Solo Daño;168;Junio;17;Miércoles;2020;3;No;No;No;62
+2020-06-18;Solo Daño;169;Junio;18;Jueves;2020;3;No;No;No;58
+2020-06-19;Solo Daño;170;Junio;19;Viernes;2020;3;No;No;No;64
+2020-06-20;Solo Daño;171;Junio;20;Sábado;2020;3;Si;No;No;54
+2020-06-21;Solo Daño;172;Junio;21;Domingo;2020;3;Si;No;No;30
+2020-06-22;Solo Daño;173;Junio;22;Lunes;2020;4;No;No;Si;26
+2020-06-23;Solo Daño;174;Junio;23;Martes;2020;4;No;No;No;61
+2020-06-24;Solo Daño;175;Junio;24;Miércoles;2020;4;No;No;No;65
+2020-06-25;Solo Daño;176;Junio;25;Jueves;2020;4;No;No;No;57
+2020-06-26;Solo Daño;177;Junio;26;Viernes;2020;4;No;No;No;63
+2020-06-27;Solo Daño;178;Junio;27;Sábado;2020;4;Si;No;No;53
+2020-06-28;Solo Daño;179;Junio;28;Domingo;2020;4;Si;No;No;27
+2020-06-29;Solo Daño;180;Junio;29;Lunes;2020;4;No;No;Si;25
+2020-06-30;Solo Daño;181;Junio;30;Martes;2020;4;No;No;No;60
+2020-07-01;Solo Daño;182;Julio;1;Miércoles;2020;1;No;No;No;61
+2020-07-02;Solo Daño;183;Julio;2;Jueves;2020;1;No;No;No;60
+2020-07-03;Solo Daño;184;Julio;3;Viernes;2020;1;No;No;No;63
+2020-07-04;Solo Daño;185;Julio;4;Sábado;2020;1;Si;No;No;54
+2020-07-05;Solo Daño;186;Julio;5;Domingo;2020;1;Si;No;No;27
+2020-07-06;Solo Daño;187;Julio;6;Lunes;2020;1;No;No;No;66
+2020-07-07;Solo Daño;188;Julio;7;Martes;2020;1;No;No;No;63
+2020-07-08;Solo Daño;189;Julio;8;Miércoles;2020;2;No;No;No;61
+2020-07-09;Solo Daño;190;Julio;9;Jueves;2020;2;No;No;No;61
+2020-07-10;Solo Daño;191;Julio;10;Viernes;2020;2;No;No;No;63
+2020-07-11;Solo Daño;192;Julio;11;Sábado;2020;2;Si;No;No;55
+2020-07-12;Solo Daño;193;Julio;12;Domingo;2020;2;Si;No;No;28
+2020-07-13;Solo Daño;194;Julio;13;Lunes;2020;2;No;No;No;65
+2020-07-14;Solo Daño;195;Julio;14;Martes;2020;2;No;No;No;66
+2020-07-15;Solo Daño;196;Julio;15;Miércoles;2020;3;No;No;No;61
+2020-07-16;Solo Daño;197;Julio;16;Jueves;2020;3;No;No;No;61
+2020-07-17;Solo Daño;198;Julio;17;Viernes;2020;3;No;No;No;68
+2020-07-18;Solo Daño;199;Julio;18;Sábado;2020;3;Si;No;No;54
+2020-07-19;Solo Daño;200;Julio;19;Domingo;2020;3;Si;No;No;28
+2020-07-20;Solo Daño;201;Julio;20;Lunes;2020;3;No;No;Si;31
+2020-07-21;Solo Daño;202;Julio;21;Martes;2020;3;No;No;No;66
+2020-07-22;Solo Daño;203;Julio;22;Miércoles;2020;4;No;No;No;61
+2020-07-23;Solo Daño;204;Julio;23;Jueves;2020;4;No;No;No;61
+2020-07-24;Solo Daño;205;Julio;24;Viernes;2020;4;No;No;No;65
+2020-07-25;Solo Daño;206;Julio;25;Sábado;2020;4;Si;No;No;56
+2020-07-26;Solo Daño;207;Julio;26;Domingo;2020;4;Si;No;No;28
+2020-07-27;Solo Daño;208;Julio;27;Lunes;2020;4;No;No;No;68
+2020-07-28;Solo Daño;209;Julio;28;Martes;2020;4;No;No;No;66
+2020-07-29;Solo Daño;210;Julio;29;Miércoles;2020;4;No;No;No;64
+2020-07-30;Solo Daño;211;Julio;30;Jueves;2020;4;No;No;No;61
+2020-07-31;Solo Daño;212;Julio;31;Viernes;2020;4;No;Si;No;69
+2020-08-01;Solo Daño;213;Agosto;1;Sábado;2020;1;Si;Si;No;54
+2020-08-02;Solo Daño;214;Agosto;2;Domingo;2020;1;Si;Si;No;35
+2020-08-03;Solo Daño;215;Agosto;3;Lunes;2020;1;No;Si;No;68
+2020-08-04;Solo Daño;216;Agosto;4;Martes;2020;1;No;Si;No;69
+2020-08-05;Solo Daño;217;Agosto;5;Miércoles;2020;1;No;Si;No;70
+2020-08-06;Solo Daño;218;Agosto;6;Jueves;2020;1;No;Si;No;68
+2020-08-07;Solo Daño;219;Agosto;7;Viernes;2020;1;No;Si;Si;34
+2020-08-08;Solo Daño;220;Agosto;8;Sábado;2020;2;Si;Si;No;56
+2020-08-09;Solo Daño;221;Agosto;9;Domingo;2020;2;Si;Si;No;34
+2020-08-10;Solo Daño;222;Agosto;10;Lunes;2020;2;No;No;No;65
+2020-08-11;Solo Daño;223;Agosto;11;Martes;2020;2;No;No;No;65
+2020-08-12;Solo Daño;224;Agosto;12;Miércoles;2020;2;No;No;No;61
+2020-08-13;Solo Daño;225;Agosto;13;Jueves;2020;2;No;No;No;63
+2020-08-14;Solo Daño;226;Agosto;14;Viernes;2020;2;No;No;No;70
+2020-08-15;Solo Daño;227;Agosto;15;Sábado;2020;3;Si;No;No;55
+2020-08-16;Solo Daño;228;Agosto;16;Domingo;2020;3;Si;No;No;31
+2020-08-17;Solo Daño;229;Agosto;17;Lunes;2020;3;No;No;Si;26
+2020-08-18;Solo Daño;230;Agosto;18;Martes;2020;3;No;No;No;67
+2020-08-19;Solo Daño;231;Agosto;19;Miércoles;2020;3;No;No;No;58
+2020-08-20;Solo Daño;232;Agosto;20;Jueves;2020;3;No;No;No;60
+2020-08-21;Solo Daño;233;Agosto;21;Viernes;2020;3;No;No;No;66
+2020-08-22;Solo Daño;234;Agosto;22;Sábado;2020;4;Si;No;No;53
+2020-08-23;Solo Daño;235;Agosto;23;Domingo;2020;4;Si;No;No;29
+2020-08-24;Solo Daño;236;Agosto;24;Lunes;2020;4;No;No;No;63
+2020-08-25;Solo Daño;237;Agosto;25;Martes;2020;4;No;No;No;63
+2020-08-26;Solo Daño;238;Agosto;26;Miércoles;2020;4;No;No;No;60
+2020-08-27;Solo Daño;239;Agosto;27;Jueves;2020;4;No;No;No;60
+2020-08-28;Solo Daño;240;Agosto;28;Viernes;2020;4;No;No;No;71
+2020-08-29;Solo Daño;241;Agosto;29;Sábado;2020;4;Si;No;No;55
+2020-08-30;Solo Daño;242;Agosto;30;Domingo;2020;4;Si;No;No;30
+2020-08-31;Solo Daño;243;Agosto;31;Lunes;2020;4;No;No;No;56
+2020-09-01;Solo Daño;244;Septiembre;1;Martes;2020;1;No;No;No;63
+2020-09-02;Solo Daño;245;Septiembre;2;Miércoles;2020;1;No;No;No;62
+2020-09-03;Solo Daño;246;Septiembre;3;Jueves;2020;1;No;No;No;64
+2020-09-04;Solo Daño;247;Septiembre;4;Viernes;2020;1;No;No;No;69
+2020-09-05;Solo Daño;248;Septiembre;5;Sábado;2020;1;Si;No;No;56
+2020-09-06;Solo Daño;249;Septiembre;6;Domingo;2020;1;Si;No;No;32
+2020-09-07;Solo Daño;250;Septiembre;7;Lunes;2020;1;No;No;No;67
+2020-09-08;Solo Daño;251;Septiembre;8;Martes;2020;2;No;No;No;60
+2020-09-09;Solo Daño;252;Septiembre;9;Miércoles;2020;2;No;No;No;62
+2020-09-10;Solo Daño;253;Septiembre;10;Jueves;2020;2;No;No;No;64
+2020-09-11;Solo Daño;254;Septiembre;11;Viernes;2020;2;No;No;No;70
+2020-09-12;Solo Daño;255;Septiembre;12;Sábado;2020;2;Si;No;No;59
+2020-09-13;Solo Daño;256;Septiembre;13;Domingo;2020;2;Si;No;No;33
+2020-09-14;Solo Daño;257;Septiembre;14;Lunes;2020;2;No;No;No;65
+2020-09-15;Solo Daño;258;Septiembre;15;Martes;2020;3;No;No;No;64
+2020-09-16;Solo Daño;259;Septiembre;16;Miércoles;2020;3;No;No;No;66
+2020-09-17;Solo Daño;260;Septiembre;17;Jueves;2020;3;No;No;No;68
+2020-09-18;Solo Daño;261;Septiembre;18;Viernes;2020;3;No;No;No;70
+2020-09-19;Solo Daño;262;Septiembre;19;Sábado;2020;3;Si;No;No;57
+2020-09-20;Solo Daño;263;Septiembre;20;Domingo;2020;3;Si;No;No;30
+2020-09-21;Solo Daño;264;Septiembre;21;Lunes;2020;3;No;No;No;62
+2020-09-22;Solo Daño;265;Septiembre;22;Martes;2020;4;No;No;No;62
+2020-09-23;Solo Daño;266;Septiembre;23;Miércoles;2020;4;No;No;No;59
+2020-09-24;Solo Daño;267;Septiembre;24;Jueves;2020;4;No;No;No;60
+2020-09-25;Solo Daño;268;Septiembre;25;Viernes;2020;4;No;No;No;66
+2020-09-26;Solo Daño;269;Septiembre;26;Sábado;2020;4;Si;No;No;55
+2020-09-27;Solo Daño;270;Septiembre;27;Domingo;2020;4;Si;No;No;31
+2020-09-28;Solo Daño;271;Septiembre;28;Lunes;2020;4;No;No;No;62
+2020-09-29;Solo Daño;272;Septiembre;29;Martes;2020;4;No;No;No;61
+2020-09-30;Solo Daño;273;Septiembre;30;Miércoles;2020;4;No;No;No;59
+2020-10-01;Solo Daño;274;Octubre;1;Jueves;2020;1;No;No;No;62
+2020-10-02;Solo Daño;275;Octubre;2;Viernes;2020;1;No;No;No;69
+2020-10-03;Solo Daño;276;Octubre;3;Sábado;2020;1;Si;No;No;58
+2020-10-04;Solo Daño;277;Octubre;4;Domingo;2020;1;Si;No;No;32
+2020-10-05;Solo Daño;278;Octubre;5;Lunes;2020;1;No;No;No;65
+2020-10-06;Solo Daño;279;Octubre;6;Martes;2020;1;No;No;No;64
+2020-10-07;Solo Daño;280;Octubre;7;Miércoles;2020;1;No;No;No;62
+2020-10-08;Solo Daño;281;Octubre;8;Jueves;2020;2;No;No;No;60
+2020-10-09;Solo Daño;282;Octubre;9;Viernes;2020;2;No;No;No;66
+2020-10-10;Solo Daño;283;Octubre;10;Sábado;2020;2;Si;No;No;57
+2020-10-11;Solo Daño;284;Octubre;11;Domingo;2020;2;Si;No;No;29
+2020-10-12;Solo Daño;285;Octubre;12;Lunes;2020;2;No;No;Si;26
+2020-10-13;Solo Daño;286;Octubre;13;Martes;2020;2;No;No;No;68
+2020-10-14;Solo Daño;287;Octubre;14;Miércoles;2020;2;No;No;No;60
+2020-10-15;Solo Daño;288;Octubre;15;Jueves;2020;3;No;No;No;57
+2020-10-16;Solo Daño;289;Octubre;16;Viernes;2020;3;No;No;No;68
+2020-10-17;Solo Daño;290;Octubre;17;Sábado;2020;3;Si;No;No;57
+2020-10-18;Solo Daño;291;Octubre;18;Domingo;2020;3;Si;No;No;29
+2020-10-19;Solo Daño;292;Octubre;19;Lunes;2020;3;No;No;No;64
+2020-10-20;Solo Daño;293;Octubre;20;Martes;2020;3;No;No;No;64
+2020-10-21;Solo Daño;294;Octubre;21;Miércoles;2020;3;No;No;No;59
+2020-10-22;Solo Daño;295;Octubre;22;Jueves;2020;4;No;No;No;59
+2020-10-23;Solo Daño;296;Octubre;23;Viernes;2020;4;No;No;No;67
+2020-10-24;Solo Daño;297;Octubre;24;Sábado;2020;4;Si;No;No;60
+2020-10-25;Solo Daño;298;Octubre;25;Domingo;2020;4;Si;No;No;30
+2020-10-26;Solo Daño;299;Octubre;26;Lunes;2020;4;No;No;No;60
+2020-10-27;Solo Daño;300;Octubre;27;Martes;2020;4;No;No;No;60
+2020-10-28;Solo Daño;301;Octubre;28;Miércoles;2020;4;No;No;No;61
+2020-10-29;Solo Daño;302;Octubre;29;Jueves;2020;4;No;No;No;63
+2020-10-30;Solo Daño;303;Octubre;30;Viernes;2020;4;No;No;No;72
+2020-10-31;Solo Daño;304;Octubre;31;Sábado;2020;4;Si;No;No;55
+2020-11-01;Solo Daño;305;Noviembre;1;Domingo;2020;1;Si;No;No;26
+2020-11-02;Solo Daño;306;Noviembre;2;Lunes;2020;1;No;No;Si;27
+2020-11-03;Solo Daño;307;Noviembre;3;Martes;2020;1;No;No;No;63
+2020-11-04;Solo Daño;308;Noviembre;4;Miércoles;2020;1;No;No;No;64
+2020-11-05;Solo Daño;309;Noviembre;5;Jueves;2020;1;No;No;No;65
+2020-11-06;Solo Daño;310;Noviembre;6;Viernes;2020;1;No;No;No;70
+2020-11-07;Solo Daño;311;Noviembre;7;Sábado;2020;1;Si;No;No;56
+2020-11-08;Solo Daño;312;Noviembre;8;Domingo;2020;2;Si;No;No;29
+2020-11-09;Solo Daño;313;Noviembre;9;Lunes;2020;2;No;No;No;60
+2020-11-10;Solo Daño;314;Noviembre;10;Martes;2020;2;No;No;No;67
+2020-11-11;Solo Daño;315;Noviembre;11;Miércoles;2020;2;No;No;No;63
+2020-11-12;Solo Daño;316;Noviembre;12;Jueves;2020;2;No;No;No;58
+2020-11-13;Solo Daño;317;Noviembre;13;Viernes;2020;2;No;No;No;69
+2020-11-14;Solo Daño;318;Noviembre;14;Sábado;2020;2;Si;No;No;55
+2020-11-15;Solo Daño;319;Noviembre;15;Domingo;2020;3;Si;No;No;30
+2020-11-16;Solo Daño;320;Noviembre;16;Lunes;2020;3;No;No;Si;31
+2020-11-17;Solo Daño;321;Noviembre;17;Martes;2020;3;No;No;No;67
+2020-11-18;Solo Daño;322;Noviembre;18;Miércoles;2020;3;No;No;No;62
+2020-11-19;Solo Daño;323;Noviembre;19;Jueves;2020;3;No;No;No;61
+2020-11-20;Solo Daño;324;Noviembre;20;Viernes;2020;3;No;No;No;69
+2020-11-21;Solo Daño;325;Noviembre;21;Sábado;2020;3;Si;No;No;57
+2020-11-22;Solo Daño;326;Noviembre;22;Domingo;2020;4;Si;No;No;30
+2020-11-23;Solo Daño;327;Noviembre;23;Lunes;2020;4;No;No;No;65
+2020-11-24;Solo Daño;328;Noviembre;24;Martes;2020;4;No;No;No;62
+2020-11-25;Solo Daño;329;Noviembre;25;Miércoles;2020;4;No;No;No;62
+2020-11-26;Solo Daño;330;Noviembre;26;Jueves;2020;4;No;No;No;63
+2020-11-27;Solo Daño;331;Noviembre;27;Viernes;2020;4;No;No;No;71
+2020-11-28;Solo Daño;332;Noviembre;28;Sábado;2020;4;Si;No;No;55
+2020-11-29;Solo Daño;333;Noviembre;29;Domingo;2020;4;Si;No;No;29
+2020-11-30;Solo Daño;334;Noviembre;30;Lunes;2020;4;No;No;No;58
+2020-12-01;Solo Daño;335;Diciembre;1;Martes;2020;1;No;No;No;64
+2020-12-02;Solo Daño;336;Diciembre;2;Miércoles;2020;1;No;No;No;68
+2020-12-03;Solo Daño;337;Diciembre;3;Jueves;2020;1;No;No;No;66
+2020-12-04;Solo Daño;338;Diciembre;4;Viernes;2020;1;No;No;No;71
+2020-12-05;Solo Daño;339;Diciembre;5;Sábado;2020;1;Si;No;No;61
+2020-12-06;Solo Daño;340;Diciembre;6;Domingo;2020;1;Si;No;No;31
+2020-12-07;Solo Daño;341;Diciembre;7;Lunes;2020;1;No;No;No;74
+2020-12-08;Solo Daño;342;Diciembre;8;Martes;2020;2;No;No;Si;33
+2020-12-09;Solo Daño;343;Diciembre;9;Miércoles;2020;2;No;No;No;67
+2020-12-10;Solo Daño;344;Diciembre;10;Jueves;2020;2;No;No;No;64
+2020-12-11;Solo Daño;345;Diciembre;11;Viernes;2020;2;No;No;No;68
+2020-12-12;Solo Daño;346;Diciembre;12;Sábado;2020;2;Si;No;No;60
+2020-12-13;Solo Daño;347;Diciembre;13;Domingo;2020;2;Si;No;No;32
+2020-12-14;Solo Daño;348;Diciembre;14;Lunes;2020;2;No;No;No;67
+2020-12-15;Solo Daño;349;Diciembre;15;Martes;2020;3;No;No;No;69
+2020-12-16;Solo Daño;350;Diciembre;16;Miércoles;2020;3;No;No;No;69
+2020-12-17;Solo Daño;351;Diciembre;17;Jueves;2020;3;No;No;No;66
+2020-12-18;Solo Daño;352;Diciembre;18;Viernes;2020;3;No;No;No;71
+2020-12-19;Solo Daño;353;Diciembre;19;Sábado;2020;3;Si;No;No;58
+2020-12-20;Solo Daño;354;Diciembre;20;Domingo;2020;3;Si;No;No;31
+2020-12-21;Solo Daño;355;Diciembre;21;Lunes;2020;3;No;No;No;66
+2020-12-22;Solo Daño;356;Diciembre;22;Martes;2020;4;No;No;No;73
+2020-12-23;Solo Daño;357;Diciembre;23;Miércoles;2020;4;No;No;No;67
+2020-12-24;Solo Daño;358;Diciembre;24;Jueves;2020;4;No;No;No;55
+2020-12-25;Solo Daño;359;Diciembre;25;Viernes;2020;4;No;No;Si;26
+2020-12-26;Solo Daño;360;Diciembre;26;Sábado;2020;4;Si;No;No;40
+2020-12-27;Solo Daño;361;Diciembre;27;Domingo;2020;4;Si;No;No;27
+2020-12-28;Solo Daño;362;Diciembre;28;Lunes;2020;4;No;No;No;56
+2020-12-29;Solo Daño;363;Diciembre;29;Martes;2020;4;No;No;No;58
+2020-12-30;Solo Daño;364;Diciembre;30;Miércoles;2020;4;No;No;No;58
+2020-12-31;Solo Daño;365;Diciembre;31;Jueves;2020;4;No;No;No;42
